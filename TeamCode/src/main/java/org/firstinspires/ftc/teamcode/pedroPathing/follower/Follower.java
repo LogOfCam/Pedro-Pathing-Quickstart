@@ -711,6 +711,18 @@ public class Follower {
             distanceToGoal = MathFunctions.dotProduct(currentPath.getEndTangent(), offset);
         }
 
+        if(distanceToGoal < 0) {
+            if(forwardZeroPowerAcceleration < 0) forwardZeroPowerAcceleration *= -1;
+        } else if (distanceToGoal > 0) {
+            if(forwardZeroPowerAcceleration > 0) forwardZeroPowerAcceleration *= -1;
+        }
+
+        if(distanceToGoal < 0) {
+            if(lateralZeroPowerAcceleration < 0) lateralZeroPowerAcceleration *= -1;
+        } else if (distanceToGoal > 0) {
+            if(lateralZeroPowerAcceleration > 0) lateralZeroPowerAcceleration *= -1;
+        }
+
         Vector distanceToGoalVector = MathFunctions.scalarMultiplyVector(MathFunctions.normalizeVector(currentPath.getClosestPointTangentVector()), distanceToGoal);
         Vector velocity = new Vector(MathFunctions.dotProduct(getVelocity(), MathFunctions.normalizeVector(currentPath.getClosestPointTangentVector())), currentPath.getClosestPointTangentVector().getTheta());
 
