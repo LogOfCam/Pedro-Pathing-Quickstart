@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.aoldcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.Core.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Core.Subsystems.Slide;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;
@@ -15,6 +17,9 @@ import org.firstinspires.ftc.teamcode.pedroPathing.util.Timer;
 
 @Autonomous
 public class testAuto extends OpMode {
+    private Claw claw;
+    private Slide slide;
+
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
@@ -59,6 +64,9 @@ public class testAuto extends OpMode {
 
     @Override
     public void loop() {
+        slide.setTargetPosition(1000);
+
+
         follower.update();
         autonomousPathUpdate();
 
@@ -71,6 +79,9 @@ public class testAuto extends OpMode {
 
     @Override
     public void init() {
+        claw = new Claw(hardwareMap);
+        slide = new Slide(hardwareMap);
+
         pathTimer = new Timer();
         opmodeTimer = new Timer();
 
@@ -80,13 +91,15 @@ public class testAuto extends OpMode {
         follower.setStartingPose(startPose);
 
         buildPaths();
+
+        claw.closeClaw();
     }
 
 
     @Override
     public void start() {
         opmodeTimer.resetTimer();
-        setPathState(0);
+        setPathState(-1);
     }
 
     public void autonomousPathUpdate() {
