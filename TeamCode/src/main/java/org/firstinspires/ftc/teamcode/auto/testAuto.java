@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.aoldcode;
+package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierLine;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
-import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathBuilder;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.Timer;
@@ -64,9 +63,6 @@ public class testAuto extends OpMode {
 
     @Override
     public void loop() {
-        slide.setTargetPosition(1000);
-
-
         follower.update();
         autonomousPathUpdate();
 
@@ -99,7 +95,7 @@ public class testAuto extends OpMode {
     @Override
     public void start() {
         opmodeTimer.resetTimer();
-        setPathState(-1);
+        setPathState(0);
     }
 
     public void autonomousPathUpdate() {
@@ -110,17 +106,17 @@ public class testAuto extends OpMode {
                 break;
             case 1:
 
-                if(follower.getPose().getX() > (scorePose.getX()) -1 && follower.getPose().getY() > (scorePose.getY()) - 1) {
+                if(follower.getPose().getX() > (scorePose.getX() - 1) && follower.getPose().getY() > (scorePose.getY() - 1)) {
 
                     follower.followPath(step2);
-                    setPathState(2);
+                    setPathState(-1);
 
                 }
 
 
                 break;
             case 2:
-                if(follower.getPose().getX() > (scorePose.getX()) -1 && follower.getPose().getY() > (scorePose.getY()) - 1) {
+                if(follower.getPose().getX() > (scorePose.getX() -1) && follower.getPose().getY() > (scorePose.getY() - 1)) {
 
                     follower.followPath(step3);
                     setPathState(3);
@@ -128,6 +124,7 @@ public class testAuto extends OpMode {
                 break;
             case 3:
 
+                break;
         }
     }
 }

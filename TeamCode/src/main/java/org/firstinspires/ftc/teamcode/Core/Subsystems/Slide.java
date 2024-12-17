@@ -8,14 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Slide extends SubsystemBase {
-    private DcMotorEx slideMotor;
-    private PIDController controller;
+    private final DcMotorEx slideMotor;
+    private final PIDController controller;
     double p = 0.006, i = 0, d = 0.0001;
     double f = 0.04;
     double ticksInDegrees = 358.466 / 180;
     int threshold = 50;
     private double targetPosition = 0;
-    private boolean isHolding = false;
 
     public Slide(HardwareMap hardwareMap){
         slideMotor = hardwareMap.get(DcMotorEx.class,"slideMotor");
@@ -27,7 +26,7 @@ public class Slide extends SubsystemBase {
         controller = new PIDController(p,i,d);
     }
 
-    public void setTargetPosition(int target) {
+    public void setTargetPosition(double target) {
         targetPosition = target;
     }
 
@@ -43,5 +42,8 @@ public class Slide extends SubsystemBase {
 
     public void setSlidePower(double power) {
         slideMotor.setPower(power);
+    }
+    public double getTargetPosition() {
+        return slideMotor.getTargetPosition();
     }
 }
