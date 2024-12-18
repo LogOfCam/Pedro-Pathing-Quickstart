@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Wrist extends SubsystemBase {
     private final Servo wrist;
     public Wrist(HardwareMap hardwareMap) {
-        wrist = hardwareMap.get(Servo.class,"basketServo");
+        wrist = hardwareMap.get(Servo.class,"wristServo");
     }
 
     public void setPosition(double targetPosition) {

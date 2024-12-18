@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Core.Commands.drive;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Core.Robot;
+import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
 
@@ -10,7 +11,6 @@ public class PathChainCommand extends CommandBase {
     private final PathChain pathChain;
     private final Robot robot = Robot.getInstance();
     private final double speed;
-    private final double maxPower = 1;
 
     public PathChainCommand(Path... paths) {
         this.pathChain = new PathChain(paths);
@@ -24,7 +24,7 @@ public class PathChainCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        robot.setMaxPower(maxPower);
+        robot.setMaxPower(Constants.maxPower);
         robot.followPath(pathChain, false);
     }
 
@@ -41,6 +41,6 @@ public class PathChainCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        robot.setMaxPower(maxPower);
+        robot.setMaxPower(Constants.maxPower);
     }
 }
