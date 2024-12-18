@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.Core.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.Core.Subsystems.Slide;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
@@ -18,7 +19,6 @@ import org.firstinspires.ftc.teamcode.pedroPathing.util.Timer;
 public class testAuto extends OpMode {
     private Claw claw;
     private Slide slide;
-
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
@@ -83,12 +83,14 @@ public class testAuto extends OpMode {
 
         opmodeTimer.resetTimer();
 
-        follower = new Follower(hardwareMap);
+        Robot robot = Robot.getInstance();
+        robot.initialize(hardwareMap, telemetry);
+
         follower.setStartingPose(startPose);
 
         buildPaths();
 
-        claw.closeClaw();
+        //claw.closeClaw();
     }
 
 

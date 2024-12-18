@@ -1,16 +1,14 @@
-package org.firstinspires.ftc.teamcode.Core.Commands.slide;
+package org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.command.Robot;
-
 import org.firstinspires.ftc.teamcode.Core.Subsystems.Slide;
 
-public class SlideTo extends CommandBase {
+public class SetSlide extends CommandBase {
     private final Slide slide;
     private final double targetPosition;
     private final double threshold = 10;
 
-    public SlideTo(Slide slide, double target) {
+    public SetSlide(Slide slide, double target) {
         this.targetPosition = target;
         this.slide = slide;
 

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.follower;
 import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.drivePIDFFeedForward;
 import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.drivePIDFSwitch;
 import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.forwardZeroPowerAcceleration;
+import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.frontLeftVector;
 import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.headingPIDFFeedForward;
 import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.headingPIDFSwitch;
 import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.lateralZeroPowerAcceleration;
@@ -150,10 +151,12 @@ public class Follower {
      *
      * @param hardwareMap HardwareMap required
      */
-    public Follower(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
-        initialize();
-    }
+
+//    public Follower(HardwareMap hardwareMap) {
+//        this.hardwareMap = hardwareMap;
+//        initialize();
+//    }
+
 
     /**
      * This initializes the follower.
@@ -161,7 +164,9 @@ public class Follower {
      * initialized and their behavior is set, and the variables involved in approximating first and
      * second derivatives for teleop are set.
      */
-    public void initialize() {
+    public void initializePedro(HardwareMap hardwareMap) {
+        this.hardwareMap = hardwareMap;
+
         driveVectorScaler = new DriveVectorScaler(FollowerConstants.frontLeftVector);
         poseUpdater = new PoseUpdater(hardwareMap);
 

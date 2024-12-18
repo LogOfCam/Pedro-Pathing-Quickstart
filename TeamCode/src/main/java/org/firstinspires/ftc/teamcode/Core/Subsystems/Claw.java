@@ -20,12 +20,4 @@ public class Claw extends SubsystemBase {
     public double getPosition() {
         return claw.getPosition();
     }
-
-    public void closeClaw() {
-        claw.setPosition(closedPosition);
-    }
-
-    public void openClaw() {
-        claw.setPosition(openPosition);
-    }
 }

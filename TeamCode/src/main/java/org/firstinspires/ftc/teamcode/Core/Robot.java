@@ -20,14 +20,14 @@ public class Robot extends Follower {
     private static Robot instance = null;
 
     public void initialize(HardwareMap hardwareMap, Telemetry telemetry_) {
-        initialize(); // initialize Pedro
-
-        CommandScheduler.getInstance().reset();
+        initializePedro(hardwareMap); // initialize Pedro
 
         telemetry = telemetry_;
-        
+
         this.claw = new Claw(hardwareMap);
         this.slide = new Slide(hardwareMap);
+
+        CommandScheduler.getInstance().reset();
     }
 
     public static Robot getInstance() {
