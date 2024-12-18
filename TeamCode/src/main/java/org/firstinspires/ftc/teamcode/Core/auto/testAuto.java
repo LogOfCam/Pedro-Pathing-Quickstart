@@ -4,9 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Core.Robot;
-import org.firstinspires.ftc.teamcode.Core.Subsystems.Claw;
-import org.firstinspires.ftc.teamcode.Core.Subsystems.Slide;
-import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierLine;
@@ -17,9 +14,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.util.Timer;
 
 @Autonomous
 public class testAuto extends OpMode {
-    private Claw claw;
-    private Slide slide;
-    private Follower follower;
+    private Robot robot;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
     private final Pose startPose = new Pose(8,82.5, Math.toRadians(270)); //270 = South
@@ -46,14 +41,14 @@ public class testAuto extends OpMode {
         step2 = new Path(new BezierCurve(new Point(scorePose), new Point(step2ControlPoint), new Point(step2FinalPoint)));
         step2.setLinearHeadingInterpolation(scorePose.getHeading(), step2FinalPoint.getHeading());
 
-        step3 = follower.pathBuilder()
-                .addPath(
-                new BezierLine(new Point(step2FinalPoint), new Point(step2to3Point)))
-                .setLinearHeadingInterpolation(step2FinalPoint.getHeading(), step2to3Point.getHeading())
-                .addPath(
-                new BezierCurve(new Point(step2to3Point), new Point(step3ControlPoint), new Point(step3FinalPoint)))
-                .setConstantHeadingInterpolation(step3FinalPoint.getHeading())
-                .build();
+//        step3 = follower.pathBuilder()
+//                .addPath(
+//                new BezierLine(new Point(step2FinalPoint), new Point(step2to3Point)))
+//                .setLinearHeadingInterpolation(step2FinalPoint.getHeading(), step2to3Point.getHeading())
+//                .addPath(
+//                new BezierCurve(new Point(step2to3Point), new Point(step3ControlPoint), new Point(step3FinalPoint)))
+//                .setConstantHeadingInterpolation(step3FinalPoint.getHeading())
+//                .build();
     }
 
     public void setPathState(int pState) {
@@ -63,20 +58,13 @@ public class testAuto extends OpMode {
 
     @Override
     public void loop() {
-        follower.update();
+        robot.update();
         autonomousPathUpdate();
 
-        telemetry.addData("path state", pathState);
-        telemetry.addData("x", follower.getPose().getX());
-        telemetry.addData("y", follower.getPose().getY());
-        telemetry.addData("heading", follower.getPose().getHeading());
-        telemetry.update();
     }
 
     @Override
     public void init() {
-        claw = new Claw(hardwareMap);
-        slide = new Slide(hardwareMap);
 
         pathTimer = new Timer();
         opmodeTimer = new Timer();
@@ -86,7 +74,7 @@ public class testAuto extends OpMode {
         Robot robot = Robot.getInstance();
         robot.initialize(hardwareMap, telemetry);
 
-        follower.setStartingPose(startPose);
+        robot.setStartingPose(startPose);
 
         buildPaths();
 
@@ -96,6 +84,9 @@ public class testAuto extends OpMode {
 
     @Override
     public void start() {
+
+
+
         opmodeTimer.resetTimer();
         setPathState(0);
     }
@@ -103,15 +94,18 @@ public class testAuto extends OpMode {
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                follower.followPath(scorePreload);
-                setPathState(1);
+                robot.followPath(scorePreload);
+
+                robot.claw.setPosition(1000);
+
+                setPathState(-1);
 
                 break;
             case 1:
 
-                if(follower.getPose().getX() > (scorePose.getX() - 1) && follower.getPose().getY() > (scorePose.getY() - 1)) {
+                if(robot.getPose().getX() > (scorePose.getX() - 1) && robot.getPose().getY() > (scorePose.getY() - 1)) {
 
-                    follower.followPath(step2);
+                    robot.followPath(step2);
                     setPathState(-1);
 
                 }
@@ -119,9 +113,9 @@ public class testAuto extends OpMode {
 
                 break;
             case 2:
-                if(follower.getPose().getX() > (scorePose.getX() -1) && follower.getPose().getY() > (scorePose.getY() - 1)) {
+                if(robot.getPose().getX() > (scorePose.getX() -1) && robot.getPose().getY() > (scorePose.getY() - 1)) {
 
-                    follower.followPath(step3);
+                    robot.followPath(step3);
                     setPathState(3);
                 }
                 break;

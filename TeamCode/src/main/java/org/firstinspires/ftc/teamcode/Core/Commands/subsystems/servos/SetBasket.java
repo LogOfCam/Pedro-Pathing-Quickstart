@@ -2,23 +2,23 @@ package org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.teamcode.Core.Subsystems.servos.Claw;
+import org.firstinspires.ftc.teamcode.Core.Subsystems.servos.Basket;
 
-public class SetClaw extends CommandBase {
+public class SetBasket extends CommandBase {
 
-    private final Claw claw;
+    private final Basket basket;
     private double targetPosition;
 
-    public SetClaw(Claw claw, double targetPosition) {
-        this.claw = claw;
+    public SetBasket(Basket basket, double targetPosition) {
+        this.basket = basket;
         this.targetPosition = targetPosition;
 
-        addRequirements(claw);
+        addRequirements(basket);
     }
 
     @Override
     public void initialize() {
-        claw.setPosition(targetPosition);
+        basket.setPosition(targetPosition);
     }
 
     @Override

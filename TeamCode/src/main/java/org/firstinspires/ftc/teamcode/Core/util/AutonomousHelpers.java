@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Core.util.wrappers;
+package org.firstinspires.ftc.teamcode.Core.util;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;

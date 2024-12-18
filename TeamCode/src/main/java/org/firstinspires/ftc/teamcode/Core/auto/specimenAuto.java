@@ -1,15 +1,20 @@
 package org.firstinspires.ftc.teamcode.Core.auto;
 
-import static org.firstinspires.ftc.teamcode.Core.util.wrappers.AutonomousHelpers.HeadingInterpolation;
-import static org.firstinspires.ftc.teamcode.Core.util.wrappers.AutonomousHelpers.buildLine;
+import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.HeadingInterpolation;
+import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.buildLine;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Core.Commands.drive.PathCommand;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.SetJoint;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetClaw;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.SetSlide;
 import org.firstinspires.ftc.teamcode.Core.Robot;
+import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 
@@ -38,7 +43,7 @@ public class specimenAuto extends LinearOpMode {
         while(!isStarted()) {
             CommandScheduler.getInstance().run();
 
-            robot.claw.setPosition(0.45);
+            robot.claw.setPosition(Constants.clawClosedPosition);
 
             telemetry.addLine("INITIALIZED");
             telemetry.update();
@@ -49,11 +54,17 @@ public class specimenAuto extends LinearOpMode {
         CommandScheduler.getInstance().schedule(
 
                 new SequentialCommandGroup(
-                        //new PathCommand(paths[0]),
-                        new SetSlide(robot.slide, 2000)
-                        //new SetClaw(robot.claw, 0.85)
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[0]),
+                                new SetSlide(robot.slide, 2000),
+                                new SetJoint(robot.joint, 1000)
+                        ),
+                        new SetClaw(robot.claw, Constants.clawOpenPosition)
                 )
         );
+
+        robot.slide.setDefaultCommand(CommandScheduler.getInstance());
+        robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
         waitForStart();
 
@@ -63,6 +74,7 @@ public class specimenAuto extends LinearOpMode {
             telemetry.addData("SlideTarget", robot.slide.getTargetPosition());
             telemetry.addData("SlideCurrent", robot.slide.getCurrentPosition());
             telemetry.addData("Claw", robot.claw.getPosition());
+            telemetry.addData("Power", robot.slide.getPower());
             telemetry.update();
         }
 
