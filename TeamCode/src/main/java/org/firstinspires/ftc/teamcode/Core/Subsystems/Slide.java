@@ -13,8 +13,7 @@ public class Slide extends SubsystemBase {
     double p = 0.006, i = 0, d = 0.0001;
     double f = 0.04;
     double ticksInDegrees = 358.466 / 180;
-    int threshold = 50;
-    private double targetPosition = 0;
+    private double targetPosition;
 
     public Slide(HardwareMap hardwareMap){
         slideMotor = hardwareMap.get(DcMotorEx.class,"slideMotor");
@@ -26,8 +25,8 @@ public class Slide extends SubsystemBase {
         controller = new PIDController(p,i,d);
     }
 
-    public void setTargetPosition(double target) {
-        targetPosition = target;
+    public void setTargetPosition(double targetPosition) {
+        this.targetPosition = targetPosition;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class Slide extends SubsystemBase {
         int currentPosition = slideMotor.getCurrentPosition();
         double pid = controller.calculate(currentPosition, targetPosition);
         double ff = Math.cos(Math.toRadians(targetPosition / ticksInDegrees)) * f;
-        double power = pid + ff;//double power = Math.min(1.0, Math.min(1.0, pid + ff));
+        double power = pid + ff; //double power = Math.min(1.0, Math.min(1.0, pid + ff));
         setSlidePower(power);
     }
 
@@ -45,5 +44,8 @@ public class Slide extends SubsystemBase {
     }
     public double getTargetPosition() {
         return slideMotor.getTargetPosition();
+    }
+    public double getCurrentPosition() {
+        return slideMotor.getCurrentPosition();
     }
 }

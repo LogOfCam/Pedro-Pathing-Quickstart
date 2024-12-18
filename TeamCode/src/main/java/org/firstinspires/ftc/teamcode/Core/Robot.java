@@ -13,7 +13,6 @@ public class Robot extends Follower {
 
     public Telemetry telemetry;
     private ElapsedTime runtime = new ElapsedTime();
-
     public Slide slide;
     public Claw claw;
 

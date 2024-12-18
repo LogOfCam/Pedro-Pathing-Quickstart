@@ -8,8 +8,8 @@ public class SetSlide extends CommandBase {
     private final double targetPosition;
     private final double threshold = 10;
 
-    public SetSlide(Slide slide, double target) {
-        this.targetPosition = target;
+    public SetSlide(Slide slide, double targetPosition) {
+        this.targetPosition = targetPosition;
         this.slide = slide;
 
         addRequirements(slide);

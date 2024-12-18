@@ -8,11 +8,8 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.drive.PathCommand;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetClaw;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.SetSlide;
 import org.firstinspires.ftc.teamcode.Core.Robot;
-import org.firstinspires.ftc.teamcode.Core.Subsystems.Claw;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 
@@ -42,25 +39,31 @@ public class specimenAuto extends LinearOpMode {
             CommandScheduler.getInstance().run();
 
             robot.claw.setPosition(0.45);
+
+            telemetry.addLine("INITIALIZED");
+            telemetry.update();
         }
 
         robot.setStartingPose(startPose);
 
         CommandScheduler.getInstance().schedule(
+
                 new SequentialCommandGroup(
                         //new PathCommand(paths[0]),
-                        new SetSlide(robot.slide, 1000)
+                        new SetSlide(robot.slide, 2000)
                         //new SetClaw(robot.claw, 0.85)
                 )
         );
-
-        telemetry.addLine("INITIALIZED");
-        telemetry.update();
 
         waitForStart();
 
         while(opModeIsActive() && !isStopRequested()) {
             CommandScheduler.getInstance().run();
+
+            telemetry.addData("SlideTarget", robot.slide.getTargetPosition());
+            telemetry.addData("SlideCurrent", robot.slide.getCurrentPosition());
+            telemetry.addData("Claw", robot.claw.getPosition());
+            telemetry.update();
         }
 
         //CommandScheduler.getInstance().reset();
