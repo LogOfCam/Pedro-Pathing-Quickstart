@@ -60,6 +60,17 @@ public class specimenAuto extends LinearOpMode {
                 placeSamplePosition1,
                 HeadingInterpolation.LINEAR
         );
+
+        paths[3] = buildLine(
+                placeSamplePosition1,
+                pickupSamplePosition2,
+                HeadingInterpolation.LINEAR
+        );
+        paths[4] = buildLine(
+                pickupSamplePosition2,
+                placeSamplePosition2,
+                HeadingInterpolation.LINEAR
+        );
     }
 
     @Override
