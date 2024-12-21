@@ -24,8 +24,17 @@ public class Robot extends Follower {
 
     private static Robot instance = null;
 
+    /**
+     * This creates a new Follower given a HardwareMap.
+     *
+     * @param hardwareMap HardwareMap required
+     */
+    public Robot(HardwareMap hardwareMap) {
+        super(hardwareMap);
+    }
+
     public void initialize(HardwareMap hardwareMap, Telemetry telemetry_) {
-        initializePedro(hardwareMap); // initialize Pedro
+        //initializePedro(hardwareMap); // initialize Pedro
 
         telemetry = telemetry_;
 
@@ -40,7 +49,8 @@ public class Robot extends Follower {
 
     public static Robot getInstance() {
         if(instance == null) {
-            instance = new Robot();
+            //instance = new Robot();
+            return instance;
         }
         return instance;
     }

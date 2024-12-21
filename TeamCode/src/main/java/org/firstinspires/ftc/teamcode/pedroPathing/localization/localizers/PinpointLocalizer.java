@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.localization.localizers;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -43,6 +44,8 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Vector;
  * @author Ethan Doak - Gobilda
  * @version 1.0, 10/2/2024
  */
+
+
 public class PinpointLocalizer extends Localizer {
     private HardwareMap hardwareMap;
     private Pose startPose;

@@ -44,8 +44,8 @@ public class FollowerConstants {
 
     // Translational PIDF coefficients (don't use integral)
     public static CustomPIDFCoefficients translationalPIDFCoefficients = new CustomPIDFCoefficients(
-            0.1,
-            0.001,
+            0.25,
+            0.0,
             0.03,
             0);
 
@@ -64,7 +64,7 @@ public class FollowerConstants {
     public static CustomPIDFCoefficients headingPIDFCoefficients = new CustomPIDFCoefficients(
             2,
             0,
-            0.01,
+            0.0001,
             0);
 
     // Feed forward constant added on to the heading PIDF
@@ -92,8 +92,7 @@ public class FollowerConstants {
     public static double mass = 11.43053;
 
     // Centripetal force to power scaling
-    public static double centripetalScaling = 0.00013;
-
+    public static double centripetalScaling = 0.00001; //was 0.00013
 
     // Acceleration of the drivetrain when power is cut in inches/second^2 (should be negative)
     // if not negative, then the robot thinks that its going to go faster under 0 power
@@ -110,7 +109,7 @@ public class FollowerConstants {
     // Decreasing this will cause the deceleration at the end of the Path to be slower, making the
     // robot slower but reducing risk of end-of-path overshoots or localization slippage.
     // This can be set individually for each Path, but this is the default.
-    public static double zeroPowerAccelerationMultiplier = 2;
+    public static double zeroPowerAccelerationMultiplier = 4;
 
 
     // When the robot is at the end of its current Path or PathChain and the velocity goes below

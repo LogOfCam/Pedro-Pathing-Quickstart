@@ -152,11 +152,10 @@ public class Follower {
      * @param hardwareMap HardwareMap required
      */
 
-//    public Follower(HardwareMap hardwareMap) {
-//        this.hardwareMap = hardwareMap;
-//        initialize();
-//    }
-
+    public Follower(HardwareMap hardwareMap) {
+        this.hardwareMap = hardwareMap;
+        initializePedro();
+    }
 
     /**
      * This initializes the follower.
@@ -164,8 +163,8 @@ public class Follower {
      * initialized and their behavior is set, and the variables involved in approximating first and
      * second derivatives for teleop are set.
      */
-    public void initializePedro(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
+    public void initializePedro() {
+        //this.hardwareMap = hardwareMap;
 
         driveVectorScaler = new DriveVectorScaler(FollowerConstants.frontLeftVector);
         poseUpdater = new PoseUpdater(hardwareMap);
@@ -716,17 +715,19 @@ public class Follower {
             distanceToGoal = MathFunctions.dotProduct(currentPath.getEndTangent(), offset);
         }
 
-        if(distanceToGoal < 0) {
-            if(forwardZeroPowerAcceleration < 0) forwardZeroPowerAcceleration *= -1;
-        } else if (distanceToGoal > 0) {
-            if(forwardZeroPowerAcceleration > 0) forwardZeroPowerAcceleration *= -1;
-        }
 
-        if(distanceToGoal < 0) {
-            if(lateralZeroPowerAcceleration < 0) lateralZeroPowerAcceleration *= -1;
-        } else if (distanceToGoal > 0) {
-            if(lateralZeroPowerAcceleration > 0) lateralZeroPowerAcceleration *= -1;
-        }
+        //TODO: uncomment this if its weird or not
+//        if(distanceToGoal < 0) {
+//            if(forwardZeroPowerAcceleration < 0) forwardZeroPowerAcceleration *= -1;
+//        } else if (distanceToGoal > 0) {
+//            if(forwardZeroPowerAcceleration > 0) forwardZeroPowerAcceleration *= -1;
+//        }
+//
+//        if(distanceToGoal < 0) {
+//            if(lateralZeroPowerAcceleration < 0) lateralZeroPowerAcceleration *= -1;
+//        } else if (distanceToGoal > 0) {
+//            if(lateralZeroPowerAcceleration > 0) lateralZeroPowerAcceleration *= -1;
+//        }
 
         Vector distanceToGoalVector = MathFunctions.scalarMultiplyVector(MathFunctions.normalizeVector(currentPath.getClosestPointTangentVector()), distanceToGoal);
         Vector velocity = new Vector(MathFunctions.dotProduct(getVelocity(), MathFunctions.normalizeVector(currentPath.getClosestPointTangentVector())), currentPath.getClosestPointTangentVector().getTheta());
