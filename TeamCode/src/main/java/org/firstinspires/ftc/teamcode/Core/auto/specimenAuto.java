@@ -37,6 +37,7 @@ public class specimenAuto extends LinearOpMode {
     private final Pose placeSamplePosition2 = new Pose(26, 32, Math.toRadians(20));
     private final Pose placeSamplePosition3 = new Pose(26, 24, Math.toRadians(20));
     private final Pose pickupSpecimenPosition = new Pose(26,24, Math.toRadians(0));
+    private final Pose parkSpecimenPosition = new Pose(24, 36, Math.toRadians(30));
 
     public void buildPaths() {
 
