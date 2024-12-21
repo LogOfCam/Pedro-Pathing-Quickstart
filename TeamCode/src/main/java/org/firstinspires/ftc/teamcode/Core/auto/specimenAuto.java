@@ -30,13 +30,13 @@ public class specimenAuto extends LinearOpMode {
     private final Pose placeSpecimenPosition3 = new Pose(36, 68, Math.toRadians(0));
     private final Pose placeSpecimenPosition4 = new Pose(36, 66, Math.toRadians(0));
     private final Pose placeSpecimenPosition5 = new Pose(36, 64, Math.toRadians(0));
-    private final Pose pickupSamplePosition1 = new Pose(26, 40, Math.toRadians(310));
-    private final Pose pickupSamplePosition2 = new Pose(26, 32, Math.toRadians(310));
-    private final Pose pickupSamplePosition3 = new Pose(26, 24, Math.toRadians(310));
-    private final Pose placeSamplePosition1 = new Pose(26, 40, Math.toRadians(210));
-    private final Pose placeSamplePosition2 = new Pose(26, 32, Math.toRadians(210));
-    private final Pose placeSamplePosition3 = new Pose(26, 24, Math.toRadians(210));
-    private final Pose pickupSpecimenPosition = new Pose(26,24, Math.toRadians(180));
+    private final Pose pickupSamplePosition1 = new Pose(26, 40, Math.toRadians(140));
+    private final Pose pickupSamplePosition2 = new Pose(26, 32, Math.toRadians(140));
+    private final Pose pickupSamplePosition3 = new Pose(26, 24, Math.toRadians(140));
+    private final Pose placeSamplePosition1 = new Pose(26, 40, Math.toRadians(20));
+    private final Pose placeSamplePosition2 = new Pose(26, 32, Math.toRadians(20));
+    private final Pose placeSamplePosition3 = new Pose(26, 24, Math.toRadians(20));
+    private final Pose pickupSpecimenPosition = new Pose(26,24, Math.toRadians(0));
 
     public void buildPaths() {
 
@@ -100,7 +100,7 @@ public class specimenAuto extends LinearOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new ParallelCommandGroup(
+                        new ParallelCommandGroup( //Place initial specimen
                                 new PathCommand(paths[0]),
                                 new SetSlide(robot.slide, Constants.slideMaxPosition),
                                 new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
