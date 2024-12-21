@@ -61,11 +61,14 @@ public class specimenAuto extends LinearOpMode {
                 HeadingInterpolation.LINEAR
         );
 
+        // Pickup second sample for HP
         paths[3] = buildLine(
                 placeSamplePosition1,
                 pickupSamplePosition2,
                 HeadingInterpolation.LINEAR
         );
+
+        // Place second sample for HP
         paths[4] = buildLine(
                 pickupSamplePosition2,
                 placeSamplePosition2,
