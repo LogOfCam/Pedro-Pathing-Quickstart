@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.ClawSubsystem;
+import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.*;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;
@@ -36,40 +37,53 @@ public class normalAuto extends OpMode {
     /** This is our claw subsystem.
      * We call its methods to manipulate the servos that it has within the subsystem. */
     public ClawSubsystem claw;
-    private final Pose startingPose = new Pose(7.5,72, Math.toRadians(0)); //270 = South
-    private final Pose placePose1 = new Pose(36, 72, Math.toRadians(0));
-    private final Pose placePoint = new Pose(0,75, Math.toRadians(0));
+    private final Pose startingPose = new Pose(7.5,72, Math.toRadians(180)); //270 = South
+    private final Pose placeSpecimenPosition1 = new Pose(36, 72, Math.toRadians(180));
+    private final Pose placeSpecimenPosition2 = new Pose(36, 70, Math.toRadians(0));
+    private final Pose placeSpecimenPosition3 = new Pose(36, 68, Math.toRadians(0));
+    private final Pose placeSpecimenPosition4 = new Pose(36, 66, Math.toRadians(0));
+    private final Pose placeSpecimenPosition5 = new Pose(36, 64, Math.toRadians(0));
+    private final Pose pickupSamplePosition1 = new Pose(24, 48, Math.toRadians(320));
+    private final Pose pickupSamplePosition2 = new Pose(26, 32, Math.toRadians(140));
+    private final Pose pickupSamplePosition3 = new Pose(26, 24, Math.toRadians(140));
+    private final Pose placeSamplePosition1 = new Pose(26, 40, Math.toRadians(20));
+    private final Pose placeSamplePosition2 = new Pose(26, 32, Math.toRadians(20));
+    private final Pose placeSamplePosition3 = new Pose(26, 24, Math.toRadians(20));
+    private final Pose pickupSpecimenPosition = new Pose(26,24, Math.toRadians(0));
+    private final Pose parkSpecimenPosition = new Pose(24, 36, Math.toRadians(30));
 
     /* These are our Paths and PathChains that we will define in buildPaths() */
-    private Path test, test2;
+    private Path placeInitalSpecimen;
+    private PathChain pickupSample1;
 
     /** Build the paths for the auto (adds, for example, constant/linear headings while doing paths)
      * It is necessary to do this so that all the paths are built before the auto starts. **/
     public void buildPaths() {
 
-        test = new Path(new BezierCurve(new Point(startingPose), new Point(placePoint), new Point(placePose1)));
-        test.setLinearHeadingInterpolation(startingPose.getHeading(), placePose1.getHeading());
+        placeInitalSpecimen = new Path(new BezierLine(new Point(startingPose), new Point(placeSpecimenPosition1)));
+        placeInitalSpecimen.setConstantHeadingInterpolation(Math.toRadians(180));
 
-        test2 = new Path(new BezierLine(new Point(startingPose), new Point(placePose1)));
-        test2.setConstantHeadingInterpolation(Math.toRadians(180));
-
+        pickupSample1 = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(placeSpecimenPosition1), new Point(pickupSamplePosition1)))
+                .setLinearHeadingInterpolation(placeSpecimenPosition1.getHeading(), pickupSamplePosition1.getHeading())
+                .build();
        }
 
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                follower.followPath(test2);
-                setPathState(-1);
+                follower.followPath(placeInitalSpecimen);
+                setPathState(1);
                 break;
             case 1:
 
-//               if(follower.getPose().getX() > (scorePose.getX() - 1) && follower.getPose().getY() > (scorePose.getY() - 1)) {
-//                    /* Score Preload */
-//                    claw.openClaw();
-//                    /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-//                    follower.followPath(grabPickup1,true);
-//                    setPathState(2);
-//                }
+               if(follower.getPose().getX() > (placeSpecimenPosition1.getX() - 1) && follower.getPose().getY() > (placeSpecimenPosition1.getY() - 1)) {
+                    /* Score Preload */
+                    claw.openClaw();
+                    /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
+                    follower.followPath(pickupSample1,false);
+                    setPathState(2);
+                }
                 break;
         }
     }

@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.Core.util;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
+import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 
 public class Constants {
 
     /* ----------- NAMES ----------- */
 
     //TODO: ADD STUFF
+    public static String pinpointName = "pinpoint";
 
     /* ----------- TELEOP ----------- */
 
@@ -18,22 +20,21 @@ public class Constants {
 
     public static double forwardOffsetMM_X = -120.000014;
     public static double forwardOffsetMM_Y = -135.999982;
-    public static double strafeOffsetMM_X = 120.000014;
-    public static double strafeOffsetMM_Y = -135.999982;
+    public static double strafeOffsetMM_X = -120.000014;
+    public static double strafeOffsetMM_Y = 135.999982;
 
     /* ----------- Pinpoint ----------- */
 
     public static double xOffsetMM = -120.000014;
-    public static double yOffsetMM = -135.999982;
-    public static double xOffsetInch = (-120.000014 / 25.4); // 4.72441
-    public static double yOffsetInch = (-135.999982 / 25.4); //5.35433
+    public static double yOffsetMM = 135.999982;
+    public static double xOffsetInch = (xOffsetMM / 25.4); //-4.72441
+    public static double yOffsetInch = (yOffsetMM / 25.4); //5.35433
     public static double maxPower = 1;
 
     /* ----------- PEDRO POSITIONS ----------- */
 
     public static Pose sampleStartPosition = new Pose(7.5, 112.5, Math.toRadians(90));
-    public static Pose specimenStartPosition = new Pose(7.5, 72, Math.toRadians(0));
-
+    public static Pose specimenStartPosition = new Pose(7.5, 72, Math.toRadians(180));
     /* ------- MOTOR SECTION ------- */
 
     /* ----------- JOINT ----------- */
