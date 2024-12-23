@@ -10,21 +10,23 @@ public class PathCommand extends CommandBase {
     private final Path path;
     private final Robot robot = Robot.getInstance();
     private final double speed;
+    private boolean holdEnd = false;
 
     public PathCommand(Path path) {
         this.path = path;
         this.speed = 1;
     }
 
-    public PathCommand(Path path, double speed) {
+    public PathCommand(Path path, boolean holdEnd, double speed) {
         this.path = path;
         this.speed = speed;
+        this.holdEnd = holdEnd;
     }
 
     @Override
     public void initialize() {
         robot.setMaxPower(speed);
-        robot.followPath(path, false);
+        robot.followPath(path, holdEnd);
     }
 
     @Override

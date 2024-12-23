@@ -4,10 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.ClawSubsystem;
-import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.*;
-import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
-import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;
+import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierLine;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
@@ -73,7 +71,8 @@ public class normalAuto extends OpMode {
         switch (pathState) {
             case 0:
                 follower.followPath(placeInitalSpecimen);
-                setPathState(1);
+                follower.followPath(placeInitalSpecimen, true);
+                setPathState(-1);
                 break;
             case 1:
 
@@ -81,7 +80,7 @@ public class normalAuto extends OpMode {
                     /* Score Preload */
                     claw.openClaw();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-                    follower.followPath(pickupSample1,false);
+                    follower.followPath(pickupSample1,true);
                     setPathState(2);
                 }
                 break;
@@ -116,6 +115,7 @@ public class normalAuto extends OpMode {
 
         follower = new Follower(hardwareMap);
         follower.setStartingPose(startingPose);
+        follower.setMaxPower(0.75);
 
         buildPaths();
 

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Core.util;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
-import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
+import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 
 public class Constants {
 
@@ -21,14 +20,14 @@ public class Constants {
     public static double forwardOffsetMM_X = -120.000014;
     public static double forwardOffsetMM_Y = -135.999982;
     public static double strafeOffsetMM_X = -120.000014;
-    public static double strafeOffsetMM_Y = 135.999982;
+    public static double strafeOffsetMM_Y = -135.999982;
 
     /* ----------- Pinpoint ----------- */
 
-    public static double xOffsetMM = -120.000014;
-    public static double yOffsetMM = 135.999982;
+    public static double xOffsetMM = -123; //was 120.000014
+    public static double yOffsetMM = -131.3; //was -135.999982 or -125.3
     public static double xOffsetInch = (xOffsetMM / 25.4); //-4.72441
-    public static double yOffsetInch = (yOffsetMM / 25.4); //5.35433
+    public static double yOffsetInch = (yOffsetMM / 25.4); //-5.35433
     public static double maxPower = 1;
 
     /* ----------- PEDRO POSITIONS ----------- */
