@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.buildCu
 import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.buildLine;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -12,6 +13,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Core.Commands.drive.PathChainCommand;
 import org.firstinspires.ftc.teamcode.Core.Commands.drive.PathCommand;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.SetJoint;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetClaw;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetWrist;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.SetSlide;
 import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
@@ -27,7 +32,7 @@ public class specimenAuto extends LinearOpMode {
     private final Pose placeSpecimenPosition3 = new Pose(36, 68, Math.toRadians(0));
     private final Pose placeSpecimenPosition4 = new Pose(36, 66, Math.toRadians(0));
     private final Pose placeSpecimenPosition5 = new Pose(36, 64, Math.toRadians(0));
-    private final Pose pickupSamplePosition1 = new Pose(22, 33, Math.toRadians(320));
+    private final Pose pickupSamplePosition1 = new Pose(22, 32, Math.toRadians(320));
     private final Pose pickupSamplePosition2 = new Pose(26, 32, Math.toRadians(140));
     private final Pose pickupSamplePosition3 = new Pose(26, 24, Math.toRadians(140));
     private final Pose placeSamplePosition1 = new Pose(26, 40, Math.toRadians(20));
@@ -92,6 +97,9 @@ public class specimenAuto extends LinearOpMode {
             robot.claw.setPosition(Constants.clawClosedPosition);
             robot.wrist.setPosition(Constants.wristStartingPosition);
 
+            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
+            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
+
             updateTelemetry();
         }
 
@@ -100,13 +108,31 @@ public class specimenAuto extends LinearOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new PathCommand(paths[0]),
-                        new PathCommand(paths[1])
+                        new ParallelCommandGroup(
+                                new SetSlide(robot.slide, Constants.slideMiddlePosition),
+                                new SetJoint(robot.joint, Constants.jointSamplePickupPosition),
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                                new SetClaw(robot.claw, Constants.clawOpenPosition)
+                        ),
+                        new SetClaw(robot.claw, Constants.clawClosedPosition)
+
+//                        new ParallelCommandGroup(
+//                                new PathCommand(paths[0]),
+//                                new SetSlide(robot.slide, Constants.slideMaxPosition),
+//                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
+//                        ),
+//                        new WaitCommand(1000),
+//                        new ParallelCommandGroup(
+//                                new PathCommand(paths[1]),
+//                                new SetJoint(robot.joint, Constants.jointSamplePickupPosition).andThen(
+//                                        new SetSlide(robot.slide, Constants.slideMinPosition)
+//                                )
+//                        )
                 )
         );
 
-        robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-        robot.joint.setDefaultCommand(CommandScheduler.getInstance());
+        //robot.slide.setDefaultCommand(CommandScheduler.getInstance());
+        //robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
         while(opModeIsActive() && !isStopRequested()) {
             CommandScheduler.getInstance().run();

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide;
+package org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;

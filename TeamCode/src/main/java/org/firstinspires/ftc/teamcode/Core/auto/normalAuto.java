@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Core.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.ClawSubsystem;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.*;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierLine;

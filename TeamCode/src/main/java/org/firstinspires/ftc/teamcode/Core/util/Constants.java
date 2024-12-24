@@ -38,8 +38,11 @@ public class Constants {
 
     /* ----------- JOINT ----------- */
 
+    public static double jointStartingPosition = 100;
     public static double jointSpecimenPlacePosition = 1000;
-    public static double jointSamplePickupPosition = 1000;
+    public static double jointStraightUp = 2600;
+    public static double jointSamplePickupPosition = 4900;
+    public static double jointMaxPosition = 5000;
 
     /* ----------- SLIDE ----------- */
 
@@ -47,6 +50,7 @@ public class Constants {
     public static double slideMinPosition = 100;
     public static double slideHighBasketPosition = 2800;
     public static double slideLowBasketPosition = 2000;
+    public static double slideMiddlePosition = 2000;
 
     /* ------- SERVO SECTION ------- */
 
@@ -56,5 +60,6 @@ public class Constants {
 
     /* ----------- WRIST ----------- */
     public static double wristStartingPosition = 0.85;
+    public static double wristPickupPosition = 0.40;
 
 }
