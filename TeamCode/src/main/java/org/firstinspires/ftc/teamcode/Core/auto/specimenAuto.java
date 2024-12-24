@@ -41,7 +41,8 @@ public class specimenAuto extends LinearOpMode {
         // Place initial specimen
         paths[0] = buildLine(
                 Constants.specimenStartPosition,
-                new Pose(36, 72, Math.toRadians(180)),
+                placeSpecimenPosition1,
+                //new Pose(36, 72, Math.toRadians(180)),
                 HeadingInterpolation.LINEAR
         );
 
@@ -55,25 +56,25 @@ public class specimenAuto extends LinearOpMode {
         );
 
         // Place first sample for HP
-//        paths[2] = buildLine(
-//                pickupSamplePosition1,
-//                placeSamplePosition1,
-//                HeadingInterpolation.LINEAR
-//        );
-//
-//        // Pickup second sample for HP
-//        paths[3] = buildLine(
-//                placeSamplePosition1,
-//                pickupSamplePosition2,
-//                HeadingInterpolation.LINEAR
-//        );
-//
-//        // Place second sample for HP
-//        paths[4] = buildLine(
-//                pickupSamplePosition2,
-//                placeSamplePosition2,
-//                HeadingInterpolation.LINEAR
-//        );
+        paths[2] = buildLine(
+                pickupSamplePosition1,
+                placeSamplePosition1,
+                HeadingInterpolation.LINEAR
+        );
+
+        // Pickup second sample for HP
+        paths[3] = buildLine(
+                placeSamplePosition1,
+                pickupSamplePosition2,
+                HeadingInterpolation.LINEAR
+        );
+
+        // Place second sample for HP
+        paths[4] = buildLine(
+                pickupSamplePosition2,
+                placeSamplePosition2,
+                HeadingInterpolation.LINEAR
+        );
     }
 
     @Override
