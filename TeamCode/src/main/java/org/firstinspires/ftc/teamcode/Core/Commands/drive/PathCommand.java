@@ -26,7 +26,7 @@ public class PathCommand extends CommandBase {
     @Override
     public void initialize() {
         robot.setMaxPower(speed);
-        robot.followPath(path, holdEnd);
+        robot.followPath(path, true);
     }
 
     @Override

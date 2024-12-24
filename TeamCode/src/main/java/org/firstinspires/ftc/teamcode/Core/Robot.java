@@ -21,7 +21,6 @@ public class Robot extends Follower {
     public Joint joint;
     public Wrist wrist;
     public Basket basket;
-
     private static Robot instance = null;
 
     /**
@@ -29,12 +28,12 @@ public class Robot extends Follower {
      *
      * @param hardwareMap HardwareMap required
      */
-    public Robot(HardwareMap hardwareMap) {
-        super(hardwareMap);
-    }
+//    public Robot(HardwareMap hardwareMap) {
+//        super(hardwareMap);
+//    }
 
     public void initialize(HardwareMap hardwareMap, Telemetry telemetry_) {
-        //initializePedro(hardwareMap); // initialize Pedro
+        initializePedro(hardwareMap); // initialize Pedro
 
         telemetry = telemetry_;
 
@@ -49,8 +48,8 @@ public class Robot extends Follower {
 
     public static Robot getInstance() {
         if(instance == null) {
-            //instance = new Robot();
-            return instance;
+            instance = new Robot();
+            //return instance;
         }
         return instance;
     }

@@ -51,15 +51,23 @@ public class normalAuto extends OpMode {
     private final Pose parkSpecimenPosition = new Pose(24, 36, Math.toRadians(30));
 
     /* These are our Paths and PathChains that we will define in buildPaths() */
-    private Path placeInitalSpecimen;
-    private PathChain pickupSample1;
+//    private Path placeInitalSpecimen;
+
+    private Path test;
+    private PathChain placeInitalSpecimen, pickupSample1;
 
     /** Build the paths for the auto (adds, for example, constant/linear headings while doing paths)
      * It is necessary to do this so that all the paths are built before the auto starts. **/
     public void buildPaths() {
 
-        placeInitalSpecimen = new Path(new BezierLine(new Point(startingPose), new Point(placeSpecimenPosition1)));
-        placeInitalSpecimen.setConstantHeadingInterpolation(Math.toRadians(180));
+        test = new Path(new BezierLine(new Point(startingPose), new Point(placeSpecimenPosition1)));
+        test.setConstantHeadingInterpolation(Math.toRadians(0));
+
+        placeInitalSpecimen = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(startingPose), new Point(placeSpecimenPosition1)))
+                .setConstantHeadingInterpolation(startingPose.getHeading())
+                .setZeroPowerAccelerationMultiplier(1)
+                .build();
 
         pickupSample1 = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(placeSpecimenPosition1), new Point(pickupSamplePosition1)))
@@ -70,8 +78,8 @@ public class normalAuto extends OpMode {
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                follower.followPath(placeInitalSpecimen);
-                follower.followPath(placeInitalSpecimen, true);
+                follower.followPath(test);
+                follower.followPath(test, true);
                 setPathState(-1);
                 break;
             case 1:
@@ -113,9 +121,8 @@ public class normalAuto extends OpMode {
 
         opmodeTimer.resetTimer();
 
-        follower = new Follower(hardwareMap);
+        //follower = new Follower(hardwareMap);
         follower.setStartingPose(startingPose);
-        follower.setMaxPower(0.75);
 
         buildPaths();
 

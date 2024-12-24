@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Core.Commands.drive.PathChainCommand;
 import org.firstinspires.ftc.teamcode.Core.Commands.drive.PathCommand;
 import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
@@ -26,7 +27,7 @@ public class specimenAuto extends LinearOpMode {
     private final Pose placeSpecimenPosition3 = new Pose(36, 68, Math.toRadians(0));
     private final Pose placeSpecimenPosition4 = new Pose(36, 66, Math.toRadians(0));
     private final Pose placeSpecimenPosition5 = new Pose(36, 64, Math.toRadians(0));
-    private final Pose pickupSamplePosition1 = new Pose(26, 40, Math.toRadians(320));
+    private final Pose pickupSamplePosition1 = new Pose(22, 33, Math.toRadians(320));
     private final Pose pickupSamplePosition2 = new Pose(26, 32, Math.toRadians(140));
     private final Pose pickupSamplePosition3 = new Pose(26, 24, Math.toRadians(140));
     private final Pose placeSamplePosition1 = new Pose(26, 40, Math.toRadians(20));
@@ -41,13 +42,15 @@ public class specimenAuto extends LinearOpMode {
         paths[0] = buildLine(
                 Constants.specimenStartPosition,
                 new Pose(36, 72, Math.toRadians(180)),
-                HeadingInterpolation.CONSTANT
+                HeadingInterpolation.LINEAR
         );
 
         // Pickup first sample for HP
         paths[1] = buildLine(
-                new Pose(36, 72, Math.toRadians(180)),
-                new Pose(24, 48, Math.toRadians(310)),
+                placeSpecimenPosition1,
+                pickupSamplePosition1,
+                //new Pose(36, 72, Math.toRadians(180)),
+                //new Pose(24, 48, Math.toRadians(310)),
                 HeadingInterpolation.LINEAR
         );
 
@@ -91,13 +94,12 @@ public class specimenAuto extends LinearOpMode {
             updateTelemetry();
         }
 
-        robot.setStartingPose(Constants.specimenStartPosition);
-        //robot.setPose(Constants.specimenStartPosition);
+        //robot.setStartingPose(Constants.specimenStartPosition);
+        robot.setPose(Constants.specimenStartPosition);
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new PathCommand(paths[0]),
-                        new WaitCommand(500),
                         new PathCommand(paths[1])
                 )
         );

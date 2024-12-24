@@ -40,7 +40,7 @@ public class Circle extends OpMode {
      */
     @Override
     public void init() {
-        follower = new Follower(hardwareMap);
+        //follower = new Follower(hardwareMap);
         //follower.initializePedro(hardwareMap);
 
         circle = follower.pathBuilder()

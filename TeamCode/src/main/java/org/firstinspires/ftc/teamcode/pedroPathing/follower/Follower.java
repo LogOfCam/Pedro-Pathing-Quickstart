@@ -147,10 +147,10 @@ public class Follower {
      * @param hardwareMap HardwareMap required
      */
 
-    public Follower(HardwareMap hardwareMap) {
-        this.hardwareMap = hardwareMap;
-        initializePedro();
-    }
+//    public Follower(HardwareMap hardwareMap) {
+//        this.hardwareMap = hardwareMap;
+//        initializePedro();
+//    }
 
     /**
      * This initializes the follower.
@@ -158,8 +158,8 @@ public class Follower {
      * initialized and their behavior is set, and the variables involved in approximating first and
      * second derivatives for teleop are set.
      */
-    public void initializePedro() {
-        //this.hardwareMap = hardwareMap;
+    public void initializePedro(HardwareMap hardwareMap) {
+        this.hardwareMap = hardwareMap;
 
         driveVectorScaler = new DriveVectorScaler(FollowerConstants.frontLeftVector);
         poseUpdater = new PoseUpdater(hardwareMap);

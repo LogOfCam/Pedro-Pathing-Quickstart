@@ -11,7 +11,7 @@ public class PathChainCommand extends CommandBase {
     private final PathChain pathChain;
     private final Robot robot = Robot.getInstance();
     private final double speed;
-    private boolean holdEnd = false;
+    private boolean holdEnd = true;
 
     public PathChainCommand(Path... paths) {
         this.pathChain = new PathChain(paths);
@@ -27,7 +27,7 @@ public class PathChainCommand extends CommandBase {
     @Override
     public void initialize() {
         robot.setMaxPower(Constants.maxPower);
-        robot.followPath(pathChain, holdEnd);
+        robot.followPath(pathChain, true);
     }
 
     @Override
