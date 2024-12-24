@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 @Autonomous
 public class ExampleAuto extends LinearOpMode {
 
-    /* Declears our Robot class which has all our subsystems */
+    /* Declares our Robot class which has all our subsystems */
 
     private Robot robot;
 
@@ -79,7 +79,7 @@ public class ExampleAuto extends LinearOpMode {
 
         /* Get the actual instance of the robot. It's core. */
 
-        Robot robot = Robot.getInstance();
+        robot = Robot.getInstance();
 
         /* Initialize it like any servo or motor */
 
@@ -115,7 +115,7 @@ public class ExampleAuto extends LinearOpMode {
 
             /* Call telemetry update */
 
-            //updateTelemetry();
+            updateTelemetry();
         }
 
         /* This setings the Pose of the robot on the field */
@@ -165,12 +165,12 @@ public class ExampleAuto extends LinearOpMode {
 
             /* Call telemetry update */
 
-            //updateTelemetry();
+            updateTelemetry();
         }
 
     }
 
-    /* Update telemetry - FIX THIS TELMETRY NOT WORKING */
+    /* Update telemetry - FIX THIS TELEMETRY NOT WORKING */
 
     public void updateTelemetry() {
         telemetry.addData("x", robot.getPose().getX());
