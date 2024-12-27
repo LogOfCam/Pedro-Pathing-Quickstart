@@ -4,12 +4,11 @@ import static org.firstinspires.ftc.teamcode.Core.util.Constants.jointMaxPositio
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Core.Subsystems.motors.Joint;
+import org.firstinspires.ftc.teamcode.Core.util.Constants;
 
 public class SetJoint extends CommandBase {
     private final Joint joint;
     private double targetPosition = 0;
-    private final double threshold = 10;
-
     public SetJoint(Joint joint, double targetPosition) {
         if(targetPosition > jointMaxPosition) {targetPosition = jointMaxPosition; }
 
@@ -31,6 +30,6 @@ public class SetJoint extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(joint.getCurrentPosition() - targetPosition) < threshold;
+        return Math.abs(joint.getCurrentPosition() - targetPosition) < Constants.jointThreshold;
     }
 }

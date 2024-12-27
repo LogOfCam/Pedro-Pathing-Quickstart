@@ -17,10 +17,9 @@ public class PathCommand extends CommandBase {
         this.speed = 1;
     }
 
-    public PathCommand(Path path, boolean holdEnd, double speed) {
+    public PathCommand(Path path, double speed) {
         this.path = path;
         this.speed = speed;
-        this.holdEnd = holdEnd;
     }
 
     @Override

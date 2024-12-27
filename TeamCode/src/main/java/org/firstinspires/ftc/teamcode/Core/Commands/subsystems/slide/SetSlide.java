@@ -4,11 +4,11 @@ import static org.firstinspires.ftc.teamcode.Core.util.Constants.slideMaxPositio
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Core.Subsystems.motors.Slide;
+import org.firstinspires.ftc.teamcode.Core.util.Constants;
 
 public class SetSlide extends CommandBase {
     private final Slide slide;
     private double targetPosition = 0;
-    private final double threshold = 10;
 
     public SetSlide(Slide slide, double targetPosition) {
         if(targetPosition > slideMaxPosition) {targetPosition = slideMaxPosition; }
@@ -31,6 +31,6 @@ public class SetSlide extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(slide.getCurrentPosition() - targetPosition) < threshold;
+        return Math.abs(slide.getCurrentPosition() - targetPosition) < Constants.slideThreshold;
     }
 }

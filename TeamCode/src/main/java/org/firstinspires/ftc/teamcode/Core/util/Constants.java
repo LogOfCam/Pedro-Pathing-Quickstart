@@ -32,26 +32,28 @@ public class Constants {
 
     /* ----------- PEDRO POSITIONS ----------- */
 
-    public static Pose sampleStartPosition = new Pose(7.5, 112.5, Math.toRadians(90));
+    public static Pose sampleStartPosition = new Pose(7.5, 112.5, Math.toRadians(270));
     public static Pose specimenStartPosition = new Pose(7.5, 72, Math.toRadians(180));
     /* ------- MOTOR SECTION ------- */
 
     /* ----------- JOINT ----------- */
-
+    public static double jointThreshold = 10;
     public static double jointStartingPosition = 100;
     public static double jointSpecimenPlacePosition = 1000;
     public static double jointStraightUp = 2600;
     public static double jointSamplePickupPosition = 4900;
     public static double jointMaxPosition = 5000;
+    public static double jointTransferPosition = 2300;
 
     /* ----------- SLIDE ----------- */
 
-    public static double slideMaxPosition = 3000;
+    public static double slideThreshold = 10;
+    public static double slideMaxPosition = 3200;
     public static double slideMinPosition = 100;
     public static double slideHighBasketPosition = 2800;
     public static double slideLowBasketPosition = 2000;
     public static double slideMiddlePosition = 2000;
-
+    public static double slideTransferPosition = 800;
     /* ------- SERVO SECTION ------- */
 
     /* ----------- CLAW ----------- */
@@ -61,5 +63,10 @@ public class Constants {
     /* ----------- WRIST ----------- */
     public static double wristStartingPosition = 0.85;
     public static double wristPickupPosition = 0.40;
+    public static double wristTransferPosition = 0.10;
+
+    /* ----------- BASKET ----------- */
+    public static double basketStartingPosition = 0.30;
+    public static double basketPlacePosition = 0.70;
 
 }
