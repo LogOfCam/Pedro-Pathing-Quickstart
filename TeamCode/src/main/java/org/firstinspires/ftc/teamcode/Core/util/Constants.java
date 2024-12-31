@@ -33,7 +33,7 @@ public class Constants {
     /* ----------- PEDRO POSITIONS ----------- */
 
     public static Pose sampleStartPosition = new Pose(7.5, 112.5, Math.toRadians(270));
-    public static Pose specimenStartPosition = new Pose(7.5, 72, Math.toRadians(180));
+    public static Pose specimenStartPosition = new Pose(7.5, 62, Math.toRadians(180));
     /* ------- MOTOR SECTION ------- */
 
     /* ----------- JOINT ----------- */

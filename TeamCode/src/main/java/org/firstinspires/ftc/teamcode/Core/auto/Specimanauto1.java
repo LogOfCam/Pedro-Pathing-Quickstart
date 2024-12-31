@@ -24,46 +24,46 @@ public class Specimanauto1 extends LinearOpMode {
 
     private Robot robot;
 
-    public static Path[] paths = new Path[12];
+    public static Path[] paths = new Path[11];
 
     //TODO: Correct naming for all of these below.
-    private final Pose specimanStart = new Pose(7.5, 62, Math.toRadians(180)); //TODO: spelling
-    private final Pose placeInitel = new Pose(40.5, 62, Math.toRadians(180)); //TODO: spelling
+    private final Pose placeInitail = new Pose(40.5, 62, Math.toRadians(180)); //TODO: spelling
     private final Pose backup = new Pose(38, 62, Math.toRadians(180));
     private final Pose curveToPush = new Pose(60, 26, Math.toRadians(180));
-    private final Point curve1 = new Point(60, 26);
-    private final Point curve2 = new Point(66, 55);
-    private final Pose pushSample = new Pose(18, 26, Math.toRadians(180));
+    private final Point curve1 = new Point(4, 16);
+    private final Pose curve2 = new Pose(66, 55);
+    private final Point pushSample = new Point(18, 26);
 
-    //TODO: Upsample? Should it be capitalized?
-    private final Pose lineUpsample2 = new Pose(60, 13, Math.toRadians(180));
+    //TODO: Upsample? Should it be capitalized? fixed
+    private final Pose lineupSample2 = new Pose(60, 13, Math.toRadians(180));
     private final Point lineup1 = new Point(64, 34);
     private final Pose pushSample2 = new Pose(18, 15, Math.toRadians(180));
 
-    //TODO: Why is lineUpsample3 not used?
-    private final Pose lineUpsample3 = new Pose(60, 8, Math.toRadians(180));
+    //TODO: Why is lineUpsample3 not used?fixed
+    private final Pose lineupSample3 = new Pose(60, 8,Math.toRadians(180));
     private final Point lineup2 = new Point(64, 22);
     private final Pose pushSample3 = new Pose(18, 8, Math.toRadians(180));
 
-    //TODO: Capitalization?
-    private final Pose lineuptopickup = new Pose(17, 46, Math.toRadians(225));
-    private final Point pickup1 = new Point(57, 15);
-    private final Pose placeSpeciman2 = new Pose(40.5, 65, Math.toRadians(180)); //TODO: Spelling
+    //TODO: Capitalization?fixed
+    private final Pose lineuptoPickup = new Pose(17, 46, Math.toRadians(225));
+    private final Pose pickup1 = new Pose(57, 15);
+    private final Point placeSpeciman2 = new Point(40.5, 65); //TODO: Spelling
+    private final Pose placeSpeciman3 = new Pose(40.5,67);
     public void buildPaths() {
 
         /* TODO: why do you have two start positions? We have one from constants
             and then the on you put in So we're driving from specimenStartPosition
-            to specimenStart position? So, do you even need this line? */
+            to specimenStart position? So, do you even need this line?fixed */
 
-        paths[0] = buildLine(Constants.specimenStartPosition, specimanStart, HeadingInterpolation.CONSTANT);
+        paths[0] = buildLine(Constants.specimenStartPosition,placeInitail, HeadingInterpolation.CONSTANT);
 
         /* TODO: If you use Constants.specimenStartPosition, what needs replaced?*/
 
-        paths[1] = buildLine(specimanStart, placeInitel , HeadingInterpolation.CONSTANT);
+        paths[1] = buildLine(placeInitail ,backup, HeadingInterpolation.CONSTANT);
 
         // Looks good.
 
-        paths[2] = buildLine(placeInitel, backup, HeadingInterpolation.CONSTANT);
+        paths[2] = buildLine(backup,curveToPush , HeadingInterpolation.CONSTANT);
 
         /* TODO: Not sure what is going on here.
             Why is backup to curveToPush a line?
@@ -75,23 +75,21 @@ public class Specimanauto1 extends LinearOpMode {
             paths[X] = buildCurve(lastPosition, point1, endPosition, heading)
         */
 
-        paths[3] = buildLine(backup, curveToPush , HeadingInterpolation.CONSTANT);
-        paths[4] = buildLine(curveToPush, curve1, HeadingInterpolation.CONSTANT);
-        paths[5] = buildCurve(curve1, curve2, pushSample, HeadingInterpolation.LINEAR);
-        paths[6] = buildLine(curve2, lineUpsample2,  HeadingInterpolation.CONSTANT);
-        paths[7] = buildLine(lineUpsample2, lineup1,  HeadingInterpolation.CONSTANT);
-        paths[8] = buildLine(lineup1, pushSample2, HeadingInterpolation.CONSTANT);
-
-        paths[9] = buildCurve(pushSample2, lineup2, pushSample3, HeadingInterpolation.LINEAR);
-        paths[10] = buildLine(pushSample3, lineuptopickup, HeadingInterpolation.CONSTANT);
+        paths[3] = buildCurve(curveToPush, curve1 ,curve2, HeadingInterpolation.CONSTANT);
+        paths[4] = buildCurve(curve2, pushSample,lineupSample2, HeadingInterpolation.CONSTANT);
+        paths[5] = buildCurve(lineupSample2, lineup1, pushSample2, HeadingInterpolation.CONSTANT);
+        paths[6] = buildLine(pushSample2, lineupSample3,  HeadingInterpolation.CONSTANT);
+        paths[7] = buildCurve(lineupSample3, lineup2, pushSample3, HeadingInterpolation.LINEAR);
+        paths[8] = buildLine(pushSample3, lineuptoPickup, HeadingInterpolation.CONSTANT);
 
         /* TODO: Requires Pose, Pose, not a Point. */
 
-        paths[11] = buildLine(lineuptopickup, pickup1, HeadingInterpolation.CONSTANT);
+        paths[9] = buildLine(lineuptoPickup,pickup1 , HeadingInterpolation.CONSTANT);
 
         /* TODO: This is a Curve again. It requires a Pose, Point, Pose.
             You gave it: point, point, pose. */
-        paths[12] = buildCurve(pickup1, placeSpeciman2, placeSpeciman2, HeadingInterpolation.LINEAR);
+        paths[10] = buildCurve(pickup1, placeSpeciman2,pickup1, HeadingInterpolation.LINEAR);
+        paths[11] = buildLine(pickup1, placeSpeciman3, HeadingInterpolation.LINEAR);
     }
 
     @Override
@@ -139,7 +137,6 @@ public class Specimanauto1 extends LinearOpMode {
                         new PathCommand(paths[9]),
                         new PathCommand(paths[10]),
                         new PathCommand(paths[11]),
-                        new PathCommand(paths[12]),
 
                         new ParallelCommandGroup(
 
@@ -172,8 +169,4 @@ public class Specimanauto1 extends LinearOpMode {
         telemetry.addData("Power", robot.slide.getPower());
         telemetry.update();
     }
-
-    /* HINT: backUp will be starting, curve1 and 2,
-            and then curveToPush as end position, and heading
-            */
 }
