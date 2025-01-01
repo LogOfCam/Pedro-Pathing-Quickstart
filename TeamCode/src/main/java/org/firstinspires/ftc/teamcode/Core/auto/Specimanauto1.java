@@ -24,14 +24,14 @@ public class Specimanauto1 extends LinearOpMode {
 
     private Robot robot;
 
-    public static Path[] paths = new Path[11];
+    public static Path[] paths = new Path[12];
 
     //TODO: Correct naming for all of these below.
     private final Pose placeInitail = new Pose(40.5, 62, Math.toRadians(180)); //TODO: spelling
     private final Pose backup = new Pose(38, 62, Math.toRadians(180));
     private final Pose curveToPush = new Pose(60, 26, Math.toRadians(180));
     private final Point curve1 = new Point(4, 16);
-    private final Pose curve2 = new Pose(66, 55);
+    private final Point curve2 = new Point(66, 55);
     private final Point pushSample = new Point(18, 26);
 
     //TODO: Upsample? Should it be capitalized? fixed
@@ -63,7 +63,7 @@ public class Specimanauto1 extends LinearOpMode {
 
         // Looks good.
 
-        paths[2] = buildLine(backup,curveToPush , HeadingInterpolation.CONSTANT);
+        paths[2] = buildLine(backup,curve1 , HeadingInterpolation.CONSTANT);
 
         /* TODO: Not sure what is going on here.
             Why is backup to curveToPush a line?
@@ -75,8 +75,8 @@ public class Specimanauto1 extends LinearOpMode {
             paths[X] = buildCurve(lastPosition, point1, endPosition, heading)
         */
 
-        paths[3] = buildCurve(curveToPush, curve1 ,curve2, HeadingInterpolation.CONSTANT);
-        paths[4] = buildCurve(curve2, pushSample,lineupSample2, HeadingInterpolation.CONSTANT);
+        paths[3] = buildCurve(curve1, curve2 ,curveToPush, HeadingInterpolation.CONSTANT);
+        paths[4] = buildCurve(curveToPush, pushSample,lineupSample2, HeadingInterpolation.CONSTANT);
         paths[5] = buildCurve(lineupSample2, lineup1, pushSample2, HeadingInterpolation.CONSTANT);
         paths[6] = buildLine(pushSample2, lineupSample3,  HeadingInterpolation.CONSTANT);
         paths[7] = buildCurve(lineupSample3, lineup2, pushSample3, HeadingInterpolation.LINEAR);
