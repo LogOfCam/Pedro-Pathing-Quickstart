@@ -24,7 +24,7 @@ public class Specimanauto1 extends LinearOpMode {
 
     private Robot robot;
 
-    public static Path[] paths = new Path[12];
+    public static Path[] paths = new Path[11];
 
     //TODO: Correct naming for all of these below.
     private final Pose placeInitail = new Pose(40.5, 62, Math.toRadians(180)); //TODO: spelling
@@ -63,8 +63,6 @@ public class Specimanauto1 extends LinearOpMode {
 
         // Looks good.
 
-        paths[2] = buildLine(backup,curve1 , HeadingInterpolation.CONSTANT);
-
         /* TODO: Not sure what is going on here.
             Why is backup to curveToPush a line?
             Shouldn't it be a curve? 3 to 8 need fixed.
@@ -75,21 +73,21 @@ public class Specimanauto1 extends LinearOpMode {
             paths[X] = buildCurve(lastPosition, point1, endPosition, heading)
         */
 
-        paths[3] = buildCurve(curve1, curve2 ,curveToPush, HeadingInterpolation.CONSTANT);
-        paths[4] = buildCurve(curveToPush, pushSample,lineupSample2, HeadingInterpolation.CONSTANT);
-        paths[5] = buildCurve(lineupSample2, lineup1, pushSample2, HeadingInterpolation.CONSTANT);
-        paths[6] = buildLine(pushSample2, lineupSample3,  HeadingInterpolation.CONSTANT);
-        paths[7] = buildCurve(lineupSample3, lineup2, pushSample3, HeadingInterpolation.LINEAR);
-        paths[8] = buildLine(pushSample3, lineuptoPickup, HeadingInterpolation.CONSTANT);
+        paths[2] = buildCurve(backup,curve1, curve2 ,curveToPush, HeadingInterpolation.CONSTANT);
+        paths[3] = buildCurve(curveToPush, pushSample,lineupSample2, HeadingInterpolation.CONSTANT);
+        paths[4] = buildCurve(lineupSample2, lineup1, pushSample2, HeadingInterpolation.CONSTANT);
+        paths[5] = buildLine(pushSample2, lineupSample3,  HeadingInterpolation.CONSTANT);
+        paths[6] = buildCurve(lineupSample3, lineup2, pushSample3, HeadingInterpolation.LINEAR);
+        paths[7] = buildLine(pushSample3, lineuptoPickup, HeadingInterpolation.CONSTANT);
 
         /* TODO: Requires Pose, Pose, not a Point. */
 
-        paths[9] = buildLine(lineuptoPickup,pickup1 , HeadingInterpolation.CONSTANT);
+        paths[8] = buildLine(lineuptoPickup,pickup1 , HeadingInterpolation.CONSTANT);
 
         /* TODO: This is a Curve again. It requires a Pose, Point, Pose.
             You gave it: point, point, pose. */
-        paths[10] = buildCurve(pickup1, placeSpeciman2,pickup1, HeadingInterpolation.LINEAR);
-        paths[11] = buildLine(pickup1, placeSpeciman3, HeadingInterpolation.LINEAR);
+        paths[9] = buildCurve(pickup1, placeSpeciman2,pickup1, HeadingInterpolation.LINEAR);
+        paths[10] = buildLine(pickup1, placeSpeciman3, HeadingInterpolation.LINEAR);
     }
 
     @Override
@@ -136,7 +134,6 @@ public class Specimanauto1 extends LinearOpMode {
                         new PathCommand(paths[8]),
                         new PathCommand(paths[9]),
                         new PathCommand(paths[10]),
-                        new PathCommand(paths[11]),
 
                         new ParallelCommandGroup(
 
