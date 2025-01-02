@@ -63,9 +63,9 @@ public class jointTest extends LinearOpMode {
 
 
                         new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition), // 1400
-                        new WaitCommand(3000),
+                        new WaitCommand(5000),
                         new SetJoint(robot.joint, Constants.jointStraightUp), // 2600
-                        new WaitCommand(3000),
+                        new WaitCommand(5000),
                         new SetJoint(robot.joint, Constants.jointTransferPosition) // 2300
 
                 )
@@ -84,7 +84,7 @@ public class jointTest extends LinearOpMode {
     }
 
     public void updateTelemetry() {
-        telemetry.addData("LastPosition", robot.joint.getLastPosition());
+        telemetry.addData("LastPosition", robot.joint.getHoldPosition());
         telemetry.addData("CurrentPosition", robot.joint.getCurrentPosition());
         telemetry.addData("TargetPosition", robot.joint.getTargetPosition());
         telemetry.update();
