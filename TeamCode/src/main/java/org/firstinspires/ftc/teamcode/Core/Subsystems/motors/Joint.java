@@ -16,6 +16,7 @@ public class Joint extends SubsystemBase {
     double f = 0.03;
     double ticksInDegrees = 285 / 180;
     private double targetPosition;
+    private double lastPosition;
     public Joint(HardwareMap hardwareMap){
         jointMotor = hardwareMap.get(DcMotorEx.class,"jointMotor");
         jointMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -30,7 +31,9 @@ public class Joint extends SubsystemBase {
     }
 
     public void setTargetPosition(double targetPosition) {
+
         this.targetPosition = targetPosition;
+        lastPosition = targetPosition;
     }
 
     public void updateJoint() {
@@ -51,6 +54,7 @@ public class Joint extends SubsystemBase {
     public double getCurrentPosition() {
         return jointMotor.getCurrentPosition();
     }
+    public double getLastPosition() { return lastPosition; }
 
     public double getPower() {
         return jointMotor.getPower();

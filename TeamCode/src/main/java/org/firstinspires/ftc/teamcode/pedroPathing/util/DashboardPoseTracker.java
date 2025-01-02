@@ -48,8 +48,8 @@ public class DashboardPoseTracker {
                 xPositions[i] = xPositions[i - 1];
                 yPositions[i] = yPositions[i - 1];
             }
-            xPositions[0] = poseUpdater.getPose().getX();
-            yPositions[0] = poseUpdater.getPose().getY();
+            xPositions[0] = poseUpdater.getPose().getX() - 72;
+            yPositions[0] = poseUpdater.getPose().getY() - 72;
         }
     }
 
