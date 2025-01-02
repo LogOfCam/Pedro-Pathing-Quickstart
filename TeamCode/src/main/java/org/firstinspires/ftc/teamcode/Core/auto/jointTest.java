@@ -71,12 +71,12 @@ public class jointTest extends LinearOpMode {
                 )
         );
 
+        robot.slide.setDefaultCommand(CommandScheduler.getInstance());
+        robot.joint.setDefaultCommand(CommandScheduler.getInstance());
+
         while(opModeIsActive() && !isStopRequested()) {
 
             CommandScheduler.getInstance().run();
-
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
             updateTelemetry();
         }
