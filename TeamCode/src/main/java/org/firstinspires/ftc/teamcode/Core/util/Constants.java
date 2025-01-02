@@ -39,7 +39,7 @@ public class Constants {
     /* ----------- JOINT ----------- */
     public static double jointThreshold = 10;
     public static double jointStartingPosition = 100;
-    public static double jointSpecimenPlacePosition = 1000;
+    public static double jointSpecimenPlacePosition = 1400;
     public static double jointStraightUp = 2600;
     public static double jointSamplePickupPosition = 4900;
     public static double jointMaxPosition = 5000;
@@ -64,6 +64,7 @@ public class Constants {
     public static double wristStartingPosition = 0.85;
     public static double wristPickupPosition = 0.40;
     public static double wristTransferPosition = 0.10;
+    public static double wristPlacePosition = 0.4;
 
     /* ----------- BASKET ----------- */
     public static double basketStartingPosition = 0.30;

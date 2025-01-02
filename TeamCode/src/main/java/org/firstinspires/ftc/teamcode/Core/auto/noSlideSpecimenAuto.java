@@ -23,13 +23,13 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 
 @Autonomous
-public class specimenAuto extends LinearOpMode {
+public class noSlideSpecimenAuto extends LinearOpMode {
 
     private Robot robot;
 
     public static Path[] paths = new Path[16];
     private final Pose placeInitail = new Pose(39, 62, Math.toRadians(180));
-    private final Pose backup = new Pose(38, 62, Math.toRadians(180));
+    private final Pose backup = new Pose(30, 62, Math.toRadians(180));
     private final Pose curveToPush = new Pose(54, 26, Math.toRadians(180));
     private final Point curve1 = new Point(4, 14);
     private final Point curve2 = new Point(66, 53);
@@ -101,14 +101,9 @@ public class specimenAuto extends LinearOpMode {
 
 
                         new ParallelCommandGroup(
-                                new SetSlide(robot.slide, 1000).andThen(
-                                        new ParallelCommandGroup(
-                                                new PathCommand(paths[0]),
-                                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
-                                                new SetSlide(robot.slide, Constants.slideMiddlePosition),
-                                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
-                                        )
-                                )
+                                new PathCommand(paths[0]),
+                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
+                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
                         ),
                         new SetClaw(robot.claw, Constants.clawOpenPosition),
                         new WaitCommand(10),
@@ -141,9 +136,15 @@ public class specimenAuto extends LinearOpMode {
 
         );
 
+        robot.slide.setDefaultCommand(CommandScheduler.getInstance());
+        robot.joint.setDefaultCommand(CommandScheduler.getInstance());
+
         while(opModeIsActive() && !isStopRequested()) {
 
             CommandScheduler.getInstance().run();
+
+            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
+            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
             updateTelemetry();
         }
@@ -156,8 +157,8 @@ public class specimenAuto extends LinearOpMode {
         telemetry.addData("heading", robot.getPose().getHeading());
         telemetry.addData("SlideTarget", robot.slide.getTargetPosition());
         telemetry.addData("SlideCurrent", robot.slide.getCurrentPosition());
-        telemetry.addData("JointTarget", robot.slide.getTargetPosition());
-        telemetry.addData("JointCurrent", robot.slide.getCurrentPosition());
+        telemetry.addData("JointTarget", robot.joint.getTargetPosition());
+        telemetry.addData("JointCurrent", robot.joint.getCurrentPosition());
         telemetry.addData("Claw", robot.claw.getPosition());
         telemetry.addData("Power", robot.slide.getPower());
         telemetry.update();

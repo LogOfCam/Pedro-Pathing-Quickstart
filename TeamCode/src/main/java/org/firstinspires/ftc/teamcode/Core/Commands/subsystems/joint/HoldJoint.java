@@ -23,11 +23,6 @@ public class HoldJoint extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() {
-        return false;
-    }
-
-    @Override
     public void end(boolean interrupted){
         if(!interrupted) {
             joint.setPower(0);

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Core.util.Constants;
 
 public class SetJoint extends CommandBase {
     private final Joint joint;
-    private double targetPosition = 0;
+    private double targetPosition;
     public SetJoint(Joint joint, double targetPosition) {
         if(targetPosition > jointMaxPosition) {targetPosition = jointMaxPosition; }
 
@@ -30,6 +30,6 @@ public class SetJoint extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(joint.getCurrentPosition() - targetPosition) < Constants.jointThreshold;
+        return Math.abs(joint.getCurrentPosition() - targetPosition) <= Constants.jointThreshold;
     }
 }
