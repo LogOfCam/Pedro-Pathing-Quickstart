@@ -66,7 +66,7 @@ public class jointTest extends LinearOpMode {
                         new WaitCommand(5000),
                         new SetJoint(robot.joint, Constants.jointStraightUp), // 2600
                         new WaitCommand(5000),
-                        new SetJoint(robot.joint, Constants.jointTransferPosition) // 2300
+                        new SetJoint(robot.joint, 3000) // 2300
 
                 )
         );
@@ -77,6 +77,9 @@ public class jointTest extends LinearOpMode {
         while(opModeIsActive() && !isStopRequested()) {
 
             CommandScheduler.getInstance().run();
+
+            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
+            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
             updateTelemetry();
         }

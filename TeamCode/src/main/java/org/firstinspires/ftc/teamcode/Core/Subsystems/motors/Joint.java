@@ -23,6 +23,8 @@ public class Joint extends SubsystemBase {
         jointMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         jointMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        setDefaultCommand(new HoldJoint(this));
+
         controller = new PIDController(p,i,d);
     }
 
@@ -41,7 +43,7 @@ public class Joint extends SubsystemBase {
         int currentPosition = jointMotor.getCurrentPosition();
         double pid = controller.calculate(currentPosition, targetPosition);
         //double ff = Math.cos(Math.toRadians(targetPosition / ticksInDegrees)) * f;
-        double power = pid + f; //double power = Math.min(1.0, Math.min(1.0, pid + ff));
+        double power = pid + f;
         setPower(power);
     }
 
@@ -49,7 +51,7 @@ public class Joint extends SubsystemBase {
         jointMotor.setPower(power);
     }
     public double getTargetPosition() {
-        return jointMotor.getTargetPosition();
+        return targetPosition;
     }
     public double getCurrentPosition() {
         return jointMotor.getCurrentPosition();
