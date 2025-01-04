@@ -79,6 +79,18 @@ public class testing extends LinearOpMode {
 
                         new PathCommand(paths[0]),
                         new WaitCommand(500),
+                        new PathCommand(paths[1]),
+                        new PathCommand(paths[0]),
+                        new WaitCommand(500),
+                        new PathCommand(paths[1]),
+                        new PathCommand(paths[0]),
+                        new WaitCommand(500),
+                        new PathCommand(paths[1]),
+                        new PathCommand(paths[0]),
+                        new WaitCommand(500),
+                        new PathCommand(paths[1]),
+                        new PathCommand(paths[0]),
+                        new WaitCommand(500),
                         new PathCommand(paths[1])
 
                 )

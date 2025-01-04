@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Core.Subsystems.motors;
 
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Slide extends SubsystemBase {
     private final DcMotorEx slideMotor;
     private final PIDController controller;
-    double p = 0.006, i = 0, d = 0.0001;
+    double p = 0.01, i = 0, d = 0.0002; // Was 0.006 and .0001
     double f = 0.04;
     double ticksInDegrees = 358.466 / 180;
     private double targetPosition;

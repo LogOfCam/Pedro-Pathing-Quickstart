@@ -7,7 +7,6 @@ public class ButtonHandler {
     private boolean lastStateX_1 = false;
     private boolean lastStateLB_1 = false;
     private boolean lastStateRB_1 = false;
-
     private boolean lastStateDPUP_1 = false;
     private boolean lastStateDPDW_1 = false;
     private boolean lastStateDPLT_1 = false;

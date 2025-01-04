@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierLine;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
@@ -39,20 +40,22 @@ public class StraightBackAndForth extends OpMode {
     private Path forwards;
     private Path backwards;
 
+    private Robot robot;
+
     /**
      * This initializes the Follower and creates the forward and backward Paths. Additionally, this
      * initializes the FTC Dashboard telemetry.
      */
     @Override
     public void init() {
-        //follower = new Follower(hardwareMap);
+        robot.initialize(hardwareMap, telemetry);
 
         forwards = new Path(new BezierLine(new Point(0,0, Point.CARTESIAN), new Point(DISTANCE,0, Point.CARTESIAN)));
         forwards.setConstantHeadingInterpolation(0);
         backwards = new Path(new BezierLine(new Point(DISTANCE,0, Point.CARTESIAN), new Point(0,0, Point.CARTESIAN)));
         backwards.setConstantHeadingInterpolation(0);
 
-        follower.followPath(forwards);
+        robot.followPath(forwards);
 
         telemetryA = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetryA.addLine("This will run the robot in a straight line going " + DISTANCE
@@ -67,18 +70,18 @@ public class StraightBackAndForth extends OpMode {
      */
     @Override
     public void loop() {
-        follower.update();
-        if (!follower.isBusy()) {
+        robot.update();
+        if (!robot.isBusy()) {
             if (forward) {
                 forward = false;
-                follower.followPath(backwards);
+                robot.followPath(backwards);
             } else {
                 forward = true;
-                follower.followPath(forwards);
+                robot.followPath(forwards);
             }
         }
 
         telemetryA.addData("going forward", forward);
-        follower.telemetryDebug(telemetryA);
+        robot.telemetryDebug(telemetryA);
     }
 }

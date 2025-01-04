@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 
-@Autonomous
+@Autonomous(name = "Sample Auto", group = "sampl,e")
 public class sampleAuto extends LinearOpMode {
 
     private Robot robot;

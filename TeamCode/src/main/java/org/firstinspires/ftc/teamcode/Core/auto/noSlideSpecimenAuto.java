@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 
-@Autonomous
+@Autonomous(name = "Specimen Auto (NO SLIDE)", group = "specimen")
 public class noSlideSpecimenAuto extends LinearOpMode {
 
     private Robot robot;
