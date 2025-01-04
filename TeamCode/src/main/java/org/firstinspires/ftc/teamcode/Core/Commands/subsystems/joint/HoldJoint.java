@@ -14,12 +14,11 @@ public class HoldJoint extends CommandBase {
 
     @Override
     public void initialize(){
-        joint.setTargetPosition(joint.getHoldPosition());
+        joint.setTargetPosition(joint.getCurrentPosition());
     }
 
     @Override
     public void execute() {
-
         joint.updateJoint();
     }
 

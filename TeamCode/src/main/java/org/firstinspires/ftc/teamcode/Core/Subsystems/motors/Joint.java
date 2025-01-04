@@ -23,7 +23,7 @@ public class Joint extends SubsystemBase {
         jointMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         jointMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        setDefaultCommand(new HoldJoint(this));
+        //setDefaultCommand(new HoldJoint(this));
 
         controller = new PIDController(p,i,d);
     }
@@ -53,6 +53,7 @@ public class Joint extends SubsystemBase {
     public double getTargetPosition() {
         return targetPosition;
     }
+    public double getActualTargetPosition() {return jointMotor.getTargetPosition(); }
     public double getCurrentPosition() {
         return jointMotor.getCurrentPosition();
     }

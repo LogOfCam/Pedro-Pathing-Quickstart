@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.HoldJoint;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.SetJoint;
 import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
@@ -24,7 +25,6 @@ public class jointTest extends LinearOpMode {
     private final Pose forwardStart = new Pose(0, 0, Math.toRadians(270));
     private final Point midPoint = new Point(0, 30);
     private final Pose end = new Pose(0, 60, Math.toRadians(270));
-    private final Pose backward = new Pose(0, 0, Math.toRadians(270));
 
     public void buildPaths() {
         paths[0] = buildCurve(forwardStart, midPoint, end, HeadingInterpolation.CONSTANT);
@@ -71,25 +71,25 @@ public class jointTest extends LinearOpMode {
                 )
         );
 
-        robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-        robot.joint.setDefaultCommand(CommandScheduler.getInstance());
+        //CommandScheduler.getInstance().setDefaultCommand(robot.joint, new HoldJoint(robot.joint));
+
+        //robot.slide.setDefaultCommand(CommandScheduler.getInstance());
+        //robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
         while(opModeIsActive() && !isStopRequested()) {
 
             CommandScheduler.getInstance().run();
 
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
-
             updateTelemetry();
         }
-
     }
 
     public void updateTelemetry() {
         telemetry.addData("LastPosition", robot.joint.getHoldPosition());
         telemetry.addData("CurrentPosition", robot.joint.getCurrentPosition());
         telemetry.addData("TargetPosition", robot.joint.getTargetPosition());
+        telemetry.addData("ActualTargetPosition", robot.joint.getActualTargetPosition());
+        telemetry.addData("Power", robot.joint.getPower());
         telemetry.update();
     }
 }

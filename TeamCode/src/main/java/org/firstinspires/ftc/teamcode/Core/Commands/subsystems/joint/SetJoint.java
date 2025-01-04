@@ -32,12 +32,4 @@ public class SetJoint extends CommandBase {
     public boolean isFinished() {
         return Math.abs(joint.getCurrentPosition() - targetPosition) <= Constants.jointThreshold;
     }
-
-//    @Override
-//    public void end(boolean interrupted) {
-////        new HoldJoint(joint).schedule();
-//        if(!interrupted) {
-//            joint.setTargetPosition(joint.getHoldPosition());
-//        }
-//    }
 }
