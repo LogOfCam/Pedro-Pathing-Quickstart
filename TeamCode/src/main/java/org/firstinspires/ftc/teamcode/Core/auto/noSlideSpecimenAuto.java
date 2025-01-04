@@ -107,7 +107,13 @@ public class noSlideSpecimenAuto extends LinearOpMode {
                         new PathCommand(paths[5]),
                         new PathCommand(paths[6]),
                         new PathCommand(paths[7]),
-                        new PathCommand(paths[8])
+                      new ParallelCommandGroup(
+                              new PathCommand(paths[8]),
+                              new SetJoint(robot.joint, Constants.jointSamplePickupPosition),
+                              new SetWrist(robot.wrist, Constants.wristPickupPosition ),
+                              new SetClaw(robot.claw, Constants.clawOpenPosition)
+                      )
+
 //                        new WaitCommand(10),
 //                        new PathCommand(paths[9]),
 //                        new WaitCommand(10),
