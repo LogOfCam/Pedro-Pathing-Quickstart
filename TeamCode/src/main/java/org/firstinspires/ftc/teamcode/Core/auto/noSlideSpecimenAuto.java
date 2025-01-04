@@ -70,25 +70,18 @@ public class noSlideSpecimenAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         robot = Robot.getInstance();
 
         robot.initialize(hardwareMap, telemetry);
-
-        CommandScheduler.getInstance().reset();
 
         buildPaths();
 
         while(!isStarted()) {
 
-
             CommandScheduler.getInstance().run();
 
             robot.claw.setPosition(Constants.clawClosedPosition);
             robot.wrist.setPosition(Constants.wristStartingPosition);
-
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
             updateTelemetry();
         }
@@ -136,15 +129,9 @@ public class noSlideSpecimenAuto extends LinearOpMode {
 
         );
 
-        robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-        robot.joint.setDefaultCommand(CommandScheduler.getInstance());
-
         while(opModeIsActive() && !isStopRequested()) {
 
             CommandScheduler.getInstance().run();
-
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
             updateTelemetry();
         }
@@ -155,7 +142,7 @@ public class noSlideSpecimenAuto extends LinearOpMode {
         telemetry.addData("x", robot.getPose().getX());
         telemetry.addData("y", robot.getPose().getY());
         telemetry.addData("heading", robot.getPose().getHeading());
-        telemetry.addData("SlideTarget", robot.slide.getTargetPosition());
+        telemetry.addData("SlideTarget", robot.slide.getActualTargetPosition());
         telemetry.addData("SlideCurrent", robot.slide.getCurrentPosition());
         telemetry.addData("JointTarget", robot.joint.getTargetPosition());
         telemetry.addData("JointCurrent", robot.joint.getCurrentPosition());

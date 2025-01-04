@@ -102,7 +102,6 @@ public class mecanumDrive extends LinearOpMode {
         armTarget = jointMotor.getCurrentPosition();
         clawServo.setPosition(0.6);
 
-
         newTimer.reset();
 
         //Button Handler

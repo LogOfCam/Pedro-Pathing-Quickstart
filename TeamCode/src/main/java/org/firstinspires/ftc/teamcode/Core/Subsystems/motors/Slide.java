@@ -8,8 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.HoldSlide;
-
 public class Slide extends SubsystemBase {
     private final DcMotorEx slideMotor;
     private final PIDController controller;
@@ -27,12 +25,13 @@ public class Slide extends SubsystemBase {
         controller = new PIDController(p,i,d);
     }
 
-    public void setDefaultCommand(CommandScheduler scheduler) {
-        scheduler.setDefaultCommand(this, new HoldSlide(this));
-    }
-
     public void setTargetPosition(double targetPosition) {
         this.targetPosition = targetPosition;
+    }
+
+    @Override
+    public void periodic() {
+        updateSlide();
     }
 
     public void updateSlide() {
@@ -44,17 +43,16 @@ public class Slide extends SubsystemBase {
         setPower(power);
     }
 
-    public void setPower(double power) {
-        slideMotor.setPower(power);
-    }
-    public double getTargetPosition() {
+    public double getActualTargetPosition() {
         return slideMotor.getTargetPosition();
     }
+    public double getTargetPosition() {return targetPosition; }
     public double getCurrentPosition() {
         return slideMotor.getCurrentPosition();
     }
+    public double getPower() { return slideMotor.getPower(); }
 
-    public double getPower() {
-        return slideMotor.getPower();
+    public void setPower(double power) {
+        slideMotor.setPower(power);
     }
 }

@@ -76,7 +76,6 @@ public class ExampleAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         /* Get the actual instance of the robot. It's core. */
 
         robot = Robot.getInstance();
@@ -85,9 +84,6 @@ public class ExampleAuto extends LinearOpMode {
 
         robot.initialize(hardwareMap, telemetry);
 
-        /* Reset any commands - safety thing */
-
-        CommandScheduler.getInstance().reset();
 
         /* Call our paths that we created above us */
 
@@ -106,19 +102,12 @@ public class ExampleAuto extends LinearOpMode {
             robot.claw.setPosition(Constants.clawClosedPosition);
             robot.wrist.setPosition(Constants.wristStartingPosition);
 
-            /*  Set the default command to use the F in PIDF for
-            slide and joint when not running a command. Counteract
-            gravity when not running the command in a schedule */
-
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
-
             /* Call telemetry update */
 
             updateTelemetry();
         }
 
-        /* This setings the Pose of the robot on the field */
+        /* This settings the Pose of the robot on the field */
 
         robot.setPose(Constants.specimenStartPosition);
 
@@ -176,7 +165,7 @@ public class ExampleAuto extends LinearOpMode {
         telemetry.addData("x", robot.getPose().getX());
         telemetry.addData("y", robot.getPose().getY());
         telemetry.addData("heading", robot.getPose().getHeading());
-        telemetry.addData("SlideTarget", robot.slide.getTargetPosition());
+        telemetry.addData("SlideTarget", robot.slide.getActualTargetPosition());
         telemetry.addData("SlideCurrent", robot.slide.getCurrentPosition());
         telemetry.addData("Claw", robot.claw.getPosition());
         telemetry.addData("Power", robot.slide.getPower());

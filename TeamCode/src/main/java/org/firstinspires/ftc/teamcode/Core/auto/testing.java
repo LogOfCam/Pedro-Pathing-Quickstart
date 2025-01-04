@@ -48,12 +48,9 @@ public class testing extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         robot = Robot.getInstance();
 
         robot.initialize(hardwareMap, telemetry);
-
-        CommandScheduler.getInstance().reset();
 
         buildPaths();
 
@@ -63,9 +60,6 @@ public class testing extends LinearOpMode {
 
             robot.claw.setPosition(Constants.clawClosedPosition);
             robot.wrist.setPosition(Constants.wristStartingPosition);
-
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
             updateTelemetry();
 

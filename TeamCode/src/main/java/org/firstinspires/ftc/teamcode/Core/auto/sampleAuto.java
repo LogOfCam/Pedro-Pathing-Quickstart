@@ -55,12 +55,9 @@ public class sampleAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         robot = Robot.getInstance();
 
         robot.initialize(hardwareMap, telemetry);
-
-        CommandScheduler.getInstance().reset();
 
         buildPaths();
 
@@ -71,9 +68,6 @@ public class sampleAuto extends LinearOpMode {
             robot.claw.setPosition(Constants.clawClosedPosition);
             robot.wrist.setPosition(Constants.wristStartingPosition);
             robot.basket.setPosition(Constants.basketStartingPosition);
-
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
             updateTelemetry();
         }
@@ -158,7 +152,7 @@ public class sampleAuto extends LinearOpMode {
         telemetry.addData("x", robot.getPose().getX());
         telemetry.addData("y", robot.getPose().getY());
         telemetry.addData("heading", robot.getPose().getHeading());
-        telemetry.addData("SlideTarget", robot.slide.getTargetPosition());
+        telemetry.addData("SlideTarget", robot.slide.getActualTargetPosition());
         telemetry.addData("SlideCurrent", robot.slide.getCurrentPosition());
         telemetry.addData("JointTarget", robot.joint.getTargetPosition());
         telemetry.addData("JointCurrent", robot.joint.getCurrentPosition());

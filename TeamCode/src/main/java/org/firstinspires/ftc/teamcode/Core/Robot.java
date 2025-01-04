@@ -37,13 +37,9 @@ public class Robot extends Follower {
 
         telemetry = telemetry_;
 
-        this.slide = new Slide(hardwareMap);
-        this.claw = new Claw(hardwareMap);
-        this.joint = new Joint(hardwareMap);
-        this.wrist = new Wrist(hardwareMap);
-        this.basket = new Basket(hardwareMap);
+        CommandScheduler.getInstance().reset(); /* RESETS COMMANDS ( BEFORE REGISTER ) */
+        RegisterSubsystems(hardwareMap);
 
-        CommandScheduler.getInstance().reset();
     }
 
     public static Robot getInstance() {
@@ -52,5 +48,16 @@ public class Robot extends Follower {
             //return instance;
         }
         return instance;
+    }
+
+    public void RegisterSubsystems(HardwareMap hardwareMap) {
+        this.slide = new Slide(hardwareMap);
+        this.claw = new Claw(hardwareMap);
+        this.joint = new Joint(hardwareMap);
+        this.wrist = new Wrist(hardwareMap);
+        this.basket = new Basket(hardwareMap);
+
+        CommandScheduler.getInstance().registerSubsystem(joint);
+        CommandScheduler.getInstance().registerSubsystem(slide);
     }
 }

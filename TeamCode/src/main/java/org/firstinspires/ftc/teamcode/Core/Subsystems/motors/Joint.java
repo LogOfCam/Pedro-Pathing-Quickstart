@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.HoldJoint;
-
 public class Joint extends SubsystemBase {
     private final DcMotorEx jointMotor;
     private final PIDController controller;
@@ -16,26 +14,24 @@ public class Joint extends SubsystemBase {
     double f = 0.03;
     double ticksInDegrees = 285 / 180;
     private double targetPosition;
-    private double holdPosition;
+
     public Joint(HardwareMap hardwareMap){
         jointMotor = hardwareMap.get(DcMotorEx.class,"jointMotor");
         jointMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         jointMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         jointMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //setDefaultCommand(new HoldJoint(this));
-
         controller = new PIDController(p,i,d);
-    }
-
-    public void setDefaultCommand(CommandScheduler scheduler) {
-        scheduler.setDefaultCommand(this, new HoldJoint(this));
     }
 
     public void setTargetPosition(double targetPosition) {
 
         this.targetPosition = targetPosition;
-        holdPosition = targetPosition;
+    }
+
+    @Override
+    public void periodic() {
+        updateJoint();
     }
 
     public void updateJoint() {
@@ -45,11 +41,9 @@ public class Joint extends SubsystemBase {
         //double ff = Math.cos(Math.toRadians(targetPosition / ticksInDegrees)) * f;
         double power = pid + f;
         setPower(power);
+
     }
 
-    public void setPower(double power) {
-        jointMotor.setPower(power);
-    }
     public double getTargetPosition() {
         return targetPosition;
     }
@@ -57,9 +51,11 @@ public class Joint extends SubsystemBase {
     public double getCurrentPosition() {
         return jointMotor.getCurrentPosition();
     }
-    public double getHoldPosition () { return holdPosition; }
-
     public double getPower() {
         return jointMotor.getPower();
+    }
+
+    public void setPower(double power) {
+        jointMotor.setPower(power);
     }
 }

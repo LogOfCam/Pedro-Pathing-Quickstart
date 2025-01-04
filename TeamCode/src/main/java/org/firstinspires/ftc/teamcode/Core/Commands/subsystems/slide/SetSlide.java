@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.Core.util.Constants;
 public class SetSlide extends CommandBase {
     private final Slide slide;
     private double targetPosition = 0;
-
     public SetSlide(Slide slide, double targetPosition) {
         if(targetPosition > slideMaxPosition) {targetPosition = slideMaxPosition; }
 
@@ -17,11 +16,6 @@ public class SetSlide extends CommandBase {
         this.slide = slide;
 
         addRequirements(slide);
-    }
-
-    @Override
-    public void execute() {
-        slide.updateSlide();
     }
 
     @Override

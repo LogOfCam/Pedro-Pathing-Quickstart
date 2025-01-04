@@ -70,12 +70,9 @@ public class specimenAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         robot = Robot.getInstance();
 
         robot.initialize(hardwareMap, telemetry);
-
-        CommandScheduler.getInstance().reset();
 
         buildPaths();
 
@@ -86,10 +83,6 @@ public class specimenAuto extends LinearOpMode {
 
             robot.claw.setPosition(Constants.clawClosedPosition);
             robot.wrist.setPosition(Constants.wristStartingPosition);
-
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
-
             updateTelemetry();
         }
 
@@ -154,9 +147,9 @@ public class specimenAuto extends LinearOpMode {
         telemetry.addData("x", robot.getPose().getX());
         telemetry.addData("y", robot.getPose().getY());
         telemetry.addData("heading", robot.getPose().getHeading());
-        telemetry.addData("SlideTarget", robot.slide.getTargetPosition());
+        telemetry.addData("SlideTarget", robot.slide.getActualTargetPosition());
         telemetry.addData("SlideCurrent", robot.slide.getCurrentPosition());
-        telemetry.addData("JointTarget", robot.slide.getTargetPosition());
+        telemetry.addData("JointTarget", robot.slide.getActualTargetPosition());
         telemetry.addData("JointCurrent", robot.slide.getCurrentPosition());
         telemetry.addData("Claw", robot.claw.getPosition());
         telemetry.addData("Power", robot.slide.getPower());

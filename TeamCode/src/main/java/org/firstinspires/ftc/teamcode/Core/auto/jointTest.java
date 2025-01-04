@@ -9,8 +9,8 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.HoldJoint;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.SetJoint;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.SetSlide;
 import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
@@ -33,12 +33,9 @@ public class jointTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         robot = Robot.getInstance();
 
         robot.initialize(hardwareMap, telemetry);
-
-        CommandScheduler.getInstance().reset();
 
         buildPaths();
 
@@ -49,9 +46,8 @@ public class jointTest extends LinearOpMode {
             robot.claw.setPosition(Constants.clawClosedPosition);
             robot.wrist.setPosition(Constants.wristStartingPosition);
 
-            robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-            robot.joint.setDefaultCommand(CommandScheduler.getInstance());
-
+            telemetry.addLine("INITIALIZED");
+            telemetry.addLine("");
             updateTelemetry();
         }
 
@@ -60,32 +56,31 @@ public class jointTest extends LinearOpMode {
         CommandScheduler.getInstance().schedule(
 
                 new SequentialCommandGroup(
-
-
-                        new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition), // 1400
-                        new WaitCommand(5000),
-                        new SetJoint(robot.joint, Constants.jointStraightUp), // 2600
-                        new WaitCommand(5000),
-                        new SetJoint(robot.joint, 3000) // 2300
-
+                        new SetSlide(robot.slide, Constants.slideMaxPosition),
+                        new WaitCommand(3000),
+                        new SetJoint(robot.joint, Constants.jointStraightUp), // 1400
+                        new WaitCommand(3000),
+                        new SetSlide(robot.slide, Constants.slideMinPosition),
+                        new WaitCommand(3000),
+                        new SetJoint(robot.joint, Constants.jointTransferPosition), // 2600
+                        new WaitCommand(3000),
+                        new SetJoint(robot.joint, Constants.jointStraightUp), // 2300
+                        new WaitCommand(3000),
+                        new SetSlide(robot.slide, Constants.slideHighBasketPosition)
                 )
         );
-
-        //CommandScheduler.getInstance().setDefaultCommand(robot.joint, new HoldJoint(robot.joint));
-
-        //robot.slide.setDefaultCommand(CommandScheduler.getInstance());
-        //robot.joint.setDefaultCommand(CommandScheduler.getInstance());
 
         while(opModeIsActive() && !isStopRequested()) {
 
             CommandScheduler.getInstance().run();
 
+            telemetry.addLine("RUNNING");
+            telemetry.addLine("");
             updateTelemetry();
         }
     }
 
     public void updateTelemetry() {
-        telemetry.addData("LastPosition", robot.joint.getHoldPosition());
         telemetry.addData("CurrentPosition", robot.joint.getCurrentPosition());
         telemetry.addData("TargetPosition", robot.joint.getTargetPosition());
         telemetry.addData("ActualTargetPosition", robot.joint.getActualTargetPosition());
