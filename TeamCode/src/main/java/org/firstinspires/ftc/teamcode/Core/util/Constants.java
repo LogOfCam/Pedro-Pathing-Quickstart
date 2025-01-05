@@ -11,16 +11,13 @@ public class Constants {
 
     /* ----------- TELEOP ----------- */
 
+    public static double driveFastMultiplier = 0.65;
+    public static double driveSlowMultiplier = 0.25;
+
     //TODO: ADD STUFF
 
     /* ----------- AUTO ----------- */
 
-    /* ----------- Pinpoint Fix (remove eventually) ----------- */
-
-    public static double forwardOffsetMM_X = -120.000014;
-    public static double forwardOffsetMM_Y = -135.999982;
-    public static double strafeOffsetMM_X = -120.000014;
-    public static double strafeOffsetMM_Y = -135.999982;
 
     /* ----------- Pinpoint ----------- */
 
@@ -43,6 +40,7 @@ public class Constants {
     public static double jointStraightUp = 2600;
     public static double jointSamplePickupPosition = 4900;
     public static double jointMaxPosition = 5000;
+    public static double jointMinPosition = 50;
     public static double jointTransferPosition = 2300;
 
     /* ----------- SLIDE ----------- */

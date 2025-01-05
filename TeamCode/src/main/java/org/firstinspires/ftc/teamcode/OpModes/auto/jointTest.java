@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Core.auto;
+package org.firstinspires.ftc.teamcode.OpModes.auto;
 
 import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.HeadingInterpolation;
 import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.buildCurve;
@@ -10,8 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.SetJoint;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.SetSlide;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetJoint;
 import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
@@ -83,24 +82,14 @@ public class jointTest extends LinearOpMode {
                 )
         );
 
-        int cycles;
-        cycles = 0;
-
         while(opModeIsActive() && !isStopRequested()) {
-
-            cycles++;
 
             CommandScheduler.getInstance().run();
 
             telemetry.addLine("RUNNING");
             telemetry.addLine("");
-            t1 = timer.milliseconds() / cycles;
-            telemetry.addData("Cycles", cycles);
-            telemetry.addData("Loop", t1);
             updateTelemetry();
         }
-
-
     }
 
     public void updateTelemetry() {

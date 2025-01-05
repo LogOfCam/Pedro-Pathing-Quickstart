@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide;
+package org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors;
 
 import static org.firstinspires.ftc.teamcode.Core.util.Constants.slideMaxPosition;
 

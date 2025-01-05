@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.aoldcode;
+package org.firstinspires.ftc.teamcode.OpModes.aoldcode;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
@@ -8,8 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.aoldcode.ButtonHandler;
 
 @TeleOp
 public class mecanumDrive extends LinearOpMode {

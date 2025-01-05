@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Core.auto;
+package org.firstinspires.ftc.teamcode.OpModes.auto;
 
 import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.HeadingInterpolation;
 import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.buildCurve;
@@ -10,15 +10,11 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.drive.PathCommand;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.SetJoint;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetClaw;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetWrist;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.SetSlide;
+import org.firstinspires.ftc.teamcode.Core.Commands.PedroCommands.PathCommand;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetJoint;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetSlide;
 import org.firstinspires.ftc.teamcode.Core.Robot;
-import org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;

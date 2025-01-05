@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.aoldcode;
+package org.firstinspires.ftc.teamcode.OpModes.aoldcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -12,30 +12,30 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 @Disabled
 @Config
 @TeleOp
-public class slidepidtester extends OpMode {
+public class jointpidtester extends OpMode {
     private PIDController controller;
-    public static double p = 0.01, i = 0, d = 0.0002;
-    public static double f = 0.04;
+    public static double p = 0.0035, i = 0, d = 0.0002;
+    public static double f = 0.03;
     public static int target = 0;
-    private final double ticksInDegree = 358.466 / 180; //1425
-    private DcMotorEx slideMotor;
+    private final double ticksInDegree = 285 / 180; //1425
+    private DcMotorEx jointMotor;
     @Override
     public void init() {
         controller = new PIDController(p,i,d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        slideMotor = hardwareMap.get(DcMotorEx.class, "slideMotor");
+        jointMotor = hardwareMap.get(DcMotorEx.class, "jointMotor");
 
     }
 
     @Override
     public void loop() {
         controller.setPID(p,i,d);
-        int slidePos = slideMotor.getCurrentPosition();
+        int slidePos = jointMotor.getCurrentPosition();
         double pid = controller.calculate(slidePos,target);
-        double ff = Math.cos(Math.toRadians(target / ticksInDegree)) * f;
+        //double ff = Math.cos(Math.toRadians(target / ticksInDegree)) * f;
         double power = pid + f;
-        slideMotor.setPower(power);
+        jointMotor.setPower(power);
 
         telemetry.addData("pos", slidePos);
         telemetry.addData("target", target);

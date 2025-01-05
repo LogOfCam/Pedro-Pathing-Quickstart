@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Core.Subsystems.motors.Drive;
 import org.firstinspires.ftc.teamcode.Core.Subsystems.servos.Basket;
 import org.firstinspires.ftc.teamcode.Core.Subsystems.servos.Claw;
 import org.firstinspires.ftc.teamcode.Core.Subsystems.motors.Joint;
@@ -16,6 +17,7 @@ public class Robot extends Follower {
 
     public Telemetry telemetry;
     private ElapsedTime runtime = new ElapsedTime();
+    public Drive drive;
     public Slide slide;
     public Claw claw;
     public Joint joint;
@@ -51,6 +53,7 @@ public class Robot extends Follower {
     }
 
     public void RegisterSubsystems(HardwareMap hardwareMap) {
+        this.drive = new Drive(hardwareMap);
         this.slide = new Slide(hardwareMap);
         this.claw = new Claw(hardwareMap);
         this.joint = new Joint(hardwareMap);

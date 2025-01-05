@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Core.auto;
+package org.firstinspires.ftc.teamcode.OpModes.auto;
 
 import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.HeadingInterpolation;
 import static org.firstinspires.ftc.teamcode.Core.util.AutonomousHelpers.buildCurve;
@@ -11,25 +11,25 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.drive.PathCommand;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.joint.SetJoint;
+import org.firstinspires.ftc.teamcode.Core.Commands.PedroCommands.PathCommand;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetJoint;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetClaw;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetWrist;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.slide.SetSlide;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetSlide;
 import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 
-@Autonomous(name = "Specimen Auto (NO SLIDE)", group = "specimen")
-public class noSlideSpecimenAuto extends LinearOpMode {
+@Autonomous(name = "Specimen Auto", group = "specimen")
+public class specimenAuto extends LinearOpMode {
 
     private Robot robot;
 
     public static Path[] paths = new Path[16];
     private final Pose placeInitail = new Pose(39, 62, Math.toRadians(180));
-    private final Pose backup = new Pose(30, 62, Math.toRadians(180));
+    private final Pose backup = new Pose(38, 62, Math.toRadians(180));
     private final Pose curveToPush = new Pose(54, 26, Math.toRadians(180));
     private final Point curve1 = new Point(4, 14);
     private final Point curve2 = new Point(66, 53);
@@ -78,11 +78,11 @@ public class noSlideSpecimenAuto extends LinearOpMode {
 
         while(!isStarted()) {
 
+
             CommandScheduler.getInstance().run();
 
             robot.claw.setPosition(Constants.clawClosedPosition);
             robot.wrist.setPosition(Constants.wristStartingPosition);
-
             updateTelemetry();
         }
 
@@ -94,9 +94,14 @@ public class noSlideSpecimenAuto extends LinearOpMode {
 
 
                         new ParallelCommandGroup(
-                                new PathCommand(paths[0]),
-                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
-                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
+                                new SetSlide(robot.slide, 1000).andThen(
+                                        new ParallelCommandGroup(
+                                                new PathCommand(paths[0]),
+                                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
+                                                new SetSlide(robot.slide, Constants.slideMiddlePosition),
+                                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
+                                        )
+                                )
                         ),
                         new SetClaw(robot.claw, Constants.clawOpenPosition),
                         new WaitCommand(10),
@@ -144,8 +149,8 @@ public class noSlideSpecimenAuto extends LinearOpMode {
         telemetry.addData("heading", robot.getPose().getHeading());
         telemetry.addData("SlideTarget", robot.slide.getActualTargetPosition());
         telemetry.addData("SlideCurrent", robot.slide.getCurrentPosition());
-        telemetry.addData("JointTarget", robot.joint.getTargetPosition());
-        telemetry.addData("JointCurrent", robot.joint.getCurrentPosition());
+        telemetry.addData("JointTarget", robot.slide.getActualTargetPosition());
+        telemetry.addData("JointCurrent", robot.slide.getCurrentPosition());
         telemetry.addData("Claw", robot.claw.getPosition());
         telemetry.addData("Power", robot.slide.getPower());
         telemetry.update();
