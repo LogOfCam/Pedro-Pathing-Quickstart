@@ -70,7 +70,8 @@ public class MecanumDrive extends CommandOpMode {
 
         ManualJointControl jointControl = new ManualJointControl(
                 robot.joint,
-                () -> operator.getRightX()
+                () -> operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER),
+                () -> operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)
         );
 
         register(robot.joint);
@@ -78,8 +79,7 @@ public class MecanumDrive extends CommandOpMode {
 
         ManualSlideControl slideControl = new ManualSlideControl(
                 robot.slide,
-                () -> operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER),
-                () -> operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)
+                () -> operator.getLeftY()
         );
 
         register(robot.slide);
