@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.Core.Commands.automation;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetJoint;
-import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetSlide;
 import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 
