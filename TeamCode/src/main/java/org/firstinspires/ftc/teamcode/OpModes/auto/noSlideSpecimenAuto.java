@@ -27,9 +27,9 @@ public class noSlideSpecimenAuto extends LinearOpMode {
     private Robot robot;
 
     public static Path[] paths = new Path[16];
-    private final Pose placeInitail = new Pose(39, 62, Math.toRadians(180));
+    private final Pose placeInitial = new Pose(39, 62, Math.toRadians(180));
     private final Pose backup = new Pose(30, 62, Math.toRadians(180));
-    private final Pose curveToPush = new Pose(54, 26, Math.toRadians(180));
+    private final Pose curveToPush = new Pose(54, 24, Math.toRadians(180));
     private final Point curve1 = new Point(4, 14);
     private final Point curve2 = new Point(66, 53);
     private final Pose pushSample1 = new Pose(18, 26, Math.toRadians(180));
@@ -39,32 +39,42 @@ public class noSlideSpecimenAuto extends LinearOpMode {
     private final Pose lineupSample3 = new Pose(54, 8,Math.toRadians(180));
     private final Point lineup2 = new Point(64, 22);
     private final Pose pushSample3 = new Pose(18, 8, Math.toRadians(180));
-    private final Pose lineuptoPickup = new Pose(17, 46, Math.toRadians(225));
+    private final Pose pickupPosition = new Pose(18, 43, Math.toRadians(225));
     private final Point pickup1 = new Point(36, 27);
+    private final Pose placePosition = new Pose(36, 62, Math.toRadians(200));
+    private final Pose backupForPickup = new Pose(30, 62, Math.toRadians(225));
+
     private final Pose placeSpeciman2 = new Pose(40, 64, Math.toRadians(180));
     private final Pose placeSpeciman3 = new Pose(40,66, Math.toRadians(180));
     private final Pose placeSpeciman4 = new Pose(40,68, Math.toRadians(180));
     private final Pose placeSpeciman5 = new Pose(40,70, Math.toRadians(180));
     public void buildPaths() {
-        paths[0] = buildLine(Constants.specimenStartPosition,placeInitail, HeadingInterpolation.CONSTANT);
-        paths[1] = buildLine(placeInitail ,backup, HeadingInterpolation.CONSTANT);
+        paths[0] = buildLine(Constants.specimenStartPosition, placeInitial, HeadingInterpolation.CONSTANT);
+        paths[1] = buildLine(placeInitial,backup, HeadingInterpolation.CONSTANT);
 
         paths[2] = buildCurve(backup,curve1, curve2 ,curveToPush, HeadingInterpolation.CONSTANT);
         paths[3] = buildLine(curveToPush, pushSample1,HeadingInterpolation.CONSTANT);
         paths[4] = buildCurve(pushSample1,lineup1, lineupSample2,HeadingInterpolation.CONSTANT);
         paths[5] = buildLine(lineupSample2,pushSample2, HeadingInterpolation.CONSTANT);
-        paths[6] = buildCurve(pushSample2,lineup2, lineupSample3,HeadingInterpolation.CONSTANT);
-        paths[7] = buildLine(lineupSample3, pushSample3, HeadingInterpolation.CONSTANT);
+        paths[6] = buildCurve(pushSample2,pickup1, pickupPosition, HeadingInterpolation.LINEAR);
 
-        paths[8] = buildCurve(pushSample3,pickup1,lineuptoPickup, HeadingInterpolation.LINEAR);
+        //Place #2
 
-        paths[9] = buildLine(lineuptoPickup, placeSpeciman2, HeadingInterpolation.LINEAR);
-        paths[10] = buildLine(placeSpeciman2, lineuptoPickup, HeadingInterpolation.LINEAR);
-        paths[11] = buildLine(lineuptoPickup, placeSpeciman3,HeadingInterpolation.LINEAR);
-        paths[12] = buildLine(placeSpeciman3,lineuptoPickup,HeadingInterpolation.LINEAR);
-        paths[13] = buildLine(lineuptoPickup,placeSpeciman4,HeadingInterpolation.LINEAR);
-        paths[14] = buildLine(placeSpeciman4,lineuptoPickup,HeadingInterpolation.LINEAR);
-        paths[15] = buildLine(lineuptoPickup,placeSpeciman5,HeadingInterpolation.LINEAR);
+        paths[7] = buildLine(pickupPosition, placePosition, HeadingInterpolation.LINEAR);
+        paths[8] = buildLine(placePosition, backupForPickup, HeadingInterpolation.LINEAR);
+        paths[9] = buildLine(backupForPickup, pickupPosition, HeadingInterpolation.CONSTANT);
+
+        // Place #3
+        paths[10] = buildLine(pickupPosition, placePosition, HeadingInterpolation.LINEAR);
+        paths[11] = buildLine(placePosition, backupForPickup, HeadingInterpolation.LINEAR);
+        paths[12] = buildLine(backupForPickup, pickupPosition, HeadingInterpolation.CONSTANT);
+
+        // Place #4
+        paths[13] = buildLine(pickupPosition, placePosition, HeadingInterpolation.LINEAR);
+        paths[14] = buildLine(placePosition, backupForPickup, HeadingInterpolation.LINEAR);
+        paths[15] = buildLine(backupForPickup, pickupPosition, HeadingInterpolation.CONSTANT);
+
+
     }
 
     @Override
@@ -104,25 +114,52 @@ public class noSlideSpecimenAuto extends LinearOpMode {
                         new PathCommand(paths[3]),
                         new PathCommand(paths[4]),
                         new PathCommand(paths[5]),
-                        new PathCommand(paths[6]),
-                        new PathCommand(paths[7]),
-                        new PathCommand(paths[8])
-//                        new WaitCommand(10),
-//                        new PathCommand(paths[9]),
-//                        new WaitCommand(10),
-//                        new PathCommand(paths[10]),
-//                        new WaitCommand(10),
-//                        new PathCommand(paths[11]),
-//                        new WaitCommand(10),
-//                        new PathCommand(paths[12]),
-//                        new WaitCommand(10),
-//                        new PathCommand(paths[13]),
-//                        new WaitCommand(10),
-//                        new PathCommand(paths[14]),
-//                        new WaitCommand(10),
-//                        new PathCommand(paths[15]),
-//                        new WaitCommand(10)
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[6]),
+                                new SetJoint(robot.joint, Constants.jointSpecimenWaitPosition),
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition ),
+                                new SetClaw(robot.claw, Constants.clawOpenPosition)
+                        ),
+                        new WaitCommand(50),
+                        new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition),
+                        new WaitCommand(500),
+                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+                        new WaitCommand(500),
+                        // Place Second
+                        new SetJoint(robot.joint, Constants.jointStraightUp).andThen(
+                                new ParallelCommandGroup(
+                                        new PathCommand(paths[7]),
+                                        new SetWrist(robot.wrist, Constants.wristPlacePosition),
+                                        new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
+                                )
+                        ),
+                        new SetClaw(robot.claw, Constants.clawOpenPosition),
+                        new WaitCommand(50),
+                        new PathCommand(paths[8]),
 
+                        // Pickup Third
+
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[9]),
+                                new SetJoint(robot.joint, Constants.jointSpecimenTempPosition),
+                                new SetClaw(robot.claw, Constants.clawOpenPosition),
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition)
+                        ),
+                        new WaitCommand(50),
+                        new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition),
+                        new WaitCommand(500),
+                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+                        new WaitCommand(500),
+
+                        // Place third
+
+                        new SetJoint(robot.joint, Constants.jointStraightUp).andThen(
+                                new ParallelCommandGroup(
+                                        new SetWrist(robot.wrist, Constants.wristPlacePosition),
+                                        new PathCommand(paths[10]),
+                                        new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
+                                )
+                        )
                 )
 
 

@@ -22,9 +22,9 @@ public class ManualJointControl extends CommandBase {
     @Override
     public void execute() {
         if(up.getAsDouble() > 0 && joint.getCurrentPosition() < Constants.jointMaxPosition) {
-            joint.setTargetPosition(joint.getTargetPosition() + (2 * up.getAsDouble()));
+            joint.setTargetPosition(joint.getTargetPosition() + (10 * up.getAsDouble()));
         } else if (down.getAsDouble() > 0 && joint.getCurrentPosition() > Constants.jointMinPosition) {
-            joint.setTargetPosition(joint.getTargetPosition() - (2 * down.getAsDouble()));
+            joint.setTargetPosition(joint.getTargetPosition() - (10 * down.getAsDouble()));
         }
     }
 }

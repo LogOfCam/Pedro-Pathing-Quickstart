@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.Core.util;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 
+@Config
 public class Constants {
 
     /* ----------- NAMES ----------- */
@@ -34,11 +37,16 @@ public class Constants {
     /* ------- MOTOR SECTION ------- */
 
     /* ----------- JOINT ----------- */
-    public static double jointThreshold = 10;
+
+    public static double kP = 0.03, kI = 0, kD = 0.000, kF = 0.0025;
+    public static double jointThreshold = 25;
     public static double jointStartingPosition = 100;
-    public static double jointSpecimenPlacePosition = 1400;
+    public static double jointSpecimenPlacePosition = 1450;
     public static double jointStraightUp = 2600;
     public static double jointSamplePickupPosition = 4900;
+    public static double jointSpecimenWaitPosition = 4500;
+    public static double jointSpecimenPickupPosition = 4775;
+    public static double jointSpecimenTempPosition = 2000;
     public static double jointMaxPosition = 5000;
     public static double jointMinPosition = 50;
     public static double jointTransferPosition = 2300;

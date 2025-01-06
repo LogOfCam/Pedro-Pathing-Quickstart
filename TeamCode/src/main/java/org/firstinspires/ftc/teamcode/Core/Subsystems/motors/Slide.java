@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.Core.util.Constants;
+
 public class Slide extends SubsystemBase {
     private final DcMotorEx slideMotor;
     private final PIDController controller;
@@ -25,7 +27,8 @@ public class Slide extends SubsystemBase {
     }
 
     public void setTargetPosition(double targetPosition) {
-        this.targetPosition = targetPosition;
+
+        this.targetPosition = Math.max(Constants.slideMinPosition, (Math.min(Constants.slideMaxPosition, targetPosition)));;
     }
 
     @Override

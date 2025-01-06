@@ -8,11 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.Core.util.Constants;
+
 import java.util.List;
 
 public class Joint extends SubsystemBase {
     private final DcMotorEx jointMotor;
-    private final PIDFController controller;
+    private final PIDController controller;
     double p = 0.0035, i = 0, d = 0.0002; // Was .004
     double f = 0.03;
     double ticksInDegrees = 285.0 / 180;
@@ -25,30 +27,25 @@ public class Joint extends SubsystemBase {
 
         //initializeLynxModule(hardwareMap);
 
-        controller = new PIDFController(p,i,d,f);
+        controller = new PIDController(p, i, d);
     }
 
     public void setTargetPosition(double targetPosition) {
 
-        this.targetPosition = targetPosition;
+        this.targetPosition = Math.max(Constants.jointMinPosition, (Math.min(Constants.jointMaxPosition, targetPosition)));
     }
 
     @Override
     public void periodic() {
-        updateJoint();
-    }
-
-    public void updateJoint() {
         int currentPosition = jointMotor.getCurrentPosition();
 
         //if (Math.abs(currentPosition - targetPosition) <= 300) { p = 0.002; } else { p = 0.004; }
-        //controller.setPID(p,i,d);
+        controller.setPID(p,i,d);
 
-        //double pid = controller.calculate(currentPosition, targetPosition);
+        double pid = controller.calculate(currentPosition, targetPosition);
         //double ff = Math.cos(Math.toRadians(targetPosition / ticksInDegrees)) * f;
-        double power = controller.calculate(jointMotor.getCurrentPosition(), targetPosition * ticksInDegrees);
+        double power = pid + f;
         setPower(power);
-
     }
 
     public void initializeLynxModule(HardwareMap hardwareMap) {

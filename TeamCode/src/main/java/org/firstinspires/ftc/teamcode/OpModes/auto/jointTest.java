@@ -62,23 +62,11 @@ public class jointTest extends LinearOpMode {
         CommandScheduler.getInstance().schedule(
 
                 new SequentialCommandGroup(
-//                        new SetSlide(robot.slide, Constants.slideMaxPosition),
-//                        new WaitCommand(3000),
-//                        new SetJoint(robot.joint, Constants.jointStraightUp), // 1400
-//                        new WaitCommand(3000),
-//                        new SetSlide(robot.slide, Constants.slideMinPosition),
-//                        new WaitCommand(3000),
-//                        new SetJoint(robot.joint, Constants.jointTransferPosition), // 2600
-//                        new WaitCommand(3000),
-//                        new SetJoint(robot.joint, Constants.jointStraightUp), // 2300
-//                        new WaitCommand(3000),
-//                        new SetSlide(robot.slide, Constants.slideHighBasketPosition)
-
-                        new SetJoint(robot.joint, 1400),
+                        new SetJoint(robot.joint, 500),
                         new WaitCommand(3000),
-                        new SetJoint(robot.joint, 2300),
+                        new SetJoint(robot.joint, 1500),
                         new WaitCommand(3000),
-                        new SetJoint(robot.joint, 3000 )
+                        new SetJoint(robot.joint, 3000)
                 )
         );
 
