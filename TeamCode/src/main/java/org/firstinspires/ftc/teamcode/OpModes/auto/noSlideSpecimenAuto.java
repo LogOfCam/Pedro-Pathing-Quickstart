@@ -102,36 +102,36 @@ public class noSlideSpecimenAuto extends LinearOpMode {
                 new SequentialCommandGroup(
 
 
-                        new ParallelCommandGroup(
+//                        new ParallelCommandGroup(
                                 new PathCommand(paths[0]),
-                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
-                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
-                        ),
-                        new SetClaw(robot.claw, Constants.clawOpenPosition),
-                        new WaitCommand(10),
+//                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
+//                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
+//                        ),
+//                        new SetClaw(robot.claw, Constants.clawOpenPosition),
+                        //new WaitCommand(10),
                         new PathCommand(paths[1]),
                         new PathCommand(paths[2]),
                         new PathCommand(paths[3]),
                         new PathCommand(paths[4]),
                         new PathCommand(paths[5]),
-                        new ParallelCommandGroup(
-                                new PathCommand(paths[6]),
-                                new SetJoint(robot.joint, Constants.jointSpecimenWaitPosition),
-                                new SetWrist(robot.wrist, Constants.wristPickupPosition ),
-                                new SetClaw(robot.claw, Constants.clawOpenPosition)
-                        ),
-                        new WaitCommand(50),
-                        new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition),
-                        new WaitCommand(500),
-                        new SetClaw(robot.claw, Constants.clawClosedPosition),
-                        new WaitCommand(500),
-                        // Place Second
-                        new SetJoint(robot.joint, Constants.jointStraightUp).andThen(
-                                new ParallelCommandGroup(
-                                        new PathCommand(paths[7]),
-                                        new SetWrist(robot.wrist, Constants.wristPlacePosition),
-                                        new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
-                                )
+  //                      new ParallelCommandGroup(
+                                new PathCommand(paths[6])
+//                                new SetJoint(robot.joint, Constants.jointSpecimenWaitPosition),
+//                                new SetWrist(robot.wrist, Constants.wristPickupPosition ),
+//                                new SetClaw(robot.claw, Constants.clawOpenPosition)
+//                        ),
+//                        new WaitCommand(50),
+//                        new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition),
+//                        new WaitCommand(500),
+//                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+//                        new WaitCommand(500),
+//                        // Place Second
+//                        new SetJoint(robot.joint, Constants.jointStraightUp).andThen(
+//                                new ParallelCommandGroup(
+//                                        new PathCommand(paths[7]),
+//                                        new SetWrist(robot.wrist, Constants.wristPlacePosition),
+//                                        new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
+//                                )
                         ),
                         new SetClaw(robot.claw, Constants.clawOpenPosition),
                         new WaitCommand(50),
@@ -160,7 +160,7 @@ public class noSlideSpecimenAuto extends LinearOpMode {
                                         new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
                                 )
                         )
-                )
+      //          )
 
 
         );
