@@ -30,8 +30,8 @@ public class noSlideSpecimenAuto extends LinearOpMode {
     private final Pose placeInitial = new Pose(39, 62, Math.toRadians(180));
     private final Pose backup = new Pose(30, 62, Math.toRadians(180));
     private final Pose curveToPush = new Pose(54, 24, Math.toRadians(180));
-    private final Point curve1 = new Point(4, 14);
-    private final Point curve2 = new Point(66, 53);
+    private final Point curve1 = new Point(4, 10);
+    private final Point curve2 = new Point(66, 49);
     private final Pose pushSample1 = new Pose(18, 26, Math.toRadians(180));
     private final Pose lineupSample2 = new Pose(54, 13, Math.toRadians(180));
     private final Point lineup1 = new Point(64, 34);
@@ -89,8 +89,8 @@ public class noSlideSpecimenAuto extends LinearOpMode {
 
             CommandScheduler.getInstance().run();
 
-            robot.claw.setPosition(Constants.clawClosedPosition);
-            robot.wrist.setPosition(Constants.wristStartingPosition);
+//            robot.claw.setPosition(Constants.clawClosedPosition);
+//            robot.wrist.setPosition(Constants.wristStartingPosition);
 
             updateTelemetry();
         }
@@ -102,7 +102,7 @@ public class noSlideSpecimenAuto extends LinearOpMode {
                 new SequentialCommandGroup(
 
 
-//                        new ParallelCommandGroup(
+  //                      new ParallelCommandGroup(
                                 new PathCommand(paths[0]),
 //                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
 //                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
@@ -113,9 +113,9 @@ public class noSlideSpecimenAuto extends LinearOpMode {
                         new PathCommand(paths[2]),
                         new PathCommand(paths[3]),
                         new PathCommand(paths[4]),
-                        new PathCommand(paths[5]),
+                        new PathCommand(paths[5])
   //                      new ParallelCommandGroup(
-                                new PathCommand(paths[6])
+    //                            new PathCommand(paths[6])
 //                                new SetJoint(robot.joint, Constants.jointSpecimenWaitPosition),
 //                                new SetWrist(robot.wrist, Constants.wristPickupPosition ),
 //                                new SetClaw(robot.claw, Constants.clawOpenPosition)
@@ -132,34 +132,34 @@ public class noSlideSpecimenAuto extends LinearOpMode {
 //                                        new SetWrist(robot.wrist, Constants.wristPlacePosition),
 //                                        new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
 //                                )
-                        ),
-                        new SetClaw(robot.claw, Constants.clawOpenPosition),
-                        new WaitCommand(50),
-                        new PathCommand(paths[8]),
+                        )
+//                        new SetClaw(robot.claw, Constants.clawOpenPosition),
+//                        new WaitCommand(50),
+//                        new PathCommand(paths[8]),
 
                         // Pickup Third
 
-                        new ParallelCommandGroup(
-                                new PathCommand(paths[9]),
-                                new SetJoint(robot.joint, Constants.jointSpecimenTempPosition),
-                                new SetClaw(robot.claw, Constants.clawOpenPosition),
-                                new SetWrist(robot.wrist, Constants.wristPickupPosition)
-                        ),
-                        new WaitCommand(50),
-                        new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition),
-                        new WaitCommand(500),
-                        new SetClaw(robot.claw, Constants.clawClosedPosition),
-                        new WaitCommand(500),
+ //                       new ParallelCommandGroup(
+//                                new PathCommand(paths[9]),
+//                                new SetJoint(robot.joint, Constants.jointSpecimenTempPosition),
+//                                new SetClaw(robot.claw, Constants.clawOpenPosition),
+//                                new SetWrist(robot.wrist, Constants.wristPickupPosition)
+//                        ),
+//                        new WaitCommand(50),
+//                        new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition),
+//                        new WaitCommand(500),
+//                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+//                        new WaitCommand(500),
 
                         // Place third
 
-                        new SetJoint(robot.joint, Constants.jointStraightUp).andThen(
-                                new ParallelCommandGroup(
-                                        new SetWrist(robot.wrist, Constants.wristPlacePosition),
-                                        new PathCommand(paths[10]),
-                                        new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
-                                )
-                        )
+//                        new SetJoint(robot.joint, Constants.jointStraightUp).andThen(
+//                                new ParallelCommandGroup(
+//                                        new SetWrist(robot.wrist, Constants.wristPlacePosition),
+//                                        new PathCommand(paths[10])
+//                                        new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition)
+//                                )
+//                        )
       //          )
 
 
