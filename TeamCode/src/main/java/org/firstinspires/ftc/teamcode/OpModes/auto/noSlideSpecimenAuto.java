@@ -29,10 +29,10 @@ public class noSlideSpecimenAuto extends LinearOpMode {
     public static Path[] paths = new Path[16];
     private final Pose placeInitial = new Pose(39, 62, Math.toRadians(180));
     private final Pose backup = new Pose(30, 62, Math.toRadians(180));
-    private final Pose curveToPush = new Pose(54, 24, Math.toRadians(180));
+    private final Pose curveToPush = new Pose(54, 34, Math.toRadians(180));
     private final Point curve1 = new Point(4, 10);
-    private final Point curve2 = new Point(66, 49);
-    private final Pose pushSample1 = new Pose(18, 26, Math.toRadians(180));
+    private final Pose curve2 = new Pose(16, 21, Math.toRadians(180));
+    private final Point pushSample1 = new Point(71.5, 22.5);
     private final Pose lineupSample2 = new Pose(54, 13, Math.toRadians(180));
     private final Point lineup1 = new Point(64, 34);
     private final Pose pushSample2 = new Pose(18, 15, Math.toRadians(180));
@@ -52,11 +52,11 @@ public class noSlideSpecimenAuto extends LinearOpMode {
         paths[0] = buildLine(Constants.specimenStartPosition, placeInitial, HeadingInterpolation.CONSTANT);
         paths[1] = buildLine(placeInitial,backup, HeadingInterpolation.CONSTANT);
 
-        paths[2] = buildCurve(backup,curve1, curve2 ,curveToPush, HeadingInterpolation.CONSTANT);
-        paths[3] = buildLine(curveToPush, pushSample1,HeadingInterpolation.CONSTANT);
-        paths[4] = buildCurve(pushSample1,lineup1, lineupSample2,HeadingInterpolation.CONSTANT);
-        paths[5] = buildLine(lineupSample2,pushSample2, HeadingInterpolation.CONSTANT);
-        paths[6] = buildCurve(pushSample2,pickup1, pickupPosition, HeadingInterpolation.LINEAR);
+        paths[2] = buildCurve(backup,curve1,curveToPush,  HeadingInterpolation.CONSTANT);
+        paths[3] = buildLine( curveToPush, curve2,HeadingInterpolation.CONSTANT);
+        paths[4] = buildCurve(curve2,pushSample1, lineupSample2,HeadingInterpolation.CONSTANT);
+        paths[5] = buildCurve(lineupSample2,lineup1,pushSample2, HeadingInterpolation.CONSTANT);
+        paths[6] = buildLine(pushSample2, pickupPosition, HeadingInterpolation.LINEAR);
 
         //Place #2
 

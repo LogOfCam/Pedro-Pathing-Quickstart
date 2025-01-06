@@ -31,8 +31,8 @@ public class pikcupspecimentest extends LinearOpMode {
     private final Pose backup = new Pose(30, 62, Math.toRadians(180));
     private final Pose pickupSample1 = new Pose(28,36,Math.toRadians(315));
     private final Pose pickupSample2 = new Pose(28,23,Math.toRadians(315));
-    private final Pose throwSample1 = new Pose(28,36,Math.toRadians(130));
-    private final Pose throwSample2 = new Pose(28,23,Math.toRadians(130));
+    private final Pose throwSample1 = new Pose(28,36,Math.toRadians(180));
+    private final Pose throwSample2 = new Pose(28,23,Math.toRadians(180));
 
 
     private final Pose placePosition = new Pose(36, 62, Math.toRadians(200));
@@ -83,10 +83,16 @@ public class pikcupspecimentest extends LinearOpMode {
                         new PathCommand(paths[1]),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[2]),
-                                new SetJoint(robot.joint, Constants.jointSamplePickupPosition),
+                                new SetJoint(robot.joint, Constants.jointSpecimenWaitPosition),
                                 new SetWrist(robot.wrist, Constants.wristPickupPosition),
                                 new SetClaw(robot.claw, Constants.clawOpenPosition)
                         ),
+                        new SequentialCommandGroup(
+                                new SetJoint(robot.joint, Constants.jointSamplePickupPosition),
+                                new SetClaw(robot.claw, Constants.clawClosedPosition),
+                                new WaitCommand(100)
+                        ),
+                        new SetJoint(robot.joint, Constants.jointSamplePickupPosition),
                         new SetClaw(robot.claw, Constants.clawClosedPosition),
                         new WaitCommand(100),
                         new ParallelCommandGroup(
