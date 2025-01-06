@@ -72,33 +72,32 @@ public class pikcupspecimentest extends LinearOpMode {
 
         CommandScheduler.getInstance().schedule(
 
-                new SequentialCommandGroup(
-                        new ParallelCommandGroup(
+//                new SequentialCommandGroup(
+//                        new ParallelCommandGroup(
                                 new PathCommand(paths[0]),
-                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
-                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
-                        ),
-                        new SetClaw(robot.claw, Constants.clawOpenPosition),
-                        new WaitCommand(100),
+//                                new SetJoint(robot.joint, Constants.jointSpecimenPlacePosition),
+//                                new SetWrist(robot.wrist, Constants.wristPlacePosition)
+//                        ),
+//                        new SetClaw(robot.claw, Constants.clawOpenPosition),
+//                        new WaitCommand(100),
                         new PathCommand(paths[1]),
-                        new ParallelCommandGroup(
+//                        new ParallelCommandGroup(
                                 new PathCommand(paths[2]),
-                                new SetJoint(robot.joint, Constants.jointSamplePickupPosition),
-                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
-                                new SetClaw(robot.claw, Constants.clawOpenPosition)
-                        ),
-                        new SetClaw(robot.claw, Constants.clawClosedPosition),
-                        new WaitCommand(100),
-                        new ParallelCommandGroup(
-                                new PathCommand(paths[3]),
-                                new SetClaw(robot.claw, Constants.clawOpenPosition)
-                        )
+//                                new SetJoint(robot.joint, Constants.jointSamplePickupPosition),
+//                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+//                                new SetClaw(robot.claw, Constants.clawOpenPosition)
+//                        ),
+//                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+//                        new WaitCommand(100),
+//                        new ParallelCommandGroup(
+                                new PathCommand(paths[3])
+//                                new SetClaw(robot.claw, Constants.clawOpenPosition)
+                        );
 //                        new PathCommand(paths[3]),
 //                        new PathCommand(paths[4]),
 //                        new PathCommand(paths[5])
-                )
-            );
-
+//                )
+//            );
         while(opModeIsActive() && !isStopRequested()) {
 
             CommandScheduler.getInstance().run();
