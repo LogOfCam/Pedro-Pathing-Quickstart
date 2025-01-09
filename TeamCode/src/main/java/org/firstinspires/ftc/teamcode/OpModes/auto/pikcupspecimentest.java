@@ -99,7 +99,6 @@ public class pikcupspecimentest extends LinearOpMode {
                                 new PathCommand(paths[3]),
                                 new SetClaw(robot.claw, Constants.clawOpenPosition)
                                 ),
-                        new PathCommand(paths[3]),
                         new PathCommand(paths[4]),
                         new PathCommand(paths[5])
                 )
