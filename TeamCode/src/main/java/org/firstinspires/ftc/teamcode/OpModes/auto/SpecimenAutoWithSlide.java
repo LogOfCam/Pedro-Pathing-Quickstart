@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 
 @Autonomous(name = "Specimen Auto", group = "specimen")
-public class specimenAuto extends LinearOpMode {
+public class SpecimenAutoWithSlide extends LinearOpMode {
 
     private Robot robot;
 

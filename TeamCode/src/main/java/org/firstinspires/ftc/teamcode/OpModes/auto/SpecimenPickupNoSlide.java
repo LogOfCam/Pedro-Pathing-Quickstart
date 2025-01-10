@@ -19,10 +19,9 @@ import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
-import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 
 @Autonomous(name = "Specimen Pickup (NO SLIDE)", group = "specimen")
-public class pikcupspecimentest extends LinearOpMode {
+public class SpecimenPickupNoSlide extends LinearOpMode {
 
     private Robot robot;
 
