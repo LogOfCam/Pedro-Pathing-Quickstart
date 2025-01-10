@@ -25,6 +25,6 @@ public class SetSlide extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(slide.getCurrentPosition() - targetPosition) < Constants.slideThreshold;
+        return Math.abs(slide.getCurrentPosition() - targetPosition) <= Constants.slideThreshold;
     }
 }

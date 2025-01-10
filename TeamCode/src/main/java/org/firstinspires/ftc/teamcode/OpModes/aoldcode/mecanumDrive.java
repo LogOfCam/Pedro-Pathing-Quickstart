@@ -169,11 +169,14 @@ public class mecanumDrive extends LinearOpMode {
             if (buttonHandler.isPressedOnceX_2(gamepad2.x)) {
                 wristServo.setPosition(0.1);
             }
+
+
             if (gamepad2.y) {
-                clawServo.setPosition(0.5); // changed from 0.6
+                clawServo.setPosition(0.50); // changed from 0.6
             }  else {
-                clawServo.setPosition(0.72); //if claw loose adjust + 0.05
+                clawServo.setPosition(0.69); //if claw loose adjust + 0.05
             }
+
             if (gamepad2.right_bumper){
                 basketServo.setPosition(0.7);
             }else if (gamepad2.left_bumper){

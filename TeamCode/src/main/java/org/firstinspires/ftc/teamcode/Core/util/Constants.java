@@ -42,6 +42,7 @@ public class Constants {
     public static double jointThreshold = 25;
     public static double jointStartingPosition = 100;
     public static double jointSpecimenPlacePosition = 1450;
+    public  static double jointSpecimenPlacePositionTop = 1600;
     public static double jointStraightUp = 2600;
     public static double jointSamplePickupPosition = 4900;
     public static double jointSpecimenWaitPosition = 4500;
@@ -53,7 +54,7 @@ public class Constants {
 
     /* ----------- SLIDE ----------- */
 
-    public static double slideThreshold = 10;
+    public static double slideThreshold = 25;
     public static double slideMaxPosition = 3200;
     public static double slideMinPosition = 100;
     public static double slideHighBasketPosition = 2800;
@@ -63,15 +64,16 @@ public class Constants {
     /* ------- SERVO SECTION ------- */
 
     /* ----------- CLAW ----------- */
-    public static double clawOpenPosition = 0.55;
-    public static double clawClosedPosition = 0.85;
+    public static double clawOpenPosition = 0.50;
+    public static double clawOpenPickupPosition = 0.30;
+    public static double clawClosedPosition = 0.69;
 
     /* ----------- WRIST ----------- */
     public static double wristStartingPosition = 0.85;
     public static double wristPickupPosition = 0.40;
     public static double wristTransferPosition = 0.10;
     public static double wristPlacePosition = 0.4;
-
+    public static double wristAlmostPlacePosition = 0.55;
     /* ----------- BASKET ----------- */
     public static double basketStartingPosition = 0.30;
     public static double basketPlacePosition = 0.70;
