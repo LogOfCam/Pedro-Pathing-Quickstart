@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.util.Direction;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Core.Commands.automation.Random;
@@ -21,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 
 @TeleOp
+@Disabled
 public class MecanumDrive extends CommandOpMode {
     private Robot robot;
     private GamepadEx driver, operator;

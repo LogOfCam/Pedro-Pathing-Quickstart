@@ -8,14 +8,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Disabled
 @Config
 @TeleOp
 public class slidepidtester extends OpMode {
     private PIDController controller;
-    public static double p = 0.01, i = 0, d = 0.0002;
-    public static double f = 0.04;
+    public static double p = 0.01, i = 0, d = 0.0;
+    public static double f = 0.005;
     public static int target = 0;
     private final double ticksInDegree = 358.466 / 180; //1425
     private DcMotorEx slideMotor;
@@ -25,6 +25,8 @@ public class slidepidtester extends OpMode {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         slideMotor = hardwareMap.get(DcMotorEx.class, "slideMotor");
+        slideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
     }
 

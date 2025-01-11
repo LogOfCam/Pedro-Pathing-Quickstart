@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -150,6 +151,9 @@ public class mecanumDrive extends LinearOpMode {
                     changeSpeed = 0.25; //Slow driving speed
                     changeSpeedPos = true;
                 }
+            }
+            if (buttonHandler.isPressedOnceLB_1(gamepad1.left_bumper)) {
+                clawServo.setPosition(0.25);
             }
 
             if (gamepad1.dpad_up){
