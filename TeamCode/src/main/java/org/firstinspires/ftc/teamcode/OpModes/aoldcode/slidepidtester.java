@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp
 public class slidepidtester extends OpMode {
     private PIDController controller;
-    public static double p = 0.01, i = 0, d = 0.0;
+    public static double p = 0.01, i = 0, d = 0.0; // test github 
     public static double f = 0.005;
     public static int target = 0;
     private final double ticksInDegree = 358.466 / 180; //1425
