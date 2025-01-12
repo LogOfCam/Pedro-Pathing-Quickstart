@@ -66,7 +66,7 @@ public class Constants {
     /* ----------- CLAW ----------- */
     public static double clawOpenPosition = 0.50;
     public static double clawOpenPickupPosition = 0.30;
-    public static double clawClosedPosition = 0.69;
+    public static double clawClosedPosition = 0.67;
 
     /* ----------- WRIST ----------- */
     public static double wristStartingPosition = 0.85;

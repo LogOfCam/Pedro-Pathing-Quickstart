@@ -152,9 +152,6 @@ public class mecanumDrive extends LinearOpMode {
                     changeSpeedPos = true;
                 }
             }
-            if (buttonHandler.isPressedOnceLB_1(gamepad1.left_bumper)) {
-                clawServo.setPosition(0.25);
-            }
 
             if (gamepad1.dpad_up){
                 hangServo.setPosition(0.3);
@@ -175,10 +172,12 @@ public class mecanumDrive extends LinearOpMode {
             }
 
 
-            if (gamepad2.y) {
-                clawServo.setPosition(0.50); // changed from 0.6
-            }  else {
-                clawServo.setPosition(0.69); //if claw loose adjust + 0.05
+            if (gamepad2.y){
+                clawServo.setPosition(0.5);
+            }else if (gamepad1.left_bumper){
+                clawServo.setPosition(0.01);
+            }else {
+                clawServo.setPosition(0.67);
             }
 
             if (gamepad2.right_bumper){
