@@ -95,7 +95,7 @@ public class mecanumDrive extends LinearOpMode {
 
         //Defaults
 
-        double changeSpeed = 0.65;
+        double changeSpeed = 0.85;
         boolean changeSpeedPos = false;
         int armTempPos = 0;
         int slowArmSpeed = 5;
@@ -145,10 +145,10 @@ public class mecanumDrive extends LinearOpMode {
             if (buttonHandler.isPressedOnceRB_1(gamepad1.right_bumper)) { //change to right bumper
                 if (changeSpeedPos) {
                     changeSpeedPos = false;
-                    changeSpeed = 0.65; //Normal driving speed
+                    changeSpeed = 0.85; //Normal driving speed
 
                 } else {
-                    changeSpeed = 0.25; //Slow driving speed
+                    changeSpeed = 0.6; //Slow driving speed
                     changeSpeedPos = true;
                 }
             }
@@ -171,11 +171,11 @@ public class mecanumDrive extends LinearOpMode {
                 wristServo.setPosition(0.1);
             }
 
-
-            if (gamepad2.y){
-                clawServo.setPosition(0.5);
-            }else if (gamepad1.left_bumper){
+            if (gamepad1.right_bumper){
                 clawServo.setPosition(0.01);
+
+            }else if (gamepad2.y){
+            clawServo.setPosition(0.5);
             }else {
                 clawServo.setPosition(0.67);
             }
