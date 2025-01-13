@@ -13,7 +13,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Core.Commands.automation.Random;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetClaw;
 import org.firstinspires.ftc.teamcode.Core.Robot;
+import org.firstinspires.ftc.teamcode.Core.util.Constants;
 
 @TeleOp
 public class mecanumDrive extends LinearOpMode {
@@ -32,7 +34,7 @@ public class mecanumDrive extends LinearOpMode {
     public static double p = 0.004,i = 0, d = 0.0002;
     public static double f = 0.03;
     private final double ticksInDegree = (double) 285 / 180; //1425 / 5 (gear ratio) = 285
-    int armTarget = 0;
+    double armTarget = 0;
 
     //HardwareMap
 
@@ -52,11 +54,12 @@ public class mecanumDrive extends LinearOpMode {
         MANUAL,
         MOVING
     }
+
     private SlideState currentSlideState = SlideState.IDLE;
+    private double change_speed;
 
     @Override
     public void runOpMode()  {
-
         //PID Controller
 
         controller = new PIDController(p,i,d);
@@ -95,11 +98,11 @@ public class mecanumDrive extends LinearOpMode {
 
         //Defaults
 
-        double changeSpeed = 0.85;
-        boolean changeSpeedPos = false;
-        int armTempPos = 0;
-        int slowArmSpeed = 5;
-        int fastArmSpeed = 20;
+        change_speed = 0.85;
+        double normal_speed = 0.85;
+        double slow_speed = 0.65;
+        double armTempPos = 0;
+        int joint_increment = 20;
 
         waitForStart();
 
@@ -115,7 +118,6 @@ public class mecanumDrive extends LinearOpMode {
         if (isStopRequested()) return;
 
         while(opModeIsActive()) {
-
             //Updates
 
             lightsUpdate();
@@ -136,21 +138,14 @@ public class mecanumDrive extends LinearOpMode {
 
             //Set power for motors
 
-            frontRightMotor.setPower(frontRightPower * changeSpeed);
-            backRightMotor.setPower(backRightPower * changeSpeed);
-            frontLeftMotor.setPower(frontLeftPower * changeSpeed);
-            backLeftMotor.setPower(backLeftPower * changeSpeed);
+            frontRightMotor.setPower(frontRightPower * change_speed);
+            backRightMotor.setPower(backRightPower * change_speed);
+            frontLeftMotor.setPower(frontLeftPower * change_speed);
+            backLeftMotor.setPower(backLeftPower * change_speed);
 
             //GamePad 1 buttons
             if (buttonHandler.isPressedOnceRB_1(gamepad1.right_bumper)) { //change to right bumper
-                if (changeSpeedPos) {
-                    changeSpeedPos = false;
-                    changeSpeed = 0.85; //Normal driving speed
-
-                } else {
-                    changeSpeed = 0.6; //Slow driving speed
-                    changeSpeedPos = true;
-                }
+                change_speed = (change_speed == normal_speed) ? slow_speed : normal_speed;
             }
 
             if (gamepad1.dpad_up){
@@ -159,7 +154,20 @@ public class mecanumDrive extends LinearOpMode {
                 hangServo.setPosition(0.5);
             }
 
-            //GamePad 2 buttons
+            // BOTH CONTROLLERS
+
+            if (gamepad1.left_bumper){
+                clawServo.setPosition(0.01);
+
+                // GAMEPAD 1 AREA
+
+            }else if (gamepad2.y){
+                clawServo.setPosition(0.5);
+            }else {
+                clawServo.setPosition(0.67);
+            }
+
+            // GamePad 2 buttons
 
             if (buttonHandler.isPressedOnceA_2(gamepad2.a)) {
                 wristServo.setPosition(0.4);
@@ -169,15 +177,6 @@ public class mecanumDrive extends LinearOpMode {
             }
             if (buttonHandler.isPressedOnceX_2(gamepad2.x)) {
                 wristServo.setPosition(0.1);
-            }
-
-            if (gamepad1.right_bumper){
-                clawServo.setPosition(0.01);
-
-            }else if (gamepad2.y){
-            clawServo.setPosition(0.5);
-            }else {
-                clawServo.setPosition(0.67);
             }
 
             if (gamepad2.right_bumper){
@@ -190,17 +189,14 @@ public class mecanumDrive extends LinearOpMode {
 
             //Joint/Arm control
 
-            if(gamepad2.right_trigger > 0.8) {
-                armTempPos = armTarget + fastArmSpeed;
-                setTargetArm(armTempPos);
-            } else if (gamepad2.right_trigger > 0.0) {
-                armTempPos = armTarget + slowArmSpeed;
-                setTargetArm(armTempPos);
-            } else if(gamepad2.left_trigger > 0.8) {
-                armTempPos = armTarget - fastArmSpeed;
+            double right_trigger = gamepad2.right_trigger;
+            double left_trigger = gamepad2.left_trigger;
+
+            if(gamepad2.right_trigger > 0) {
+                armTempPos = armTarget + (joint_increment * right_trigger);
                 setTargetArm(armTempPos);
             } else if (gamepad2.left_trigger > 0) {
-                armTempPos = armTarget - slowArmSpeed;
+                armTempPos = armTarget - (joint_increment * left_trigger);
                 setTargetArm(armTempPos);
             } else{
                 currentArmState = armState.HOLDING;
@@ -209,6 +205,7 @@ public class mecanumDrive extends LinearOpMode {
     }
 
     public void updateTelemetry() {
+        telemetry.addData("change speed", change_speed);
         telemetry.addData("arm State", currentArmState);
         telemetry.addData("target ", armTarget);
         telemetry.addData("Right Trigger", gamepad2.right_trigger);
@@ -217,14 +214,16 @@ public class mecanumDrive extends LinearOpMode {
         telemetry.addData("jointMotorPos", jointMotor.getCurrentPosition());
         telemetry.addData("slideMotorPos", slideMotor.getCurrentPosition());
         telemetry.addData("wristServo", wristServo.getPosition());
+        telemetry.addData("Slide Power", slideMotor.getPower());
+        telemetry.addData("Joint Power", jointMotor.getPower());
         telemetry.update();
     }
 
-    public void setTargetArm(int target){
+    public void setTargetArm(double target){
         armTarget = target;
         currentArmState = armState.MOVING;
     }
-    public void moveArm(int target){
+    public void moveArm(double target){
         controller.setPID(p,i,d);
         int jointPos = jointMotor.getCurrentPosition();
         double pid = controller.calculate(jointPos,target);
@@ -252,7 +251,6 @@ public class mecanumDrive extends LinearOpMode {
                 if(gamepad2.left_stick_y != 0){
                     currentSlideState = SlideState.MANUAL;
                 }
-                
                 break;
 
             case MOVING:

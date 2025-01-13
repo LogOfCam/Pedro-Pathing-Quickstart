@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.Core.util.Constants;
 public class Slide extends SubsystemBase {
     private final DcMotorEx slideMotor;
     private final PIDController controller;
-    double p = 0.01, i = 0, d = 0.0002; // Was 0.006 and .0001
-    double f = 0.04;
+    double p = 0.01, i = 0, d = 0.0; // Was 0.006 and .0001
+    double f = 0.005;
     double ticksInDegrees = 358.466 / 180;
     private double targetPosition;
     public Slide(HardwareMap hardwareMap){

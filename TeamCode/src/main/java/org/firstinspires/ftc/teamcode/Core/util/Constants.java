@@ -65,6 +65,7 @@ public class Constants {
 
     /* ----------- CLAW ----------- */
     public static double clawOpenPosition = 0.50;
+    public static double claw_not_so_open_position = 0.57;
     public static double clawOpenPickupPosition = 0.30;
     public static double clawClosedPosition = 0.67;
 
