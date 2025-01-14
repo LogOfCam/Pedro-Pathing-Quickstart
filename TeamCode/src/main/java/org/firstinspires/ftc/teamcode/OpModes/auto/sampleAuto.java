@@ -74,14 +74,16 @@ public class sampleAuto extends LinearOpMode {
 
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
-                                new PathCommand(paths[0]),
                                 new SetSlide(robot.slide, 1000).andThen(
                                         new ParallelCommandGroup(
                                                 new SetJoint(robot.joint, Constants.jointStraightUp),
                                                 new SetSlide(robot.slide, Constants.slideMaxPosition)
+
+
                                         )
                                 )
                         ),
+                        new PathCommand(paths[0]),
                         new WaitCommand(1000),
                         new PathCommand(paths[1]),
                         new SetBasket(robot.basket, Constants.basketPlacePosition)

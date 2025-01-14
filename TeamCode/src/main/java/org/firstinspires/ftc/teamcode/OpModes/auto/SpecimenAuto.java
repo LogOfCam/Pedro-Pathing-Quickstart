@@ -133,18 +133,22 @@ public class SpecimenAuto extends LinearOpMode {
 
                         // TODO: Pickup Specimen 2
                         new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition),
-                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+                        new SetClaw(robot.claw, Constants.claw_almost_closed_position),
                         new WaitCommand(clawWaitCommand),
                         new ParallelCommandGroup(
                                 new SetJoint(robot.joint, Constants.jointSpecimenPlacePositionTop),
                                 new SequentialCommandGroup(
+                                        new SetWrist(robot.wrist, Constants.wrist_speciman_fix_position),
+                                        new WaitCommand(300),
+                                        new SetClaw(robot.claw, Constants.clawClosedPosition)
+                                ),
+                                new SequentialCommandGroup(
                                         new WaitCommand(jointWaitCommand),
                                         new PathCommand(paths[7])
-                                ),
-                                new SetWrist(robot.wrist, Constants.wristAlmostPlacePosition)
+                                )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
-                        new WaitCommand(150),
+                        new WaitCommand(500),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[8]),
                                 new SequentialCommandGroup(
@@ -166,18 +170,22 @@ public class SpecimenAuto extends LinearOpMode {
 
 
                         // TODO: Pickup Specimen 3
-                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+                        new SetClaw(robot.claw, Constants.claw_almost_closed_position),
                         new WaitCommand(clawWaitCommand),
                         new ParallelCommandGroup(
                                 new SetJoint(robot.joint, Constants.jointSpecimenPlacePositionTop),
                                 new SequentialCommandGroup(
+                                    new SetWrist(robot.wrist, Constants.wrist_speciman_fix_position),
+                                    new WaitCommand(300),
+                                    new SetClaw(robot.claw, Constants.clawClosedPosition)
+                                ),
+                                new SequentialCommandGroup(
                                         new WaitCommand(jointWaitCommand),
                                         new PathCommand(paths[7])
-                                ),
-                                new SetWrist(robot.wrist, Constants.wristAlmostPlacePosition)
+                                )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
-                        new WaitCommand(150),
+                        new WaitCommand(500),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[8]),
                                 new SequentialCommandGroup(
@@ -199,18 +207,22 @@ public class SpecimenAuto extends LinearOpMode {
 
 
                         // TODO: Pickup Specimen 4
-                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+                        new SetClaw(robot.claw, Constants.claw_almost_closed_position),
                         new WaitCommand(clawWaitCommand),
                         new ParallelCommandGroup(
                                 new SetJoint(robot.joint, Constants.jointSpecimenPlacePositionTop),
                                 new SequentialCommandGroup(
+                                        new SetWrist(robot.wrist, Constants.wrist_speciman_fix_position),
+                                        new WaitCommand(300),
+                                        new SetClaw(robot.claw, Constants.clawClosedPosition)
+                                ),
+                                new SequentialCommandGroup(
                                         new WaitCommand(jointWaitCommand),
                                         new PathCommand(paths[7])
-                                ),
-                                new SetWrist(robot.wrist, Constants.wristAlmostPlacePosition)
+                                )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
-                        new WaitCommand(150),
+                        new WaitCommand(500),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[8]),
                                 new SequentialCommandGroup(

@@ -68,6 +68,7 @@ public class Constants {
     public static double claw_not_so_open_position = 0.57;
     public static double clawOpenPickupPosition = 0.30;
     public static double clawClosedPosition = 0.67;
+    public static double claw_almost_closed_position = 0.668;
 
     /* ----------- WRIST ----------- */
     public static double wristStartingPosition = 0.85;
@@ -75,9 +76,9 @@ public class Constants {
     public static double wristTransferPosition = 0.10;
     public static double wristPlacePosition = 0.4;
     public static double wristAlmostPlacePosition = 0.55;
+    public static double wrist_speciman_fix_position = 0.8;
     /* ----------- BASKET ----------- */
     public static double basketStartingPosition = 0.30;
     public static double basketPlacePosition = 0.70;
     public static double basketMaxPosition = 1;
-
 }
