@@ -11,10 +11,13 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Core.Commands.PedroCommands.PathChainCommand;
 import org.firstinspires.ftc.teamcode.Core.Commands.PedroCommands.PathCommand;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetJoint;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetBasket;
 import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.motors.SetSlide;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetClaw;
+import org.firstinspires.ftc.teamcode.Core.Commands.subsystems.servos.SetWrist;
 import org.firstinspires.ftc.teamcode.Core.Robot;
 import org.firstinspires.ftc.teamcode.Core.util.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Pose;
@@ -25,28 +28,30 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 public class sampleAuto extends LinearOpMode {
 
     private Robot robot;
-    public static Path[] paths = new Path[9];
+    public static Path[] paths = new Path[10];
 
     //360 or 0 = left, 90 = DOWN, 180 = RIGHT, 270 = up
 
     private final Pose placePosition = new Pose(12, 129, Math.toRadians(325));
     private final Pose placeCorrectionPosition = new Pose(11, 130, Math.toRadians(325));
     private final Pose pickupPosition1 = new Pose(22, 117.5, Math.toRadians(0));
-    private final Pose pickupPosition2 = new Pose(22,128, Math.toRadians(0));
-    private final Pose pickupPosition3 = new Pose(47.5,118.5, Math.toRadians(90));
+    private final Pose pickupPosition2 = new Pose(20,128, Math.toRadians(0));
+    private final Pose LineupPosition3 = new Pose(47.5,110, Math.toRadians(90));
+    private final Pose pickupPosition3 = new Pose(47.5,117.5, Math.toRadians(90));
     private final Pose parkPosition = new Pose(60,96, Math.toRadians(90));
     private final Point parkPoint = new Point(61,122);
-
+    private final Point pickUp3Curve = new Point(36.5,90);
     public void buildPaths() {
         paths[0] = buildLine(Constants.sampleStartPosition, placePosition, HeadingInterpolation.LINEAR);//place initial sample
         paths[1] = buildLine(placePosition, placeCorrectionPosition, HeadingInterpolation.CONSTANT); // Drive forward an inch for basket
         paths[2] = buildLine(placeCorrectionPosition, pickupPosition1, HeadingInterpolation.LINEAR);// pickup sample 1
-        //paths[2] = buildLine(pickupPosition1, placePosition, HeadingInterpolation.LINEAR);// place sample 1
-        //paths[3] = buildLine(placePosition, pickupPosition2, HeadingInterpolation.LINEAR);// pickup sample 2
-        //paths[4] = buildLine(pickupPosition2, placePosition, HeadingInterpolation.LINEAR);// place sample 2
-        //paths[5] = buildLine(placePosition, pickupPosition3, HeadingInterpolation.LINEAR);// pickup sample 3
-        //paths[6] = buildLine(pickupPosition3, placePosition, HeadingInterpolation.LINEAR);// place sample 3
-        //paths[7] = buildCurve(placePosition, parkPoint, parkPosition, HeadingInterpolation.LINEAR);// park
+        paths[3] = buildLine(pickupPosition1, placePosition, HeadingInterpolation.LINEAR);// place sample 1
+        paths[4] = buildLine(placePosition, pickupPosition2, HeadingInterpolation.LINEAR);// pickup sample 2
+        paths[5] = buildLine(pickupPosition2, placePosition, HeadingInterpolation.LINEAR);// place sample 2
+        paths[6] = buildCurve(placePosition, pickUp3Curve, LineupPosition3, HeadingInterpolation.LINEAR);// pickup sample 3
+        paths[7] = buildLine(LineupPosition3, pickupPosition3, HeadingInterpolation.LINEAR);
+        paths[8] = buildLine(pickupPosition3, placePosition, HeadingInterpolation.LINEAR);// place sample 3
+        paths[9] = buildCurve(placePosition, parkPoint, parkPosition, HeadingInterpolation.LINEAR);// park
     }
 
     @Override
@@ -73,69 +78,121 @@ public class sampleAuto extends LinearOpMode {
         CommandScheduler.getInstance().schedule(
 
                 new SequentialCommandGroup(
-                        new ParallelCommandGroup(
-                                new SetSlide(robot.slide, 1000).andThen(
+
+                        new SetSlide(robot.slide, 1000).andThen(
                                         new ParallelCommandGroup(
                                                 new SetJoint(robot.joint, Constants.jointStraightUp),
                                                 new SetSlide(robot.slide, Constants.slideMaxPosition)
+                                        )
+                        ),
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[0]),
+                                new SetJoint(robot.joint, Constants.jointSampleAlmostPickupPosition),
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                                new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
+                        ),
+                        new PathCommand(paths[1]),
+                        new SetBasket(robot.basket, Constants.basketPlacePosition),
+                        new WaitCommand(300),
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[2]),
+                                new SetBasket(robot.basket, Constants.basketStartingPosition),
+                                new SetSlide(robot.slide, Constants.slideTransferPosition)
 
-
+                        ),
+                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+                        new WaitCommand(500),
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[3]),
+                                new SetWrist(robot.wrist, Constants.wristTransferPosition),
+                                new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
+                                        new SequentialCommandGroup(
+                                                new SetClaw(robot.claw, Constants.clawOpenPosition)
                                         )
                                 )
                         ),
-                        new PathCommand(paths[0]),
-                        new WaitCommand(1000),
-                        new PathCommand(paths[1]),
-                        new SetBasket(robot.basket, Constants.basketPlacePosition)
-//                        new WaitCommand(1000),
-//                        new ParallelCommandGroup(
-//                                new PathCommand(paths[1]),
-//                                new SetBasket(robot.basket, Constants.basketStartingPosition),
-//                                new SetSlide(robot.slide, Constants.slideTransferPosition),
-//                                new SetJoint(robot.joint, Constants.jointSamplePickupPosition),
-//                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
-//                                new SetClaw(robot.claw, Constants.clawOpenPosition)
-//
-//                        ),
-//                        new SetClaw(robot.claw, Constants.clawClosedPosition),
-//                        new WaitCommand(1000),
-//                        new ParallelCommandGroup(
-//                                new PathCommand(paths[2]),
-//                                new SetWrist(robot.wrist, Constants.wristTransferPosition),
-//                                new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
-//                                        new SequentialCommandGroup(
-//                                                new SetClaw(robot.claw, Constants.clawOpenPosition)
-//                                        )
-//                                )
-//                        ),
-//                        new WaitCommand(1000),
-//                        new ParallelCommandGroup(
-//                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
-//                                new SetJoint(robot.joint, Constants.jointStraightUp),
-//                                new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
-//                                        new SequentialCommandGroup(
-//                                                new SetBasket(robot.basket, Constants.basketPlacePosition)
-//                                        )
-//                                )
-//                        )
+                        new WaitCommand(300),
+                        new ParallelCommandGroup(
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                                new SetJoint(robot.joint, Constants.jointSampleAlmostPickupPosition),
+                                new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
+                                        new SequentialCommandGroup(
+                                                new SetBasket(robot.basket, Constants.basketPlacePosition),
+                                                new WaitCommand(300)
+                                        )
+                                )
+                        ),
+        new ParallelCommandGroup(
+                new PathCommand(paths[4]),
+                new SetBasket(robot.basket, Constants.basketStartingPosition),
+                new SetSlide(robot.slide, Constants.slideTransferPosition),
+                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
+        ),
+                new SetClaw(robot.claw, Constants.clawClosedPosition),
+                new WaitCommand(500),
+                new ParallelCommandGroup(
+                        new PathCommand(paths[5]),
+                        new SetWrist(robot.wrist, Constants.wristTransferPosition),
+                        new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
+                                new SequentialCommandGroup(
+                                        new SetClaw(robot.claw, Constants.clawOpenPosition)
+                                )
+                        )
+                ),
+                new WaitCommand(300),
+                new ParallelCommandGroup(
+                        new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                        new SetJoint(robot.joint, Constants.jointStraightUp),
+                        new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
+                                new SequentialCommandGroup(
+                                        new SetBasket(robot.basket, Constants.basketPlacePosition),
+                                        new WaitCommand(300)
+                                )
+                        )
 
-//                        new WaitCommand(1000),
-//                        new PathCommand(paths[1]),
-//                        new WaitCommand(1000),
-//                        new PathCommand(paths[2]),
-//                        new WaitCommand(1000),
-//                        new PathCommand(paths[3]),
-//                        new WaitCommand(1000),
-//                        new PathCommand(paths[4]),
-//                        new WaitCommand(1000),
-//                        new PathCommand(paths[5]),
-//                        new WaitCommand(1000),
-//                        new PathCommand(paths[6]),
-//                        new WaitCommand(1000),
-//                        new PathCommand(paths[7])
+                ),
 
 
-                )
+
+        new ParallelCommandGroup(
+                new PathChainCommand(paths[6], paths[7]),
+                new SetBasket(robot.basket, Constants.basketStartingPosition),
+                new SetSlide(robot.slide, Constants.slideTransferPosition),
+                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                new SetJoint(robot.joint, Constants.jointSampleAlmostPickupPosition),
+                new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
+        ),
+                new SetClaw(robot.claw, Constants.clawClosedPosition),
+                new WaitCommand(500),
+                new ParallelCommandGroup(
+                        new PathCommand( paths[8]),
+                        new SetWrist(robot.wrist, Constants.wristTransferPosition),
+                        new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
+                                new SequentialCommandGroup(
+                                        new SetClaw(robot.claw, Constants.clawOpenPosition)
+                                )
+                        )
+                ),
+                new WaitCommand(300),
+                new ParallelCommandGroup(
+                        new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                        new SetJoint(robot.joint, Constants.jointStraightUp),
+                        new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
+                                new SequentialCommandGroup(
+                                        new SetBasket(robot.basket, Constants.basketPlacePosition),
+                                        new WaitCommand(300)
+                                )
+                        )
+                ),
+        new ParallelCommandGroup(
+                new PathCommand(paths[9]),
+        new SetSlide(robot.slide, Constants.slideTransferPosition)
+
+        )
+        )
+
+
         );
 
         while(opModeIsActive() && !isStopRequested()) {
