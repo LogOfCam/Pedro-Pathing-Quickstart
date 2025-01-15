@@ -31,12 +31,12 @@ public class SpecimenAuto extends LinearOpMode {
     public static Path[] paths = new Path[16];
     private final Pose placeInitial = new Pose(39, 64, Math.toRadians(180));
     private final Pose backup = new Pose(30, 62, Math.toRadians(180));
-    private final Pose curveToPush = new Pose(53, 23, Math.toRadians(180));
+    private final Pose curveToPush = new Pose(54, 23, Math.toRadians(180));
     private final Point curve1 = new Point(19, 8);
-    private final Point curve2 = new Point(56, 44); // was 60, 44
+    private final Point curve2 = new Point(57, 44); // was 60, 44
     private final Pose pushSample1 = new Pose(26, 23, Math.toRadians(180));
-    private final Pose lineupSample2 = new Pose(54, 13, Math.toRadians(180));
-    private final Point lineup1 = new Point(60, 27);
+    private final Pose lineupSample2 = new Pose(55, 13, Math.toRadians(180));
+    private final Point lineup1 = new Point(61, 27);
     private final Pose pushSample2 = new Pose(26, 15, Math.toRadians(180));
     private final Pose pickupPosition = new Pose(22, 46, Math.toRadians(225));
     private final Pose placePosition = new Pose(36, 62, Math.toRadians(200));
@@ -91,7 +91,7 @@ public class SpecimenAuto extends LinearOpMode {
         }
 
         robot.setPose(Constants.specimenStartPosition);
-
+        long clawSemiOpenCommand = 800;
         long clawWaitCommand = 500;
         long claw_placement_delay = 625;
         long joint_wait_after_placement_delay = 300;
@@ -121,15 +121,11 @@ public class SpecimenAuto extends LinearOpMode {
                                 )
                         ),
                         new ParallelCommandGroup(
-                                new PathCommand(paths[2]),
+                                new PathChainCommand(paths[2], paths[3], paths[4], paths[5], paths[6]),
                                 new SetSlide(robot.slide, Constants.slideMinPosition),
                                 new SetBasket(robot.basket, Constants.basketStartingPosition),
                                 new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
                         ),
-
-
-                        new PathChainCommand(paths[3], paths[4], paths[5], paths[6]),
-
 
                         // TODO: Pickup Specimen 2
                         new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition),
@@ -138,8 +134,8 @@ public class SpecimenAuto extends LinearOpMode {
                         new ParallelCommandGroup(
                                 new SetJoint(robot.joint, Constants.jointSpecimenPlacePositionTop),
                                 new SequentialCommandGroup(
-                                        new SetWrist(robot.wrist, Constants.wrist_speciman_fix_position),
-                                        new WaitCommand(300),
+                                        new SetWrist(robot.wrist, Constants.wristAlmostPlacePosition),
+                                        new WaitCommand(clawSemiOpenCommand),
                                         new SetClaw(robot.claw, Constants.clawClosedPosition)
                                 ),
                                 new SequentialCommandGroup(
@@ -148,7 +144,7 @@ public class SpecimenAuto extends LinearOpMode {
                                 )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
-                        new WaitCommand(500),
+                        new WaitCommand(100),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[8]),
                                 new SequentialCommandGroup(
@@ -175,8 +171,8 @@ public class SpecimenAuto extends LinearOpMode {
                         new ParallelCommandGroup(
                                 new SetJoint(robot.joint, Constants.jointSpecimenPlacePositionTop),
                                 new SequentialCommandGroup(
-                                    new SetWrist(robot.wrist, Constants.wrist_speciman_fix_position),
-                                    new WaitCommand(300),
+                                    new SetWrist(robot.wrist, Constants.wristAlmostPlacePosition),
+                                        new WaitCommand(clawSemiOpenCommand),
                                     new SetClaw(robot.claw, Constants.clawClosedPosition)
                                 ),
                                 new SequentialCommandGroup(
@@ -185,7 +181,7 @@ public class SpecimenAuto extends LinearOpMode {
                                 )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
-                        new WaitCommand(500),
+                        new WaitCommand(100),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[8]),
                                 new SequentialCommandGroup(
@@ -212,8 +208,8 @@ public class SpecimenAuto extends LinearOpMode {
                         new ParallelCommandGroup(
                                 new SetJoint(robot.joint, Constants.jointSpecimenPlacePositionTop),
                                 new SequentialCommandGroup(
-                                        new SetWrist(robot.wrist, Constants.wrist_speciman_fix_position),
-                                        new WaitCommand(300),
+                                        new SetWrist(robot.wrist, Constants.wristAlmostPlacePosition),
+                                        new WaitCommand(clawSemiOpenCommand),
                                         new SetClaw(robot.claw, Constants.clawClosedPosition)
                                 ),
                                 new SequentialCommandGroup(
@@ -222,7 +218,7 @@ public class SpecimenAuto extends LinearOpMode {
                                 )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
-                        new WaitCommand(500),
+                        new WaitCommand(100),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[8]),
                                 new SequentialCommandGroup(

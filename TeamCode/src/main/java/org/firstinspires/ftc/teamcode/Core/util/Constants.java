@@ -76,7 +76,7 @@ public class Constants {
     public static double wristTransferPosition = 0.10;
     public static double wristPlacePosition = 0.4;
     public static double wristAlmostPlacePosition = 0.55;
-    public static double wrist_speciman_fix_position = 0.8;
+    public static double wrist_speciman_fix_position = 0.65;
     /* ----------- BASKET ----------- */
     public static double basketStartingPosition = 0.30;
     public static double basketPlacePosition = 0.70;
