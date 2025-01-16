@@ -52,11 +52,12 @@ public class Constants {
     public static double jointMaxPosition = 5000;
     public static double jointMinPosition = 50;
     public static double jointTransferPosition = 2300;
+    public static double joint_park_position = 3250;
 
     /* ----------- SLIDE ----------- */
 
     public static double slideThreshold = 25;
-    public static double slideMaxPosition = 3200;
+    public static double slideMaxPosition = 3400;
     public static double slideMinPosition = 100;
     public static double slideHighBasketPosition = 2800;
     public static double slideLowBasketPosition = 2000;

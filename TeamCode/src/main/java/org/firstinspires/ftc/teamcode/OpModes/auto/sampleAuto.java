@@ -28,17 +28,18 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 public class sampleAuto extends LinearOpMode {
 
     private Robot robot;
-    public static Path[] paths = new Path[10];
+    public static Path[] paths = new Path[11];
 
     //360 or 0 = left, 90 = DOWN, 180 = RIGHT, 270 = up
 
     private final Pose placePosition = new Pose(12, 129, Math.toRadians(325));
     private final Pose placeCorrectionPosition = new Pose(11, 130, Math.toRadians(325));
     private final Pose pickupPosition1 = new Pose(22, 117.5, Math.toRadians(0));
-    private final Pose pickupPosition2 = new Pose(20,128, Math.toRadians(0));
+    private final Pose pickupPosition2 = new Pose(21.5,128, Math.toRadians(0));
+    private final Pose LineupPosition2 = new Pose(15,128, Math.toRadians(0));
     private final Pose LineupPosition3 = new Pose(47.5,110, Math.toRadians(90));
     private final Pose pickupPosition3 = new Pose(47.5,117.5, Math.toRadians(90));
-    private final Pose parkPosition = new Pose(60,96, Math.toRadians(90));
+    private final Pose parkPosition = new Pose(60,100, Math.toRadians(270));
     private final Point parkPoint = new Point(61,122);
     private final Point pickUp3Curve = new Point(36.5,90);
     public void buildPaths() {
@@ -46,12 +47,13 @@ public class sampleAuto extends LinearOpMode {
         paths[1] = buildLine(placePosition, placeCorrectionPosition, HeadingInterpolation.CONSTANT); // Drive forward an inch for basket
         paths[2] = buildLine(placeCorrectionPosition, pickupPosition1, HeadingInterpolation.LINEAR);// pickup sample 1
         paths[3] = buildLine(pickupPosition1, placePosition, HeadingInterpolation.LINEAR);// place sample 1
-        paths[4] = buildLine(placePosition, pickupPosition2, HeadingInterpolation.LINEAR);// pickup sample 2
-        paths[5] = buildLine(pickupPosition2, placePosition, HeadingInterpolation.LINEAR);// place sample 2
-        paths[6] = buildCurve(placePosition, pickUp3Curve, LineupPosition3, HeadingInterpolation.LINEAR);// pickup sample 3
-        paths[7] = buildLine(LineupPosition3, pickupPosition3, HeadingInterpolation.LINEAR);
-        paths[8] = buildLine(pickupPosition3, placePosition, HeadingInterpolation.LINEAR);// place sample 3
-        paths[9] = buildCurve(placePosition, parkPoint, parkPosition, HeadingInterpolation.LINEAR);// park
+        paths[4] = buildLine(placePosition, LineupPosition2, HeadingInterpolation.LINEAR);
+        paths[5] = buildLine(LineupPosition2, pickupPosition2, HeadingInterpolation.LINEAR);// pickup sample 2
+        paths[6] = buildLine(pickupPosition2, placePosition, HeadingInterpolation.LINEAR);// place sample 2
+        paths[7] = buildCurve(placePosition, pickUp3Curve, LineupPosition3, HeadingInterpolation.LINEAR);// pickup sample 3
+        paths[8] = buildLine(LineupPosition3, pickupPosition3, HeadingInterpolation.LINEAR);
+        paths[9] = buildLine(pickupPosition3, placePosition, HeadingInterpolation.LINEAR);// place sample 3
+        paths[10] = buildCurve(placePosition, parkPoint, parkPosition, HeadingInterpolation.LINEAR);// park
     }
 
     @Override
@@ -123,7 +125,7 @@ public class sampleAuto extends LinearOpMode {
                                 )
                         ),
         new ParallelCommandGroup(
-                new PathCommand(paths[4]),
+                new PathChainCommand(paths[4], paths[5]),
                 new SetBasket(robot.basket, Constants.basketStartingPosition),
                 new SetSlide(robot.slide, Constants.slideTransferPosition),
                 new SetWrist(robot.wrist, Constants.wristPickupPosition),
@@ -132,7 +134,7 @@ public class sampleAuto extends LinearOpMode {
                 new SetClaw(robot.claw, Constants.clawClosedPosition),
                 new WaitCommand(500),
                 new ParallelCommandGroup(
-                        new PathCommand(paths[5]),
+                        new PathCommand(paths[6]),
                         new SetWrist(robot.wrist, Constants.wristTransferPosition),
                         new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
                                 new SequentialCommandGroup(
@@ -156,7 +158,7 @@ public class sampleAuto extends LinearOpMode {
 
 
         new ParallelCommandGroup(
-                new PathChainCommand(paths[6], paths[7]),
+                new PathChainCommand(paths[7], paths[8]),
                 new SetBasket(robot.basket, Constants.basketStartingPosition),
                 new SetSlide(robot.slide, Constants.slideTransferPosition),
                 new SetWrist(robot.wrist, Constants.wristPickupPosition),
@@ -166,7 +168,7 @@ public class sampleAuto extends LinearOpMode {
                 new SetClaw(robot.claw, Constants.clawClosedPosition),
                 new WaitCommand(500),
                 new ParallelCommandGroup(
-                        new PathCommand( paths[8]),
+                        new PathCommand( paths[9]),
                         new SetWrist(robot.wrist, Constants.wristTransferPosition),
                         new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
                                 new SequentialCommandGroup(
@@ -186,10 +188,10 @@ public class sampleAuto extends LinearOpMode {
                         )
                 ),
         new ParallelCommandGroup(
-                new PathCommand(paths[9]),
-        new SetSlide(robot.slide, Constants.slideTransferPosition)
-
-        )
+                new PathCommand(paths[10]),
+                new SetSlide(robot.slide, Constants.slideTransferPosition)
+        ),
+                        new SetJoint(robot.joint, Constants.joint_park_position)
         )
 
 
