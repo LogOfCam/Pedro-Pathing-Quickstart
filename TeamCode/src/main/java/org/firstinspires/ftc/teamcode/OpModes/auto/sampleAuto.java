@@ -38,7 +38,7 @@ public class sampleAuto extends LinearOpMode {
     private final Pose pickupPosition2 = new Pose(21.5,128, Math.toRadians(0));
     private final Pose LineupPosition2 = new Pose(15,128, Math.toRadians(0));
     private final Pose LineupPosition3 = new Pose(47.5,110, Math.toRadians(90));
-    private final Pose pickupPosition3 = new Pose(47.5,117.5, Math.toRadians(90));
+    private final Pose pickupPosition3 = new Pose(47.5,118, Math.toRadians(90));
     private final Pose parkPosition = new Pose(60,100, Math.toRadians(270));
     private final Point parkPoint = new Point(61,122);
     private final Point pickUp3Curve = new Point(36.5,90);
@@ -52,7 +52,7 @@ public class sampleAuto extends LinearOpMode {
         paths[6] = buildLine(pickupPosition2, placePosition, HeadingInterpolation.LINEAR);// place sample 2
         paths[7] = buildCurve(placePosition, pickUp3Curve, LineupPosition3, HeadingInterpolation.LINEAR);// pickup sample 3
         paths[8] = buildLine(LineupPosition3, pickupPosition3, HeadingInterpolation.LINEAR);
-        paths[9] = buildLine(pickupPosition3, placePosition, HeadingInterpolation.LINEAR);// place sample 3
+        paths[9] = buildCurve(pickupPosition3,pickUp3Curve, placePosition, HeadingInterpolation.LINEAR);// place sample 3
         paths[10] = buildCurve(placePosition, parkPoint, parkPosition, HeadingInterpolation.LINEAR);// park
     }
 
@@ -136,12 +136,9 @@ public class sampleAuto extends LinearOpMode {
                 new ParallelCommandGroup(
                         new PathCommand(paths[6]),
                         new SetWrist(robot.wrist, Constants.wristTransferPosition),
-                        new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
-                                new SequentialCommandGroup(
-                                        new SetClaw(robot.claw, Constants.clawOpenPosition)
-                                )
-                        )
+                        new SetJoint(robot.joint, Constants.jointTransferPosition)
                 ),
+                new SetClaw(robot.claw, Constants.clawOpenPosition),
                 new WaitCommand(300),
                 new ParallelCommandGroup(
                         new SetWrist(robot.wrist, Constants.wristPickupPosition),
@@ -167,16 +164,13 @@ public class sampleAuto extends LinearOpMode {
         ),
                 new SetClaw(robot.claw, Constants.clawClosedPosition),
                 new WaitCommand(500),
-                new ParallelCommandGroup(
-                        new PathCommand( paths[9]),
-                        new SetWrist(robot.wrist, Constants.wristTransferPosition),
-                        new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
-                                new SequentialCommandGroup(
-                                        new SetClaw(robot.claw, Constants.clawOpenPosition)
-                                )
-                        )
-                ),
-                new WaitCommand(300),
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[9]),
+                                new SetWrist(robot.wrist, Constants.wristTransferPosition),
+                                new SetJoint(robot.joint, Constants.jointTransferPosition)
+                        ),
+        new SetClaw(robot.claw, Constants.clawOpenPosition),
+        new WaitCommand(300),
                 new ParallelCommandGroup(
                         new SetWrist(robot.wrist, Constants.wristPickupPosition),
                         new SetJoint(robot.joint, Constants.jointStraightUp),

@@ -57,12 +57,12 @@ public class Constants {
     /* ----------- SLIDE ----------- */
 
     public static double slideThreshold = 25;
-    public static double slideMaxPosition = 3400;
-    public static double slideMinPosition = 100;
-    public static double slideHighBasketPosition = 2800;
-    public static double slideLowBasketPosition = 2000;
-    public static double slideMiddlePosition = 2000;
-    public static double slideTransferPosition = 800;
+    public static double slideMaxPosition = 2000;
+    public static double slideMinPosition = 66;
+    public static double slideHighBasketPosition = 1850;
+    public static double slideLowBasketPosition = 1300;
+    public static double slideMiddlePosition = 1300;
+    public static double slideTransferPosition = 450;
     /* ------- SERVO SECTION ------- */
 
     /* ----------- CLAW ----------- */
