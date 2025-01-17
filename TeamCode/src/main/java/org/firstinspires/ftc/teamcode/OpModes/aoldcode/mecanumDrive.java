@@ -57,6 +57,7 @@ public class mecanumDrive extends LinearOpMode {
 
     private SlideState currentSlideState = SlideState.IDLE;
     private double change_speed;
+    private double slide_power_multiplier = 2;
 
     @Override
     public void runOpMode()  {
@@ -102,7 +103,7 @@ public class mecanumDrive extends LinearOpMode {
         double normal_speed = 0.85;
         double slow_speed = 0.65;
         double armTempPos = 0;
-        int joint_increment = 20;
+        int joint_increment = 30;
         double slide_power_multiplier = 2;
         waitForStart();
 
@@ -272,7 +273,6 @@ public class mecanumDrive extends LinearOpMode {
 
             case MANUAL:
                 slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                double slide_power_multiplier = 2;
                 slideMotor.setPower(gamepad2.left_stick_y * slide_power_multiplier);
                 // If no manual control is happening, return to IDLE
                 if (Math.abs(gamepad2.left_stick_y) == 0) {

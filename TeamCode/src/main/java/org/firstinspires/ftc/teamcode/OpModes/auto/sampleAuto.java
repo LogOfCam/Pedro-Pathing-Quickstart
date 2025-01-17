@@ -95,12 +95,11 @@ public class sampleAuto extends LinearOpMode {
                         ),
                         new PathCommand(paths[1]),
                         new SetBasket(robot.basket, Constants.basketPlacePosition),
-                        new WaitCommand(300),
+                        new WaitCommand(500),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[2]),
                                 new SetBasket(robot.basket, Constants.basketStartingPosition),
                                 new SetSlide(robot.slide, Constants.slideTransferPosition)
-
                         ),
                         new SetClaw(robot.claw, Constants.clawClosedPosition),
                         new WaitCommand(500),
@@ -120,75 +119,69 @@ public class sampleAuto extends LinearOpMode {
                                 new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
                                         new SequentialCommandGroup(
                                                 new SetBasket(robot.basket, Constants.basketPlacePosition),
-                                                new WaitCommand(300)
+                                                new WaitCommand(500)
                                         )
                                 )
                         ),
-        new ParallelCommandGroup(
-                new PathChainCommand(paths[4], paths[5]),
-                new SetBasket(robot.basket, Constants.basketStartingPosition),
-                new SetSlide(robot.slide, Constants.slideTransferPosition),
-                new SetWrist(robot.wrist, Constants.wristPickupPosition),
-                new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
-        ),
-                new SetClaw(robot.claw, Constants.clawClosedPosition),
-                new WaitCommand(500),
-                new ParallelCommandGroup(
-                        new PathCommand(paths[6]),
-                        new SetWrist(robot.wrist, Constants.wristTransferPosition),
-                        new SetJoint(robot.joint, Constants.jointTransferPosition)
-                ),
-                new SetClaw(robot.claw, Constants.clawOpenPosition),
-                new WaitCommand(300),
-                new ParallelCommandGroup(
-                        new SetWrist(robot.wrist, Constants.wristPickupPosition),
-                        new SetJoint(robot.joint, Constants.jointStraightUp),
-                        new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
-                                new SequentialCommandGroup(
-                                        new SetBasket(robot.basket, Constants.basketPlacePosition),
-                                        new WaitCommand(300)
+                        new ParallelCommandGroup(
+                                new PathChainCommand(paths[4], paths[5]),
+                                new SetBasket(robot.basket, Constants.basketStartingPosition),
+                                new SetSlide(robot.slide, Constants.slideTransferPosition),
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                                new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
+                        ),
+                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+                        new WaitCommand(500),
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[6]),
+                                new SetWrist(robot.wrist, Constants.wristTransferPosition),
+                                new SetJoint(robot.joint, Constants.jointTransferPosition)
+                        ),
+                        new SetClaw(robot.claw, Constants.clawOpenPosition),
+                        new WaitCommand(300),
+                        new ParallelCommandGroup(
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                                new SetJoint(robot.joint, Constants.jointStraightUp),
+                                new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
+                                        new SequentialCommandGroup(
+                                                new SetBasket(robot.basket, Constants.basketPlacePosition),
+                                                new WaitCommand(500)
+                                        )
                                 )
-                        )
-
-                ),
-
-
-
-        new ParallelCommandGroup(
-                new PathChainCommand(paths[7], paths[8]),
-                new SetBasket(robot.basket, Constants.basketStartingPosition),
-                new SetSlide(robot.slide, Constants.slideTransferPosition),
-                new SetWrist(robot.wrist, Constants.wristPickupPosition),
-                new SetJoint(robot.joint, Constants.jointSampleAlmostPickupPosition),
-                new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
-        ),
-                new SetClaw(robot.claw, Constants.clawClosedPosition),
-                new WaitCommand(500),
+                        ),
+                        new ParallelCommandGroup(
+                                new PathChainCommand(paths[7], paths[8]),
+                                new SetBasket(robot.basket, Constants.basketStartingPosition),
+                                new SetSlide(robot.slide, Constants.slideTransferPosition),
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                                new SetJoint(robot.joint, Constants.jointSampleAlmostPickupPosition),
+                                new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
+                        ),
+                        new SetClaw(robot.claw, Constants.clawClosedPosition),
+                        new WaitCommand(500),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[9]),
                                 new SetWrist(robot.wrist, Constants.wristTransferPosition),
                                 new SetJoint(robot.joint, Constants.jointTransferPosition)
                         ),
-        new SetClaw(robot.claw, Constants.clawOpenPosition),
-        new WaitCommand(300),
-                new ParallelCommandGroup(
-                        new SetWrist(robot.wrist, Constants.wristPickupPosition),
-                        new SetJoint(robot.joint, Constants.jointStraightUp),
-                        new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
-                                new SequentialCommandGroup(
-                                        new SetBasket(robot.basket, Constants.basketPlacePosition),
-                                        new WaitCommand(300)
+                        new SetClaw(robot.claw, Constants.clawOpenPosition),
+                        new WaitCommand(300),
+                        new ParallelCommandGroup(
+                                new SetWrist(robot.wrist, Constants.wristPickupPosition),
+                                new SetJoint(robot.joint, Constants.jointStraightUp),
+                                new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
+                                        new SequentialCommandGroup(
+                                                new SetBasket(robot.basket, Constants.basketPlacePosition),
+                                                new WaitCommand(500)
+                                        )
                                 )
-                        )
-                ),
-        new ParallelCommandGroup(
-                new PathCommand(paths[10]),
-                new SetSlide(robot.slide, Constants.slideTransferPosition)
-        ),
+                        ),
+                        new ParallelCommandGroup(
+                                new PathCommand(paths[10]),
+                                new SetSlide(robot.slide, Constants.slideTransferPosition)
+                        ),
                         new SetJoint(robot.joint, Constants.joint_park_position)
-        )
-
-
+                )
         );
 
         while(opModeIsActive() && !isStopRequested()) {
