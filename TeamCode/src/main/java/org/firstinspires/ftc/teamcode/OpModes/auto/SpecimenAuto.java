@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 public class SpecimenAuto extends LinearOpMode {
     private Robot robot;
 
-    public static Path[] paths = new Path[16];
+    public static Path[] paths = new Path[18];
     private final Pose placeInitial = new Pose(39, 64, Math.toRadians(180));
     private final Pose backup = new Pose(30, 62, Math.toRadians(180));
     private final Pose curveToPush = new Pose(54, 23, Math.toRadians(180));
@@ -39,6 +39,7 @@ public class SpecimenAuto extends LinearOpMode {
     private final Point lineup1 = new Point(61, 27);
     private final Pose pushSample2 = new Pose(26, 15, Math.toRadians(180));
     private final Pose pickupPosition = new Pose(22, 46, Math.toRadians(225));
+    private final Pose middlie_of_pickup_position = new Pose(30,54, Math.toRadians(200));
     private final Pose placePosition = new Pose(36, 62, Math.toRadians(200));
     private final Pose backupForPickup = new Pose(30, 60, Math.toRadians(200));
     private final Pose park = new Pose(16, 40, Math.toRadians(245));
@@ -60,7 +61,8 @@ public class SpecimenAuto extends LinearOpMode {
         paths[9] = buildLine(backupForPickup, pickupPosition, HeadingInterpolation.LINEAR);
 
         // Place #3
-        paths[10] = buildLine(pickupPosition, placePosition, HeadingInterpolation.LINEAR);
+        paths[10] = buildLine(pickupPosition, middlie_of_pickup_position, HeadingInterpolation.LINEAR);
+        paths [17] = buildLine(middlie_of_pickup_position, placePosition, HeadingInterpolation.LINEAR);
         paths[11] = buildLine(placePosition, backupForPickup, HeadingInterpolation.LINEAR);
         paths[12] = buildLine(backupForPickup, pickupPosition, HeadingInterpolation.CONSTANT);
 
@@ -140,7 +142,7 @@ public class SpecimenAuto extends LinearOpMode {
                                 ),
                                 new SequentialCommandGroup(
                                         new WaitCommand(jointWaitCommand),
-                                        new PathCommand(paths[7])
+                                        new PathChainCommand(paths[7],paths[17])
                                 )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
@@ -177,7 +179,7 @@ public class SpecimenAuto extends LinearOpMode {
                                 ),
                                 new SequentialCommandGroup(
                                         new WaitCommand(jointWaitCommand),
-                                        new PathCommand(paths[7])
+                                        new PathChainCommand(paths[7],paths[17])
                                 )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
@@ -214,7 +216,7 @@ public class SpecimenAuto extends LinearOpMode {
                                 ),
                                 new SequentialCommandGroup(
                                         new WaitCommand(jointWaitCommand),
-                                        new PathCommand(paths[7])
+                                        new PathChainCommand(paths[7],paths[17])
                                 )
                         ),
                         new SetWrist(robot.wrist,Constants.wristPlacePosition),
