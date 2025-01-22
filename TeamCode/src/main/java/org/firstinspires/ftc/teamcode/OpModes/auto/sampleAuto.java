@@ -28,14 +28,14 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 public class sampleAuto extends LinearOpMode {
 
     private Robot robot;
-    public static Path[] paths = new Path[11];
+    public static Path[] paths = new Path[12];
 
     //360 or 0 = left, 90 = DOWN, 180 = RIGHT, 270 = up
 
-    private final Pose placePosition = new Pose(12, 129, Math.toRadians(325));
+    private final Pose placePosition = new Pose(14, 127, Math.toRadians(325));
     private final Pose placeCorrectionPosition = new Pose(11, 130, Math.toRadians(325));
     private final Pose pickupPosition1 = new Pose(22, 117.5, Math.toRadians(0));
-    private final Pose pickupPosition2 = new Pose(21.5,128, Math.toRadians(0));
+    private final Pose pickupPosition2 = new Pose(22.5,128, Math.toRadians(0));
     private final Pose LineupPosition2 = new Pose(15,128, Math.toRadians(0));
     private final Pose LineupPosition3 = new Pose(47.5,110, Math.toRadians(90));
     private final Pose pickupPosition3 = new Pose(47.5,118, Math.toRadians(90));
@@ -54,6 +54,7 @@ public class sampleAuto extends LinearOpMode {
         paths[8] = buildLine(LineupPosition3, pickupPosition3, HeadingInterpolation.LINEAR);
         paths[9] = buildCurve(pickupPosition3,pickUp3Curve, placePosition, HeadingInterpolation.LINEAR);// place sample 3
         paths[10] = buildCurve(placePosition, parkPoint, parkPosition, HeadingInterpolation.LINEAR);// park
+        paths[11] = buildLine(placeCorrectionPosition, placePosition, HeadingInterpolation.LINEAR);
     }
 
     @Override
@@ -96,6 +97,7 @@ public class sampleAuto extends LinearOpMode {
                         new PathCommand(paths[1]),
                         new SetBasket(robot.basket, Constants.basketPlacePosition),
                         new WaitCommand(500),
+                        new PathCommand(paths[11]),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[2]),
                                 new SetBasket(robot.basket, Constants.basketStartingPosition),
@@ -106,23 +108,19 @@ public class sampleAuto extends LinearOpMode {
                         new ParallelCommandGroup(
                                 new PathCommand(paths[3]),
                                 new SetWrist(robot.wrist, Constants.wristTransferPosition),
-                                new SetJoint(robot.joint, Constants.jointTransferPosition).andThen(
-                                        new SequentialCommandGroup(
-                                                new SetClaw(robot.claw, Constants.clawOpenPosition)
-                                        )
-                                )
+                                new SetJoint(robot.joint, Constants.jointTransferPosition)
                         ),
+                new SetClaw(robot.claw, Constants.clawOpenPosition),
                         new WaitCommand(300),
                         new ParallelCommandGroup(
                                 new SetWrist(robot.wrist, Constants.wristPickupPosition),
                                 new SetJoint(robot.joint, Constants.jointSampleAlmostPickupPosition),
-                                new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
-                                        new SequentialCommandGroup(
-                                                new SetBasket(robot.basket, Constants.basketPlacePosition),
-                                                new WaitCommand(500)
-                                        )
-                                )
+                                new SetSlide(robot.slide, Constants.slideMaxPosition)
                         ),
+                new PathCommand(paths[1]),
+                new SetBasket(robot.basket, Constants.basketPlacePosition),
+                new WaitCommand(500),
+                        new PathCommand(paths[11]),
                         new ParallelCommandGroup(
                                 new PathChainCommand(paths[4], paths[5]),
                                 new SetBasket(robot.basket, Constants.basketStartingPosition),
@@ -142,13 +140,12 @@ public class sampleAuto extends LinearOpMode {
                         new ParallelCommandGroup(
                                 new SetWrist(robot.wrist, Constants.wristPickupPosition),
                                 new SetJoint(robot.joint, Constants.jointStraightUp),
-                                new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
-                                        new SequentialCommandGroup(
-                                                new SetBasket(robot.basket, Constants.basketPlacePosition),
-                                                new WaitCommand(500)
-                                        )
-                                )
+                                new SetSlide(robot.slide, Constants.slideMaxPosition)
                         ),
+                        new PathCommand(paths[1]),
+                        new SetBasket(robot.basket, Constants.basketPlacePosition),
+                        new WaitCommand(500),
+                        new PathCommand(paths[11]),
                         new ParallelCommandGroup(
                                 new PathChainCommand(paths[7], paths[8]),
                                 new SetBasket(robot.basket, Constants.basketStartingPosition),
@@ -162,20 +159,20 @@ public class sampleAuto extends LinearOpMode {
                         new ParallelCommandGroup(
                                 new PathCommand(paths[9]),
                                 new SetWrist(robot.wrist, Constants.wristTransferPosition),
-                                new SetJoint(robot.joint, Constants.jointTransferPosition)
+                                new SetJoint(robot.joint, Constants.jointSideWaysTransforePosition)
                         ),
                         new SetClaw(robot.claw, Constants.clawOpenPosition),
                         new WaitCommand(300),
                         new ParallelCommandGroup(
                                 new SetWrist(robot.wrist, Constants.wristPickupPosition),
                                 new SetJoint(robot.joint, Constants.jointStraightUp),
-                                new SetSlide(robot.slide, Constants.slideMaxPosition).andThen(
-                                        new SequentialCommandGroup(
-                                                new SetBasket(robot.basket, Constants.basketPlacePosition),
-                                                new WaitCommand(500)
-                                        )
-                                )
+                                new SetSlide(robot.slide, Constants.slideMaxPosition)
+
                         ),
+                        new PathCommand(paths[1]),
+                        new SetBasket(robot.basket, Constants.basketPlacePosition),
+                        new WaitCommand(500),
+                        new PathCommand(paths[11]),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[10]),
                                 new SetSlide(robot.slide, Constants.slideTransferPosition)

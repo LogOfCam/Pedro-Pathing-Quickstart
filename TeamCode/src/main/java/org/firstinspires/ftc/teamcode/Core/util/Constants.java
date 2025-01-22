@@ -52,6 +52,7 @@ public class Constants {
     public static double jointMaxPosition = 5000;
     public static double jointMinPosition = 50;
     public static double jointTransferPosition = 2300;
+    public static double jointSideWaysTransforePosition = 2100;
     public static double joint_park_position = 3250;
 
     /* ----------- SLIDE ----------- */
