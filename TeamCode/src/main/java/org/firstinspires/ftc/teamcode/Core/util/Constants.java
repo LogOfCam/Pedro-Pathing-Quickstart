@@ -41,7 +41,7 @@ public class Constants {
     public static double kP = 0.03, kI = 0, kD = 0.000, kF = 0.0025;
     public static double jointThreshold = 25;
     public static double jointStartingPosition = 100;
-    public static double jointSpecimenPlacePosition = 1450;
+    public static double jointSpecimenPlacePosition = 1550;//was 1450
     public  static double jointSpecimenPlacePositionTop = 1600;
     public static double jointStraightUp = 2600;
     public static double jointSamplePickupPosition = 4900;
@@ -60,7 +60,7 @@ public class Constants {
     public static double slideThreshold = 25;
     public static double slideMaxPosition = 2000;
     public static double slideMinPosition = 66;
-    public static double slideSpeciman1Position = 1400;
+    public static double slideSpeciman1Position = 1700;
     public static double slideHighBasketPosition = 1850;
     public static double slideLowBasketPosition = 1300;
     public static double slideMiddlePosition = 1300;
