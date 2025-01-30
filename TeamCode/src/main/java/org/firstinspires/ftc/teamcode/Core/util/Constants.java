@@ -60,6 +60,7 @@ public class Constants {
     public static double slideThreshold = 25;
     public static double slideMaxPosition = 2000;
     public static double slideMinPosition = 66;
+    public static double slideSpeciman1Position = 1400;
     public static double slideHighBasketPosition = 1850;
     public static double slideLowBasketPosition = 1300;
     public static double slideMiddlePosition = 1300;
