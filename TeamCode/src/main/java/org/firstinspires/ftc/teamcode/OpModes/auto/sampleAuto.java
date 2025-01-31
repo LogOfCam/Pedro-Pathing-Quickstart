@@ -35,15 +35,15 @@ public class sampleAuto extends LinearOpMode {
     private final Pose placePosition = new Pose(14, 127, Math.toRadians(325));
     private final Pose placeCorrectionPosition = new Pose(11, 130, Math.toRadians(325));
     private final Pose pickupPosition1 = new Pose(22, 117.5, Math.toRadians(0));
-    private final Pose pickupPosition2 = new Pose(22.5,128, Math.toRadians(0));
-    private final Pose LineupPosition2 = new Pose(15,128, Math.toRadians(0));
+    private final Pose pickupPosition2 = new Pose(25.5,128, Math.toRadians(0));
+    private final Pose LineupPosition2 = new Pose(15.5,128, Math.toRadians(0));
     private final Pose LineupPosition3 = new Pose(47.5,110, Math.toRadians(90));
     private final Pose pickupPosition3 = new Pose(47.5,118, Math.toRadians(90));
     private final Pose parkPosition = new Pose(60,100, Math.toRadians(270));
     private final Point parkPoint = new Point(61,122);
     private final Point pickUp3Curve = new Point(36.5,90);
     public void buildPaths() {
-        paths[0] = buildLine(Constants.sampleStartPosition, placePosition, HeadingInterpolation.LINEAR);//place initial sample
+        paths[0] = buildLine(Constants.sampleStartPosition, placeCorrectionPosition, HeadingInterpolation.LINEAR);//place initial sample
         paths[1] = buildLine(placePosition, placeCorrectionPosition, HeadingInterpolation.CONSTANT); // Drive forward an inch for basket
         paths[2] = buildLine(placeCorrectionPosition, pickupPosition1, HeadingInterpolation.LINEAR);// pickup sample 1
         paths[3] = buildLine(pickupPosition1, placePosition, HeadingInterpolation.LINEAR);// place sample 1
@@ -94,7 +94,6 @@ public class sampleAuto extends LinearOpMode {
                                 new SetWrist(robot.wrist, Constants.wristPickupPosition),
                                 new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
                         ),
-                        new PathCommand(paths[1]),
                         new SetBasket(robot.basket, Constants.basketPlacePosition),
                         new WaitCommand(500),
                         new PathCommand(paths[11]),
@@ -122,12 +121,13 @@ public class sampleAuto extends LinearOpMode {
                 new WaitCommand(500),
                         new PathCommand(paths[11]),
                         new ParallelCommandGroup(
-                                new PathChainCommand(paths[4], paths[5]),
+                                new PathCommand(paths[4]),
                                 new SetBasket(robot.basket, Constants.basketStartingPosition),
                                 new SetSlide(robot.slide, Constants.slideTransferPosition),
                                 new SetWrist(robot.wrist, Constants.wristPickupPosition),
-                                new SetClaw(robot.claw, Constants.clawOpenPickupPosition)
+                                new SetClaw(robot.claw, Constants.clawOpenPosition)
                         ),
+                        new PathCommand(paths[5]),
                         new SetClaw(robot.claw, Constants.clawClosedPosition),
                         new WaitCommand(500),
                         new ParallelCommandGroup(
