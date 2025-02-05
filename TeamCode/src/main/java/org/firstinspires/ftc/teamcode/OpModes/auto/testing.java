@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Core.Commands.PedroCommands.PathCommand;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.util.Drawing;
 
 @Config
 @Autonomous
+@Disabled
 public class testing extends LinearOpMode {
 
     private PoseUpdater poseUpdater;
