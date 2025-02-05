@@ -163,8 +163,11 @@ public class sampleAuto extends LinearOpMode {
                         new WaitCommand(400),
                         new ParallelCommandGroup(
                                 new PathCommand(paths[9]),
+                                new SequentialCommandGroup(
+                                        new WaitCommand(500),
                                 new SetWrist(robot.wrist, Constants.wristTransferPosition),
                                 new SetJoint(robot.joint, Constants.jointSideWaysTransforePosition)
+                                )
                         ),
                         new SetClaw(robot.claw, Constants.clawOpenPosition),
                         new WaitCommand(150),
