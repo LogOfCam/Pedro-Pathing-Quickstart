@@ -206,17 +206,17 @@ public class mecanumDrive extends LinearOpMode {
     }
 
     public void updateTelemetry() {
-        telemetry.addData("change speed", change_speed);
-        telemetry.addData("arm State", currentArmState);
-        telemetry.addData("target ", armTarget);
-        telemetry.addData("Right Trigger", gamepad2.right_trigger);
-        telemetry.addData("Left Trigger", gamepad2.right_trigger);
+//        telemetry.addData("change speed", change_speed);
+//        telemetry.addData("arm State", currentArmState);
+//        telemetry.addData("target ", armTarget);
+//        telemetry.addData("Right Trigger", gamepad2.right_trigger);
+//        telemetry.addData("Left Trigger", gamepad2.right_trigger);
         telemetry.addData("time", newTimer.seconds());
-        telemetry.addData("jointMotorPos", jointMotor.getCurrentPosition());
-        telemetry.addData("slideMotorPos", slideMotor.getCurrentPosition());
-        telemetry.addData("wristServo", wristServo.getPosition());
-        telemetry.addData("Slide Power", slideMotor.getPower());
-        telemetry.addData("Joint Power", jointMotor.getPower());
+//        telemetry.addData("jointMotorPos", jointMotor.getCurrentPosition());
+//        telemetry.addData("slideMotorPos", slideMotor.getCurrentPosition());
+//        telemetry.addData("wristServo", wristServo.getPosition());
+//        telemetry.addData("Slide Power", slideMotor.getPower());
+//        telemetry.addData("Joint Power", jointMotor.getPower());
         telemetry.update();
     }
 

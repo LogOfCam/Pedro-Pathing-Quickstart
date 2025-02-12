@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 public class SpecimenAuto extends LinearOpMode {
     private Robot robot;
 
-    public static Path[] paths = new Path[18];
+    public static Path[] paths = new Path[19];
     private final Pose placeInitial = new Pose(39, 64, Math.toRadians(180));
     private final Pose backup = new Pose(30, 62, Math.toRadians(180));
     private final Pose curveToPush = new Pose(54, 23, Math.toRadians(180));
@@ -42,6 +42,7 @@ public class SpecimenAuto extends LinearOpMode {
     private final Pose middlie_of_pickup_position = new Pose(30.5,56.5, Math.toRadians(200));
     private final Pose placePosition = new Pose(36.5, 64, Math.toRadians(200));
     private final Pose backupForPickup = new Pose(30, 60, Math.toRadians(200));
+    private final Pose pickup_fix_position = new Pose(26,50, Math.toRadians(225));
     private final Pose park = new Pose(16, 40, Math.toRadians(245));
 
     public void buildPaths() {
@@ -58,10 +59,11 @@ public class SpecimenAuto extends LinearOpMode {
 
         paths[7] = buildLine(pickupPosition, middlie_of_pickup_position, HeadingInterpolation.LINEAR);
         paths[8] = buildLine(placePosition, backupForPickup, HeadingInterpolation.CONSTANT);
-        paths[9] = buildLine(backupForPickup, pickupPosition, HeadingInterpolation.LINEAR);
+        paths[9] = buildLine(backupForPickup, pickup_fix_position, HeadingInterpolation.LINEAR);
 
         // Place #3
-        paths[10] = buildLine(pickupPosition, middlie_of_pickup_position, HeadingInterpolation.LINEAR);
+        paths [18] = buildLine(pickup_fix_position, pickupPosition, HeadingInterpolation.LINEAR);
+        paths[10] = buildLine(placePosition, middlie_of_pickup_position, HeadingInterpolation.LINEAR);
         paths [17] = buildLine(middlie_of_pickup_position, placePosition, HeadingInterpolation.LINEAR);
         paths[11] = buildLine(placePosition, backupForPickup, HeadingInterpolation.LINEAR);
         paths[12] = buildLine(backupForPickup, pickupPosition, HeadingInterpolation.CONSTANT);
@@ -156,7 +158,7 @@ public class SpecimenAuto extends LinearOpMode {
                         ),
                         new WaitCommand(50),
                         new ParallelCommandGroup(
-                                new PathCommand(paths[9]),
+                                new PathChainCommand(paths[9], paths[18]),
                                 new SequentialCommandGroup(
                                         new WaitCommand(joint_wait_after_placement_delay),
                                         new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition)
@@ -193,7 +195,7 @@ public class SpecimenAuto extends LinearOpMode {
                         ),
                         new WaitCommand(50),
                         new ParallelCommandGroup(
-                                new PathCommand(paths[9]),
+                                new PathChainCommand(paths[9], paths[18]),
                                 new SequentialCommandGroup(
                                         new WaitCommand(joint_wait_after_placement_delay),
                                         new SetJoint(robot.joint, Constants.jointSpecimenPickupPosition)

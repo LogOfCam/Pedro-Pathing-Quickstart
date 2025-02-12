@@ -68,11 +68,12 @@ public class Constants {
     /* ------- SERVO SECTION ------- */
 
     /* ----------- CLAW ----------- */
-    public static double clawOpenPosition = 0.55;
-    public static double claw_not_so_open_position = 0.57;
-    public static double clawOpenPickupPosition = 0.35;
-    public static double clawClosedPosition = 0.7;
-    public static double claw_almost_closed_position = 0.675;
+    public static double claw_correction = 0;
+    public static double clawOpenPosition = 0.50 + claw_correction;
+    public static double claw_not_so_open_position = 0.57 + claw_correction;
+    public static double clawOpenPickupPosition = 0.35 + claw_correction;
+    public static double clawClosedPosition = 0.7 + claw_correction;
+    public static double claw_almost_closed_position = 0.675 + claw_correction;
 
     /* ----------- WRIST ----------- */
     public static double wristStartingPosition = 0.85;
