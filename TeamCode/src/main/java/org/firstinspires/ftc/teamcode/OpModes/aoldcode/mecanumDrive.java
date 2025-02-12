@@ -165,7 +165,7 @@ public class mecanumDrive extends LinearOpMode {
             }else if (gamepad2.y){
                 clawServo.setPosition(0.5);
             }else {
-                clawServo.setPosition(0.67);
+                clawServo.setPosition(0.7);
             }
 
             // GamePad 2 buttons

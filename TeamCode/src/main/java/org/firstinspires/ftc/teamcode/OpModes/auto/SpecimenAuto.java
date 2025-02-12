@@ -40,7 +40,7 @@ public class SpecimenAuto extends LinearOpMode {
     private final Pose pushSample2 = new Pose(26, 15, Math.toRadians(180));
     private final Pose pickupPosition = new Pose(22, 46, Math.toRadians(225));
     private final Pose middlie_of_pickup_position = new Pose(30.5,56.5, Math.toRadians(200));
-    private final Pose placePosition = new Pose(36.5, 62.5, Math.toRadians(200));
+    private final Pose placePosition = new Pose(36.5, 64, Math.toRadians(200));
     private final Pose backupForPickup = new Pose(30, 60, Math.toRadians(200));
     private final Pose park = new Pose(16, 40, Math.toRadians(245));
 

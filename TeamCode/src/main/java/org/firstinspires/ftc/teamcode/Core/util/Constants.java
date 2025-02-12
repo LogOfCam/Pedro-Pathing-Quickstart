@@ -41,7 +41,7 @@ public class Constants {
     public static double kP = 0.03, kI = 0, kD = 0.000, kF = 0.0025;
     public static double jointThreshold = 25;
     public static double jointStartingPosition = 100;
-    public static double jointSpecimenPlacePosition = 1550;//was 1450
+    public static double jointSpecimenPlacePosition = 1500;//was 1450
     public  static double jointSpecimenPlacePositionTop = 1600;
     public static double jointStraightUp = 2600;
     public static double jointSamplePickupPosition = 4900;
@@ -68,11 +68,11 @@ public class Constants {
     /* ------- SERVO SECTION ------- */
 
     /* ----------- CLAW ----------- */
-    public static double clawOpenPosition = 0.50;
+    public static double clawOpenPosition = 0.55;
     public static double claw_not_so_open_position = 0.57;
-    public static double clawOpenPickupPosition = 0.30;
-    public static double clawClosedPosition = 0.67;
-    public static double claw_almost_closed_position = 0.668;
+    public static double clawOpenPickupPosition = 0.35;
+    public static double clawClosedPosition = 0.7;
+    public static double claw_almost_closed_position = 0.675;
 
     /* ----------- WRIST ----------- */
     public static double wristStartingPosition = 0.85;
