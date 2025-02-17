@@ -68,6 +68,7 @@ public class Constants {
     /* ------- SERVO SECTION ------- */
 
     /* ----------- CLAW ----------- */
+    // lower number opens claw
     public static double claw_correction = 0;
     public static double clawOpenPosition = 0.50 + claw_correction;
     public static double claw_not_so_open_position = 0.57 + claw_correction;
