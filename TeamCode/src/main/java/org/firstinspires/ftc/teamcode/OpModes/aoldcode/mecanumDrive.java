@@ -103,7 +103,7 @@ public class mecanumDrive extends LinearOpMode {
         double normal_speed = 0.85;
         double slow_speed = 0.65;
         double armTempPos = 0;
-        int joint_increment = 20;
+        int joint_increment = 10;
         double slide_power_multiplier = 2;
         waitForStart();
 
