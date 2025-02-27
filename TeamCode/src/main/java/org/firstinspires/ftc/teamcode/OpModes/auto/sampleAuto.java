@@ -34,9 +34,9 @@ public class sampleAuto extends LinearOpMode {
 
     private final Pose placePosition = new Pose(14, 127, Math.toRadians(325));
     private final Pose placeCorrectionPosition = new Pose(10, 129, Math.toRadians(325));
-    private final Pose pickupPosition1 = new Pose(21.5, 117.5, Math.toRadians(0));
-    private final Pose pickupPosition2 = new Pose(22,127.25, Math.toRadians(0));
-    private final Pose pickupPosition25 = new Pose(16,127.25, Math.toRadians(0));
+    private final Pose pickupPosition1 = new Pose(23, 117.5, Math.toRadians(0));
+    private final Pose pickupPosition2 = new Pose(23,127.25, Math.toRadians(0));
+    private final Pose pickupPosition25 = new Pose(17.5,127.25, Math.toRadians(0));
     private final Pose LineupPosition1 = new Pose(14.5,117.5, Math.toRadians(0));
     private final Pose LineupPosition2 = new Pose(15.5,127.25, Math.toRadians(0));
     private final Pose LineupPosition3 = new Pose(47.5,111.5, Math.toRadians(90));

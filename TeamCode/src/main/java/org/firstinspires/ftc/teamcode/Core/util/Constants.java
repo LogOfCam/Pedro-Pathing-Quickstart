@@ -45,7 +45,7 @@ public class Constants {
     public  static double jointSpecimenPlacePositionTop = 1600;
     public static double jointStraightUp = 2600;
     public static double jointSamplePickupPosition = 4900;
-    public static double jointSampleAlmostPickupPosition = 4850;
+    public static double jointSampleAlmostPickupPosition = 4800;
     public static double jointSpecimenWaitPosition = 4500;
     public static double jointSpecimenPickupPosition = 4900;
     public static double jointSpecimenTempPosition = 2000;

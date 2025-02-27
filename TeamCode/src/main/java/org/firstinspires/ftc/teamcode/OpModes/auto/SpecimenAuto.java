@@ -33,11 +33,11 @@ public class SpecimenAuto extends LinearOpMode {
     private final Pose backup = new Pose(30, 62, Math.toRadians(180));
     private final Pose curveToPush = new Pose(54, 23, Math.toRadians(180));
     private final Point curve1 = new Point(19, 8);
-    private final Point curve2 = new Point(57, 44); // was 60, 44
-    private final Pose pushSample1 = new Pose(26, 23, Math.toRadians(180));
+    private final Point curve2 = new Point(57, 42); // was 60, 44
+    private final Pose pushSample1 = new Pose(26, 25, Math.toRadians(180));
     private final Pose lineupSample2 = new Pose(55, 13, Math.toRadians(180));
     private final Point lineup1 = new Point(61, 27);
-    private final Pose pushSample2 = new Pose(26, 15, Math.toRadians(180));
+    private final Pose pushSample2 = new Pose(26, 17, Math.toRadians(180));
     private final Pose pickupPosition = new Pose(22, 46, Math.toRadians(225));
     private final Pose middlie_of_pickup_position = new Pose(30.5,56.5, Math.toRadians(200));
     private final Pose placePosition = new Pose(36.5, 64, Math.toRadians(200));
